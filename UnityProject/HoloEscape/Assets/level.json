@@ -1,0 +1,72 @@
+{
+  "name": "Great level",
+  "description": "This is just the best level",
+  "clues": [
+    {
+      "id": 1,
+      "clue_type": "Lock",
+      "initial_properties": [
+        {
+          "name": "visibility",
+          "value": "true"
+        },
+        {
+          "name": "locked",
+          "value": "true"
+        },
+        {
+          "name": "colour",
+          "value": "black"
+        },
+        {
+          "name": "code",
+          "value": "1234"
+        }
+      ],
+      "event_outlets": [
+        {
+          "event_name": "on_unlock",
+          "outlets": [
+            {
+              "clue_id": 2,
+              "action_name": "open"
+            },
+            {
+              "clue_id": 3,
+              "action_name": ""
+            }
+          ]
+        },
+        {
+          "event_name": "on_lock",
+          "outlets": []
+        }
+      ],
+      "placement": ["platform", "floor", "air"]
+    },
+    {
+      "id": 2,
+      "name": "Door",
+      "initial_properties": [
+        {
+          "name": "visibility",
+          "type": "true"
+        }
+      ],
+      "event_outlets":  [
+        {
+          "name": "on_open",
+          "outlets": []
+        },
+        {
+          "name": "on_close",
+          "outlets": []
+        }
+      ],
+      "actions": [
+        {"name": "slam", "description": "The door suddenly closes!"}
+      ],
+  	"placement": ["platform", "floor", "air"]
+    }
+  ]
+}

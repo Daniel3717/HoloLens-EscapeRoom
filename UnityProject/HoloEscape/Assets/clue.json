@@ -1,0 +1,38 @@
+{
+    "name": "Keypad",
+    "description": "This is a simple padlock that can be locked and unlocked using a key",
+    "properties": [
+      {
+        "name": "visibility",
+        "type": "bool"
+      },
+      {
+        "name": "locked",
+        "type": "bool"
+      },
+      {
+        "name": "code",
+        "type": "string"
+      }
+    ],
+    "events": [
+      {
+        "name": "on_unlock",
+        "description": "Fired when lock is unlocked"
+      },
+      {
+        "name": "on_lock",
+        "description": "Fired when the lock is locked"
+      }
+    ],
+    "actions": [
+      {
+        "name": "unlock",
+        "description": "Unlocks the lock"
+      },
+      {
+        "name": "lock",
+        "description": "Locks the lock"
+      }
+    ]
+  }
