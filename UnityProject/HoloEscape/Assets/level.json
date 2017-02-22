@@ -46,7 +46,7 @@
     },
     {
       "id": 2,
-      "name": "Door",
+      "clue_type": "Door",
       "initial_properties": [
         {
           "name": "visibility",

@@ -127,12 +127,6 @@
     <Reference Include="Assembly-CSharp">
       <HintPath>Library\ScriptAssemblies\Assembly-CSharp.dll</HintPath>
     </Reference>
-    <Reference Include="LitJson">
-      <HintPath>Assets\LitJson.dll</HintPath>
-    </Reference>
-    <Reference Include="LitJson">
-      <HintPath>Assets\bin\Debug\LitJson.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="HoloEscape.csproj">

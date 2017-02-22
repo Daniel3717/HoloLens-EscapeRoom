@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 using System;
-using LitJson;
+//using LitJson;
 using System.IO;
 
 public class RoomInterpreter : MonoBehaviour {
@@ -29,19 +28,25 @@ public class RoomInterpreter : MonoBehaviour {
         test.clues[0].initial_properties[0] = new Property();
         test.clues[0].initial_properties[0].name = "property name";
         test.clues[0].initial_properties[0].value = "true";
-        test.clues[0].events = new Event[2];
+        test.clues[0].events = new Events[2];
+        test.clues[0].events[0] = new Events();
         test.clues[0].events[0].event_name = "on_unlock";
         test.clues[0].events[0].outlets = new Outlet[2];
+        test.clues[0].events[0].outlets[0] = new Outlet();
+        test.clues[0].events[0].outlets[1] = new Outlet();
         test.clues[0].events[0].outlets[0].clue_id = 2;
         test.clues[0].events[0].outlets[0].action_name = "open";
         test.clues[0].events[0].outlets[1].clue_id = 3;
-        test.clues[0].placement = new Placement[3];
-        test.clues[0]
-
+        test.clues[0].placement = new string[] { "platform", "floor", "air" };
+        /*
         string jtest = JsonUtility.ToJson(test);
         json = File.ReadAllText(Application.dataPath + "/test.json");
         clue = File.ReadAllText(Application.dataPath + "/configured_clue.json");
+        */
         level = File.ReadAllText(Application.dataPath + "/level.json");
+        
+         
+        /*
         JsonData jsondata = JsonMapper.ToObject(json);
         JsonData cluedata = JsonMapper.ToObject(clue);
         JsonData leveldata = JsonMapper.ToObject(level);
@@ -50,7 +55,10 @@ public class RoomInterpreter : MonoBehaviour {
         //Debug.Log(json);
         Debug.Log(jsondata["album"]["artist"]);
         Debug.Log(leveldata["clues"]);
-        Debug.Log(jtest);
+        */
+        Level test2 = JsonUtility.FromJson<Level>(level);
+        //Debug.Log(test2.clues[1].clue_type);
+        //Debug.Log(jtest);
     }
 
     // Update is called once per frame

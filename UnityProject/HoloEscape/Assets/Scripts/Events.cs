@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class Event
+public class Events
 {
     enum testenum { one, two, three };
     public string event_name;

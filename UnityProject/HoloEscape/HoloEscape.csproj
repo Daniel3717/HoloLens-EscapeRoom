@@ -76,12 +76,6 @@
     <Reference Include="Mono.Cecil">
       <HintPath>Library\UnityAssemblies\Mono.Cecil.dll</HintPath>
     </Reference>
-    <Reference Include="LitJson">
-      <HintPath>Assets\LitJson.dll</HintPath>
-    </Reference>
-    <Reference Include="LitJson">
-      <HintPath>Assets\bin\Debug\LitJson.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\HoloToolkit-Examples\ColorPicker\GazeableColorPicker.cs" />
@@ -339,11 +333,13 @@
     <Compile Include="Assets\Scripts\App.cs" />
     <Compile Include="Assets\Scripts\ButtonOnClick.cs" />
     <Compile Include="Assets\Scripts\Clue.cs" />
-    <Compile Include="Assets\Scripts\Event.cs" />
+    <Compile Include="Assets\Scripts\CreateScrollList.cs" />
+    <Compile Include="Assets\Scripts\Events.cs" />
     <Compile Include="Assets\Scripts\Level.cs" />
     <Compile Include="Assets\Scripts\LoadSceneOnClick.cs" />
     <Compile Include="Assets\Scripts\Property.cs" />
     <Compile Include="Assets\Scripts\RoomInterpreter.cs" />
+    <Compile Include="Assets\Scripts\SampleButton.cs" />
     <Compile Include="Assets\Scripts\SpatialUnderstandingState.cs" />
     <Compile Include="Assets\UnityUI\Scripts\ActiveStateToggler.cs" />
     <Compile Include="Assets\UnityUI\Scripts\ApplicationManager.cs" />
