@@ -525,7 +525,7 @@ MonoBehaviour:
   sampleButton: {fileID: 1127103264528602, guid: 7474f3ee74941b74daa5a3f616b06d0c,
     type: 2}
   levelList:
-    levels: []
+    data: []
   contentPanel: {fileID: 291238968}
 --- !u!4 &80712958
 Transform:
