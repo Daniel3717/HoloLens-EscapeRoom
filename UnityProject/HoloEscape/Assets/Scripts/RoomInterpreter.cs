@@ -34,14 +34,19 @@ public class RoomInterpreter : MonoBehaviour {
     public GameObject sampleButton;
     public LevelList levelList;
 
+
     public Transform contentPanel;
     string levels;
+
+    public bool coroutineFinished = false;
+
+    WWW www;
 
     // Use this for initialization
     void Start()
     {
         
-        getRooms();
+        getURL();
         /*
         LevelList levelList = new LevelList();
         levelList.levels = new List<LevelItem>();
@@ -58,6 +63,13 @@ public class RoomInterpreter : MonoBehaviour {
         Debug.Log(JsonUtility.ToJson(levelList));
         */
     }
+    void getURL()
+    {
+        string url = "http://api.holoescape.tk/v1/games";
+        www = new WWW(url);
+
+        StartCoroutine(WaitForRequest(www));
+    }
 
     IEnumerator WaitForRequest(WWW www)
     {
@@ -67,21 +79,21 @@ public class RoomInterpreter : MonoBehaviour {
         // check for errors
         if (www.error == null)
         {
-            Debug.Log("WWW Ok!: " + www.text);
+            //Debug.Log("WWW Ok!: " + www.text);
+            getRooms();
         }
         else
         {
             Debug.Log("WWW Error: " + www.error);
         }
+        coroutineFinished = true;
     }
 
     void getRooms()
     {
-        string url = "http://api.holoescape.tk/v1/games";
-        WWW www = new WWW(url);
-        StartCoroutine(WaitForRequest(www));
 
         levels = File.ReadAllText(Application.dataPath + "/levelslist.json");
+        levels = www.text;
 
         levelList = JsonUtility.FromJson<LevelList>(levels);
         Debug.Log(levelList.data.Count);
