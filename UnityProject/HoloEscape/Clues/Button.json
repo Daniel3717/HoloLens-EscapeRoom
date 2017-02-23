@@ -1,0 +1,23 @@
+{
+    "name": "Button",
+    "description": "A Big Red Button",
+    "properties": [
+      {
+        "name": "active",
+        "type": "bool" // available types: "bool", "string", "number"
+      },
+      {
+        "name": "enabled",
+        "type": "bool"
+      }
+    ],
+    "events": [
+      {
+        "name": "onButtonPress",
+        "description": "Fired when the button is pressed"
+      }
+    ],
+    "actions": [
+
+    ]
+  }

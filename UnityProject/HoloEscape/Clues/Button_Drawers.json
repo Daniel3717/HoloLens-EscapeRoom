@@ -1,0 +1,34 @@
+{
+    "name": "Button_Drawers",
+    "description": "A chest of drawers containing a hidden button",
+    "properties": [
+      {
+        "name": "active",
+        "type": "bool" // available types: "bool", "string", "number"
+      },
+      {
+        "name": "enabled",
+        "type": "bool"
+      }
+    ],
+    "events": [
+      {
+        "name": "onButtonPress",
+        "description": "Fired when the button is pressed"
+      }
+    ],
+    "actions": [
+      {
+        "name": "OpenDrawer1",
+        "description": "Opens the top drawer (or close it if it was already open)"
+      },
+      {
+        "name": "OpenDrawer2",
+        "description": "Opens the second drawer (or close it if it was already open)"
+      },
+      {
+        "name": "OpenDrawer3",
+        "description": "Opens the bottom drawer (or close it if it was already open)"
+      }
+    ]
+  }
