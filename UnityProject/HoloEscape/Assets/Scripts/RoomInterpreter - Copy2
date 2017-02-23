@@ -7,16 +7,9 @@ using System;
 using System.IO;
 
 [Serializable]
-public class Author
-{
-    public string name;
-    public string picture;
-}
-
-[Serializable]
 public class LevelList
 {
-    public List<LevelItem> data;
+    public List<LevelItem> levels;
 }
 
 [Serializable]
@@ -25,7 +18,6 @@ public class LevelItem
     public int id;
     public string name;
     public string description;
-    public Author author;
     public Button.ButtonClickedEvent thingsToDo;
 }
 
@@ -35,7 +27,6 @@ public class RoomInterpreter : MonoBehaviour {
     public LevelList levelList;
 
     public Transform contentPanel;
-    string levels;
 
     // Use this for initialization
     void Start()
@@ -61,7 +52,6 @@ public class RoomInterpreter : MonoBehaviour {
 
     IEnumerator WaitForRequest(WWW www)
     {
-
         yield return www;
 
         // check for errors
@@ -81,11 +71,11 @@ public class RoomInterpreter : MonoBehaviour {
         WWW www = new WWW(url);
         StartCoroutine(WaitForRequest(www));
 
-        levels = File.ReadAllText(Application.dataPath + "/levelslist.json");
-
+        string levels = File.ReadAllText(Application.dataPath + "/levelslist.json");
+        
         levelList = JsonUtility.FromJson<LevelList>(levels);
-        Debug.Log(levelList.data.Count);
-        foreach (var level in levelList.data)
+        Debug.Log(levelList.levels.Count);
+        foreach (var level in levelList.levels)
         {
             GameObject newButton = Instantiate(sampleButton) as GameObject;
             SampleButtonScript labelButton = newButton.GetComponent<SampleButtonScript>();
