@@ -209,6 +209,19 @@ public class ShapeDefinition : Singleton<ShapeDefinition>
         };
         AddShape("Couch", shapeComponents, shapeConstraints);
 
+        //Custom
+        List<SpatialUnderstandingDllShapes.ShapeComponent> lSC = new List<SpatialUnderstandingDllShapes.ShapeComponent>()
+            {
+                new SpatialUnderstandingDllShapes.ShapeComponent(
+                    new List<SpatialUnderstandingDllShapes.ShapeComponentConstraint>()
+                    {
+                        SpatialUnderstandingDllShapes.ShapeComponentConstraint.Create_SurfaceHeight_Between(0.2f,2f),
+                        SpatialUnderstandingDllShapes.ShapeComponentConstraint.Create_SurfaceCount_Min(1),
+                        SpatialUnderstandingDllShapes.ShapeComponentConstraint.Create_SurfaceArea_Min(0.035f),
+                    }),
+            };
+        ShapeDefinition.Instance.AddShape("Platform", lSC);
+
         // Mark it
         HasCreatedShapes = true;
     }
