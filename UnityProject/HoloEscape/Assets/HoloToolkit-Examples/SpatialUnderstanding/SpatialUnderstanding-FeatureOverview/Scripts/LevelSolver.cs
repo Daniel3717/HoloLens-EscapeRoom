@@ -22,7 +22,7 @@ public class LevelSolver : LineDrawer
     }
 
     // Structs
-    private struct QueryStatus
+    public struct QueryStatus
     {
         public void Reset()
         {
@@ -40,7 +40,7 @@ public class LevelSolver : LineDrawer
         public List<SpatialUnderstandingDllObjectPlacement.ObjectPlacementResult> QueryResult;
     }
 
-    private struct PlacementQuery
+    public struct PlacementQuery
     {
         public PlacementQuery(
             SpatialUnderstandingDllObjectPlacement.ObjectPlacementDefinition placementDefinition,
@@ -57,7 +57,7 @@ public class LevelSolver : LineDrawer
         public List<SpatialUnderstandingDllObjectPlacement.ObjectPlacementConstraint> PlacementConstraints;
     }
 
-    private class PlacementResult
+    public class PlacementResult
     {
         public PlacementResult(float timeDelay, SpatialUnderstandingDllObjectPlacement.ObjectPlacementResult result)
         {
@@ -73,8 +73,8 @@ public class LevelSolver : LineDrawer
     public bool IsSolverInitialized { get; private set; }
 
     // Privates
-    private List<PlacementResult> placementResults = new List<PlacementResult>();
-    private QueryStatus queryStatus = new QueryStatus();
+    public List<PlacementResult> placementResults = new List<PlacementResult>();
+    public QueryStatus queryStatus = new QueryStatus();
 
     // Functions
     private void Awake()
@@ -122,7 +122,7 @@ public class LevelSolver : LineDrawer
             clearObjectsFirst);
     }
 
-    private bool PlaceObjectAsync(
+    public bool PlaceObjectAsync(
         string placementName,
         List<PlacementQuery> placementList,
         bool clearObjectsFirst = true)
