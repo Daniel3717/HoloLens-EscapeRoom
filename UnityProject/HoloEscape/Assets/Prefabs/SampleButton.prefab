@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114426682252613928}
   - component: {fileID: 114686842776988468}
   - component: {fileID: 114271700753077524}
+  - component: {fileID: 114977125001066710}
   m_Layer: 5
   m_Name: SampleButton
   m_TagString: Untagged
@@ -112,7 +113,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114457508339187442}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114457508339187442
@@ -193,6 +205,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Level
+--- !u!114 &114977125001066710
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1127103264528602}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5325c453cc491140b28fb6eb52f0ef0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oldPanel: {fileID: 0}
+  newPanel: {fileID: 0}
 --- !u!222 &222059596598171072
 CanvasRenderer:
   m_ObjectHideFlags: 1

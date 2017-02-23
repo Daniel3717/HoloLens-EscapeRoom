@@ -31,6 +31,8 @@ public class LevelItem
 
 public class RoomInterpreter : MonoBehaviour {
 
+    public GameObject oldPanel;
+    public GameObject newPanel;
     public GameObject sampleButton;
     public LevelList levelList;
 
@@ -45,24 +47,9 @@ public class RoomInterpreter : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        
         getURL();
-        /*
-        LevelList levelList = new LevelList();
-        levelList.levels = new List<LevelItem>();
-        LevelItem level1 = new LevelItem();
-        level1.name = "Level1";
-        level1.id = 1;
-        level1.description = "this is Level1's description";
-        LevelItem level2 = new LevelItem();
-        level2.name = "Level1";
-        level2.id = 2;
-        level2.description = "this is Level2's description";
-        levelList.levels.Add(level1);
-        levelList.levels.Add(level2);
-        Debug.Log(JsonUtility.ToJson(levelList));
-        */
     }
+
     void getURL()
     {
         string url = "http://api.holoescape.tk/v1/games";
@@ -102,7 +89,10 @@ public class RoomInterpreter : MonoBehaviour {
             GameObject newButton = Instantiate(sampleButton) as GameObject;
             SampleButtonScript labelButton = newButton.GetComponent<SampleButtonScript>();
             labelButton.label.text = level.name;
-            labelButton.button.onClick = level.thingsToDo;
+            ChangePanel changePanel = newButton.GetComponent<ChangePanel>();
+            changePanel.oldPanel = oldPanel;
+            changePanel.newPanel = newPanel;
+            labelButton.button.onClick.AddListener(() => { oldPanel.SetActive(false); newPanel.SetActive(true); });
             newButton.transform.SetParent(contentPanel, false);
             Debug.Log(level.name);
         }
