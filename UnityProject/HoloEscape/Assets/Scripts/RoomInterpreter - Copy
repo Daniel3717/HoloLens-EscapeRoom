@@ -1,0 +1,103 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System;
+//using LitJson;
+using System.IO;
+
+public class RoomInterpreter : MonoBehaviour {
+    Level myObject;
+    //path = EditorUtility.OpenFilePanel("level", "C:/Users/Elias/Documents/Uni/YearTwo/Lent/GroupProject/JSON/", "json");
+
+    public string json;
+    public string level;
+    string clue;
+    public string roomName;
+
+    public GameObject sampleButton;
+    public List<Item> itemList;
+
+    public Transform contentPanel;
+
+    // Use this for initialization
+    void Start()
+    {
+        Level test = new Level();
+        test.description = "test descript";
+        test.name = "test name";
+        test.clues = new List<Clue>();
+
+        List<Property> properties = new List<Property>();
+        properties.Add(new Property("visibility", "true"));
+        properties.Add(new Property("locked", "true"));
+        properties.Add(new Property("colour", "black"));
+        properties.Add(new Property("code", "1234"));
+
+        List<Outlet> outlets = new List<Outlet>();
+        outlets.Add(new Outlet(2, "open"));
+        outlets.Add(new Outlet(3, ""));
+        List<Events> events = new List<Events>();
+        events.Add(new Events("on_unlock", outlets));
+        events.Add(new Events("on_lock", new List<Outlet>()));
+
+        List<string> placements = new List<string>();
+        placements.Add("platform");
+        placements.Add("floor");
+        placements.Add("air");
+
+        Clue testClue = new Clue(1, "Lock", properties, events, placements);
+
+        test.clues.Add(testClue);
+        
+
+        /*test.clues[0] = new Clue();
+        test.clues[0].id = 0;
+        test.clues[0].clue_type = "bool";
+        test.clues[0].initial_properties = new Property[1];
+        test.clues[0].initial_properties[0] = new Property();
+        test.clues[0].initial_properties[0].name = "property name";
+        test.clues[0].initial_properties[0].value = "true";
+        test.clues[0].events = new Events[2];
+        test.clues[0].events[0] = new Events();
+        test.clues[0].events[0].event_name = "on_unlock";
+        test.clues[0].events[0].outlets = new Outlet[2];
+        test.clues[0].events[0].outlets[0] = new Outlet();
+        test.clues[0].events[0].outlets[1] = new Outlet();
+        test.clues[0].events[0].outlets[0].clue_id = 2;
+        test.clues[0].events[0].outlets[0].action_name = "open";
+        test.clues[0].events[0].outlets[1].clue_id = 3;
+        test.clues[0].placement = new string[] { "platform", "floor", "air" };
+        */
+        
+        
+        string jtest = JsonUtility.ToJson(test);
+
+
+        level = File.ReadAllText(Application.dataPath + "/level.json");
+
+        Level test2 = JsonUtility.FromJson<Level>(level);
+
+        foreach (var clue in test2.clues)
+        {
+            Debug.Log(clue.id);
+        }
+        Debug.Log(test2.clues.Count);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    void getRooms()
+    {
+        string levels = File.ReadAllText(Application.dataPath + "/levelslist.json");
+        LevelList levelsList = JsonUtility.FromJson<LevelList>(levels);
+        foreach (var level in levelsList.levels)
+        {
+            GameObject 
+        }
+    }
+
+}

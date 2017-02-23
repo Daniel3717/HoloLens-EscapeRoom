@@ -1,0 +1,11 @@
+{
+	"levels": [{
+		"id": 1,
+		"name": "Level1",
+		"description": "This is Level1's description"
+	}, {
+		"id": 2,
+		"name": "Level2",
+		"description": "This is Level2's description"
+	}]
+}

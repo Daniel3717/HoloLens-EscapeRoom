@@ -1,78 +1,69 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using System;
-//using LitJson;
 using System.IO;
 
-public class RoomInterpreter : MonoBehaviour {
-    Level myObject;
-    //path = EditorUtility.OpenFilePanel("level", "C:/Users/Elias/Documents/Uni/YearTwo/Lent/GroupProject/JSON/", "json");
+[Serializable]
+public class LevelList
+{
+    public List<LevelItem> levels;
+}
 
-    public string json;
-    public string level;
-    string clue;
-    public string roomName;
+[Serializable]
+public class LevelItem
+{
+    public int id;
+    public string name;
+    public string description;
+    public Button.ButtonClickedEvent thingsToDo;
+}
+
+public class RoomInterpreter : MonoBehaviour {
+
+    public GameObject sampleButton;
+    public LevelList levelList;
+
+    public Transform contentPanel;
 
     // Use this for initialization
     void Start()
     {
-        Level test = new Level();
-        test.description = "test descript";
-        test.name = "test name";
-        test.clues = new Clue[2];
-        test.clues[0] = new Clue();
-        test.clues[0].id = 0;
-        test.clues[0].clue_type = "bool";
-        test.clues[0].initial_properties = new Property[1];
-        test.clues[0].initial_properties[0] = new Property();
-        test.clues[0].initial_properties[0].name = "property name";
-        test.clues[0].initial_properties[0].value = "true";
-        test.clues[0].events = new Events[2];
-        test.clues[0].events[0] = new Events();
-        test.clues[0].events[0].event_name = "on_unlock";
-        test.clues[0].events[0].outlets = new Outlet[2];
-        test.clues[0].events[0].outlets[0] = new Outlet();
-        test.clues[0].events[0].outlets[1] = new Outlet();
-        test.clues[0].events[0].outlets[0].clue_id = 2;
-        test.clues[0].events[0].outlets[0].action_name = "open";
-        test.clues[0].events[0].outlets[1].clue_id = 3;
-        test.clues[0].placement = new string[] { "platform", "floor", "air" };
-        /*
-        string jtest = JsonUtility.ToJson(test);
-        json = File.ReadAllText(Application.dataPath + "/test.json");
-        clue = File.ReadAllText(Application.dataPath + "/configured_clue.json");
-        */
-        level = File.ReadAllText(Application.dataPath + "/level.json");
         
-         
+        getRooms();
         /*
-        JsonData jsondata = JsonMapper.ToObject(json);
-        JsonData cluedata = JsonMapper.ToObject(clue);
-        JsonData leveldata = JsonMapper.ToObject(level);
-        //getRoom();
-        //Debug.Log(level);
-        //Debug.Log(json);
-        Debug.Log(jsondata["album"]["artist"]);
-        Debug.Log(leveldata["clues"]);
+        LevelList levelList = new LevelList();
+        levelList.levels = new List<LevelItem>();
+        LevelItem level1 = new LevelItem();
+        level1.name = "Level1";
+        level1.id = 1;
+        level1.description = "this is Level1's description";
+        LevelItem level2 = new LevelItem();
+        level2.name = "Level1";
+        level2.id = 2;
+        level2.description = "this is Level2's description";
+        levelList.levels.Add(level1);
+        levelList.levels.Add(level2);
+        Debug.Log(JsonUtility.ToJson(levelList));
         */
-        Level test2 = JsonUtility.FromJson<Level>(level);
-        //Debug.Log(test2.clues[1].clue_type);
-        //Debug.Log(jtest);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    void getRoom()
-    {
-        //json = File.ReadAllText(Application.dataPath + "/level.json");
-        //JsonData data = JsonMapper.ToObject(level);
-        //roomName = (string)data["album"]["artist"];
-        //myObject = JsonUtility.FromJson<Level>(json);
+    void getRooms()
+    { 
+        string levels = File.ReadAllText(Application.dataPath + "/levelslist.json");
+        levelList = JsonUtility.FromJson<LevelList>(levels);
+        Debug.Log(levelList.levels.Count);
+        foreach (var level in levelList.levels)
+        {
+            GameObject newButton = Instantiate(sampleButton) as GameObject;
+            SampleButtonScript labelButton = newButton.GetComponent<SampleButtonScript>();
+            labelButton.label.text = level.name;
+            labelButton.button.onClick = level.thingsToDo;
+            newButton.transform.SetParent(contentPanel, false);
+            Debug.Log(level.name);
+        }
     }
 
 }
