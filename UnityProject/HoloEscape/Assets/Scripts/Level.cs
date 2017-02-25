@@ -4,9 +4,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
+public class LevelData
+{
+    public Level data;
+}
+
+[Serializable]
 public class Level
 {
-    public string name;
+    public string code;
+    public string connect_code;
+    public string title;
+    public string subtitle;
     public string description;
     public List<Clue> clues;
 
@@ -14,9 +23,9 @@ public class Level
     {
     }
 
-    public Level (string name, string description, List<Clue> clues)
+    public Level (string title, string description, List<Clue> clues)
     {
-        this.name = name;
+        this.title = title;
         this.description = description;
         this.clues = clues;
     }
@@ -27,25 +36,26 @@ public class Clue
 {
 
     public int id;
-    public string clue_type;
+    public string identifier;
+    public string name;
     public List<Property> initial_properties;
-    public List<Events> events;
-    public List<string> placements;
+    public List<Events> event_outlets;
+    public List<string> placement;
 
     public Clue()
     {
     }
     public Clue(int id,
-        string clue_type,
+        string name,
         List<Property> initial_properties,
-        List<Events> events,
-        List<string> placements)
+        List<Events> event_outlets,
+        List<string> placement)
     {
         this.id = id;
-        this.clue_type = clue_type;
+        this.name = name;
         this.initial_properties = initial_properties;
-        this.events = events;
-        this.placements = placements;
+        this.event_outlets = event_outlets;
+        this.placement = placement;
     }
 }
 
@@ -53,14 +63,16 @@ public class Clue
 public class Property
 {
     public string name;
-    public string value;
+    public string type;
+    public string default_value;
 
     public Property() { }
 
-    public Property(string name, string value)
+    public Property(string name, string type, string default_value)
     {
         this.name = name;
-        this.value = value;
+        this.type = type;
+        this.default_value = default_value;
     }
 }
 

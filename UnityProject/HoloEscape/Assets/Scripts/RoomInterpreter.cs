@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 [Serializable]
 public class Author
@@ -16,11 +17,11 @@ public class Author
 [Serializable]
 public class LevelList
 {
-    public List<LevelItem> data;
+    public List<LevelListItem> data;
 }
 
 [Serializable]
-public class LevelItem
+public class LevelListItem
 {
     public int id;
     public string name;
@@ -38,7 +39,6 @@ public class RoomInterpreter : MonoBehaviour {
 
 
     public Transform contentPanel;
-    string levels;
 
     public bool coroutineFinished = false;
 
@@ -67,7 +67,7 @@ public class RoomInterpreter : MonoBehaviour {
         if (www.error == null)
         {
             //Debug.Log("WWW Ok!: " + www.text);
-            getRooms();
+            getRooms(www.text);
         }
         else
         {
@@ -76,14 +76,13 @@ public class RoomInterpreter : MonoBehaviour {
         coroutineFinished = true;
     }
 
-    void getRooms()
+    void getRooms(string levelsJson)
     {
 
-        levels = File.ReadAllText(Application.dataPath + "/levelslist.json");
-        levels = www.text;
+        //levels = File.ReadAllText(Application.dataPath + "/levelslist.json");
 
-        levelList = JsonUtility.FromJson<LevelList>(levels);
-        Debug.Log(levelList.data.Count);
+        levelList = JsonUtility.FromJson<LevelList>(levelsJson);
+        //Debug.Log(levelList.data.Count);
         foreach (var level in levelList.data)
         {
             GameObject newButton = Instantiate(sampleButton) as GameObject;
@@ -92,10 +91,83 @@ public class RoomInterpreter : MonoBehaviour {
             ChangePanel changePanel = newButton.GetComponent<ChangePanel>();
             changePanel.oldPanel = oldPanel;
             changePanel.newPanel = newPanel;
-            labelButton.button.onClick.AddListener(() => { oldPanel.SetActive(false); newPanel.SetActive(true); });
+            labelButton.button.onClick.AddListener(() => {
+                oldPanel.SetActive(false);
+                newPanel.SetActive(true);
+
+                Text[] newPanelText = newPanel.GetComponentsInChildren<Text>();
+                newPanelText[0].text = level.name;
+                newPanelText[1].text = level.author.name;
+                //newPanelText[1].GetComponentInChildren < Image >() = level.author.picture;
+                newPanelText[2].text = level.description;
+
+                Button continueButton = newPanel.GetComponentInChildren<Button>();
+                continueButton.onClick.AddListener(() =>
+                                                    {
+                                                        getRoom(level.id);
+                                                    });
+            });
             newButton.transform.SetParent(contentPanel, false);
-            Debug.Log(level.name);
+            //Debug.Log(level.name);
         }
     }
 
+    void getRoom(int id)
+    {
+        string url = "http://api.holoescape.tk/v1/levels/" + id.ToString();
+
+        WWWForm form = new WWWForm();
+        Dictionary<string, string> headers = new Dictionary<string, string>();
+        headers.Add("Device-Code", "101");
+        form.AddField("game_id", id);
+        byte[] b = new byte[1];
+        //WWW www = new WWW(url, form);
+        WWW www = new WWW(url, b, headers);
+
+        StartCoroutine(PostWaitForRequest(www));
+    }
+
+    IEnumerator PostWaitForRequest(WWW www)
+    {
+
+        yield return www;
+
+        // check for errors
+        if (www.error == null)
+        {
+            interpretRoom(www.text);
+        }
+        else
+        {
+            Debug.Log("WWW Error: " + www.error);
+        }
+        coroutineFinished = true;
+    }
+
+    private void interpretRoom(string leveljson)
+    {
+        Debug.Log(leveljson);
+        LevelData leveldata = JsonUtility.FromJson<LevelData>(leveljson);
+        Level level = leveldata.data;
+
+        foreach (Clue clue in level.clues)
+        {
+            Debug.Log(clue.name);
+            foreach (Property property in clue.initial_properties)
+            {
+             /*   switch(property.type)
+                {
+                    case "bool":
+                        if (property.default_value == "true")
+                        {
+
+                            
+                        }
+                }
+                */
+            }
+
+        }
+        SceneManager.LoadScene(4);
+    }
 }
