@@ -17,8 +17,7 @@
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>WSAPlayer:21</UnityBuildTarget>
     <UnityVersion>5.5.0f3</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -53,6 +52,9 @@
     <Reference Include="UnityEngine">
       <HintPath>Library\UnityAssemblies\UnityEngine.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.Advertisements">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Advertisements.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
@@ -68,6 +70,9 @@
     <Reference Include="UnityEngine.HoloLens">
       <HintPath>Library\UnityAssemblies\UnityEngine.HoloLens.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.Purchasing">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Purchasing.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.VR">
       <HintPath>Library\UnityAssemblies\UnityEngine.VR.dll</HintPath>
     </Reference>
@@ -79,7 +84,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Clues\Clue.cs" />
+    <Compile Include="Assets\Clues\Support\BallDrop\BallDrop.cs" />
+    <Compile Include="Assets\Clues\Support\BallDrop\SphereSounds.cs" />
+    <Compile Include="Assets\Clues\Support\Button\Button.cs" />
+    <Compile Include="Assets\Clues\Support\Button_Drawers\Button_Drawers.cs" />
+    <Compile Include="Assets\Clues\Support\Button_Drawers\Button_In_Drawer.cs" />
+    <Compile Include="Assets\Clues\Support\Button_Drawers\Drawer.cs" />
+    <Compile Include="Assets\Clues\Support\TextDisplay\TextDisplay.cs" />
+    <Compile Include="Assets\Clues\Support\VoicePad\VoicePad.cs" />
+    <Compile Include="Assets\Clues\TriggerAction.cs" />
     <Compile Include="Assets\CustomScripts\PlaceObjects.cs" />
+    <Compile Include="Assets\CustomScripts\WrapClues.cs" />
     <Compile Include="Assets\HoloToolkit-Examples\ColorPicker\GazeableColorPicker.cs" />
     <Compile Include="Assets\HoloToolkit-Examples\GazeRuler\Scripts\DeleteLine.cs" />
     <Compile Include="Assets\HoloToolkit-Examples\GazeRuler\Scripts\IGeometry.cs" />
@@ -332,13 +348,17 @@
     <Compile Include="Assets\HoloToolkit\Utilities\Tests\Scripts\TextToSpeechOnTap.cs" />
     <Compile Include="Assets\Scripts\App.cs" />
     <Compile Include="Assets\Scripts\ButtonOnClick.cs" />
+    <Compile Include="Assets\Scripts\ChangePanel.cs" />
     <Compile Include="Assets\Scripts\CreateScrollList.cs" />
+    <Compile Include="Assets\Scripts\GazeGestureManager.cs" />
     <Compile Include="Assets\Scripts\Level.cs" />
     <Compile Include="Assets\Scripts\LevelItem.cs" />
     <Compile Include="Assets\Scripts\LoadSceneOnClick.cs" />
     <Compile Include="Assets\Scripts\RoomInterpreter.cs" />
     <Compile Include="Assets\Scripts\SampleButtonScript.cs" />
     <Compile Include="Assets\Scripts\SpatialUnderstandingState.cs" />
+    <Compile Include="Assets\Scripts\SpeechManager.cs" />
+    <Compile Include="Assets\Scripts\WorldCursor.cs" />
     <Compile Include="Assets\UnityUI\Scripts\ActiveStateToggler.cs" />
     <Compile Include="Assets\UnityUI\Scripts\ApplicationManager.cs" />
     <Compile Include="Assets\UnityUI\Scripts\ChangeColor.cs" />
@@ -352,6 +372,7 @@
     <Compile Include="Assets\UnityUI\Scripts\TiltWindow.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Clues\Support\TextDisplay\3DTextOneSided.shader" />
     <None Include="Assets\HoloToolkit\Input\Shaders\Cursor.shader" />
     <None Include="Assets\HoloToolkit\Input\Shaders\CursorShader.shader" />
     <None Include="Assets\HoloToolkit\Input\Shaders\EditorHands.shader" />

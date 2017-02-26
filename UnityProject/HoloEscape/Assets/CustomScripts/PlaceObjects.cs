@@ -45,6 +45,7 @@ public class PlaceObjects : MonoBehaviour {
     private float mYMinRandom;
     private float mYMaxRandom;
     private float mBaseWallAbsError = 0.25f;
+    private bool mDirty = false;
 
     // Use this for initialization
     void Start()
@@ -118,11 +119,32 @@ public class PlaceObjects : MonoBehaviour {
         if (SpatialUnderstanding.Instance.UnderstandingCustomMesh.IsImportActive == true)
             return;
 
-        if (!mStartFlag)
+        if (!mStartFlag) //built-in reset
+        {
+            if (mDirty)
+            {
+                mSuccessful = false;
+                mComplete = false;
+                mPlaceFWCRComplete = false;
+                mPlacePComplete = false;
+                mCollidersEnabled = false;
+                mStarted = false;
+                List<int> mLeftToPlace = new List<int>();
+                List<int> mPlaced = new List<int>();
+                mToWrite = "";
+                List<int> mPlatformLeftToPlace = new List<int>();
+
+                mDirty = false;
+            }
             return;
+        }
+        else
+            mDirty = true;
 
         if (mComplete)
         {
+            //not in use
+            /*
             if (mCollidersEnabled==true)
             {
                 disableColliders();
@@ -134,14 +156,15 @@ public class PlaceObjects : MonoBehaviour {
                 }
 
             }
+            */
             //mToWrite="";
             AppState.Instance.CustomText = mToWrite+"\nPlacing FWCR:"+mPlaceFWCRComplete+"\nPlacing P:"+mPlacePComplete+"\nSuccessful:"+mSuccessful;
             return;
         }
 
-
-        if (mCollidersEnabled == false)
-            enableColliders();
+        //not in use
+        //if (mCollidersEnabled == false)
+        //    enableColliders();
 
         if (!mStarted)
             startIt();
