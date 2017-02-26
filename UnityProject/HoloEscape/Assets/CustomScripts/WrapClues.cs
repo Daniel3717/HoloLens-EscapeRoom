@@ -31,10 +31,7 @@ public class WrapClues : MonoBehaviour {
         {
             if (mDirty)
             {
-                mSuccessful = false;
-                mComplete = false;
-                mRunning = false;
-                mFinished = false;
+                resetAll();
 
                 mDirty = false;
             }
@@ -107,5 +104,13 @@ public class WrapClues : MonoBehaviour {
             mClues[i].transform.parent = mWraps[i].transform.parent;
             Destroy(mWraps[i]);
         }
+    }
+
+    public void resetAll()
+    {
+        mSuccessful = false;
+        mComplete = false;
+        mRunning = false;
+        mFinished = false;
     }
 }

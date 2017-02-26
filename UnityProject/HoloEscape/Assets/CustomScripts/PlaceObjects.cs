@@ -123,16 +123,7 @@ public class PlaceObjects : MonoBehaviour {
         {
             if (mDirty)
             {
-                mSuccessful = false;
-                mComplete = false;
-                mPlaceFWCRComplete = false;
-                mPlacePComplete = false;
-                mCollidersEnabled = false;
-                mStarted = false;
-                List<int> mLeftToPlace = new List<int>();
-                List<int> mPlaced = new List<int>();
-                mToWrite = "";
-                List<int> mPlatformLeftToPlace = new List<int>();
+                resetAll();
 
                 mDirty = false;
             }
@@ -466,5 +457,19 @@ public class PlaceObjects : MonoBehaviour {
             mComplete = true;
         }
         //yield return null;
+    }
+
+    public void resetAll()
+    {
+        mSuccessful = false;
+        mComplete = false;
+        mPlaceFWCRComplete = false;
+        mPlacePComplete = false;
+        mCollidersEnabled = false;
+        mStarted = false;
+        List<int> mLeftToPlace = new List<int>();
+        List<int> mPlaced = new List<int>();
+        mToWrite = "";
+        List<int> mPlatformLeftToPlace = new List<int>();
     }
 }
