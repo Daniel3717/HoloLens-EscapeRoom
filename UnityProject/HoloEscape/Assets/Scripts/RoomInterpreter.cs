@@ -36,7 +36,7 @@ public class RoomInterpreter : MonoBehaviour {
     public GameObject newPanel;
     public GameObject sampleButton;
     public LevelList levelList;
-
+    public GameObject errorText;
 
     public Transform contentPanel;
 
@@ -66,12 +66,13 @@ public class RoomInterpreter : MonoBehaviour {
         // check for errors
         if (www.error == null)
         {
-            //Debug.Log("WWW Ok!: " + www.text);
             getRooms(www.text);
         }
         else
         {
             Debug.Log("WWW Error: " + www.error);
+            errorText.gameObject.SetActive(true);
+            errorText.GetComponent<Text>().text = www.error;
         }
         coroutineFinished = true;
     }
@@ -80,7 +81,19 @@ public class RoomInterpreter : MonoBehaviour {
     {
 
         //levels = File.ReadAllText(Application.dataPath + "/levelslist.json");
+        //levelsJson = File.ReadAllText(Application.dataPath + "/levelslisttest.json");
+        /*levelsJson = @"{ 
 
+    ""data"": [{
+		""id"": 10001,
+		""name"": ""Test Game"",
+		""description"": ""Super Description"",
+		""author"": {
+			""name"": ""Test User"",
+			""picture"": ""http://image.jpg""
+        }
+	}]";*/
+    
         levelList = JsonUtility.FromJson<LevelList>(levelsJson);
         //Debug.Log(levelList.data.Count);
         foreach (var level in levelList.data)
@@ -121,7 +134,6 @@ public class RoomInterpreter : MonoBehaviour {
         headers.Add("Device-Code", "101");
         form.AddField("game_id", id);
         byte[] b = new byte[1];
-        //WWW www = new WWW(url, form);
         WWW www = new WWW(url, b, headers);
 
         StartCoroutine(PostWaitForRequest(www));
@@ -140,6 +152,8 @@ public class RoomInterpreter : MonoBehaviour {
         else
         {
             Debug.Log("WWW Error: " + www.error);
+            errorText.gameObject.SetActive(true);
+            errorText.GetComponent<Text>().text = www.error;
         }
         coroutineFinished = true;
     }

@@ -1,0 +1,11 @@
+{
+	"data": [{
+		"id": 10001,
+		"name": "Test Game",
+		"description": "Super Description",
+		"author": {
+			"name": "Test User",
+			"picture": "http://image.jpg"
+		}
+	}]
+}

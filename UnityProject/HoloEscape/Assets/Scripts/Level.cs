@@ -63,16 +63,14 @@ public class Clue
 public class Property
 {
     public string name;
-    public string type;
-    public string default_value;
+    public string value;
 
     public Property() { }
 
-    public Property(string name, string type, string default_value)
+    public Property(string name, string value)
     {
         this.name = name;
-        this.type = type;
-        this.default_value = default_value;
+        this.value = value;
     }
 }
 
