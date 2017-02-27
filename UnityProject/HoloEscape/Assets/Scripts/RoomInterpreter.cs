@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using System;
 using System.IO;
 using UnityEngine.SceneManagement;
+using Clues;
 
 [Serializable]
 public class Author
@@ -27,7 +28,6 @@ public class LevelListItem
     public string name;
     public string description;
     public Author author;
-    public Button.ButtonClickedEvent thingsToDo;
 }
 
 public class RoomInterpreter : MonoBehaviour {
@@ -114,7 +114,7 @@ public class RoomInterpreter : MonoBehaviour {
                 //newPanelText[1].GetComponentInChildren < Image >() = level.author.picture;
                 newPanelText[2].text = level.description;
 
-                Button continueButton = newPanel.GetComponentInChildren<Button>();
+                UnityEngine.UI.Button continueButton = newPanel.GetComponentInChildren<UnityEngine.UI.Button>();
                 continueButton.onClick.AddListener(() =>
                                                     {
                                                         getRoom(level.id);
@@ -177,12 +177,24 @@ public class RoomInterpreter : MonoBehaviour {
             {
                 clueObject.SendMessage("setProperty", property);
             }
-            //clueObjects
+
             c3.Add(clue.id, clueObject);
             //clueObjects.Add(clueObject);
+
         }
 
         // Connect event outlets
+        //TriggerAction(string trigger, GameObject triggerGameObject, string triggerACtion);
+        foreach (Clue clue in level.clues)
+        {
+            foreach (Events events in clue.event_outlets)
+            {
+                foreach (Outlet outlet in events.outlets)
+                {
+                    c3[clue.id].SendMessage("AddAction", new TriggerAction(events.event_name, c3[outlet.clue_id], outlet.action_name));
+                }
+            }
+        }
 
         // Place objects
 
