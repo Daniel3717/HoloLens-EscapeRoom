@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Clues
+namespace Clues.Base.BallDrop
 {
     public class BallDrop : Clue
     {

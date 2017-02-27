@@ -16,10 +16,12 @@ namespace Clues
 
         public void SetProperty(string property, object value)
         {
-            if (property == "active" && value is bool)
-                gameObject.SetActive((bool) value);
-
             properties[property] = value;
+        }
+
+        public void SetProperty(Property property)
+        {
+            properties[property.name] = property.GetObject();
         }
 
         public T GetProperty<T>(string property)
@@ -30,14 +32,14 @@ namespace Clues
                 return default(T);
         }
 
-        public void AddAction(string trigger, TriggerAction action)
+        public void AddAction(TriggerAction action)
         {
-            actions.Add(trigger, action);
+            actions.Add(action.TriggerEvent, action);
         }
 
         public void AddAction(string trigger, GameObject nextClue, string action)
         {
-            actions.Add(trigger, new TriggerAction(nextClue, action));
+            actions.Add(trigger, new TriggerAction(trigger, nextClue, action));
         }
 
         protected void Trigger(string action)

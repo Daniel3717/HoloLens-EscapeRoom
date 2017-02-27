@@ -1,29 +1,29 @@
 ﻿using UnityEngine;
 
-namespace Clues
+namespace Clues.Base.Button
 {
     public class Button : Clue
     {
-
-        bool pressed = false;
+        private AudioSource Button_noise;
         public GameObject ObjectToTrigger;
-        public string TriggerName;
-        AudioSource Button_noise;
 
-        void Start()
+        private bool pressed;
+        public string TriggerName;
+
+        private void Start()
         {
             AddAction("OnSelect", ObjectToTrigger, TriggerName);
             Button_noise = GetComponent<AudioSource>();
         }
 
-        void OnSelect()
+        private void OnSelect()
         {
             Trigger("OnSelect");
             Button_noise.Play();
             pressed = true; //triggers an animation of the button
         }
 
-        void Update()
+        private void Update()
         {
             if (pressed)
             {
