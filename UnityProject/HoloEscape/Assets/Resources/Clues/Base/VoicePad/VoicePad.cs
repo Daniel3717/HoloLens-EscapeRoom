@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine.Windows.Speech;
 
 
-namespace Clues
+namespace Clues.Base.VoicePad
 {
     public class VoicePad : Clue
     {

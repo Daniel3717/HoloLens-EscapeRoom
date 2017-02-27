@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Clues
+namespace Clues.Base.TextDisplay
 {
     public class TextDisplay : Clue
     {

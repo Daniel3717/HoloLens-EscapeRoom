@@ -1,0 +1,43 @@
+{
+  "name": "BallDrop",
+  "description": "A Ball Drop Game",
+  "identifier": "Clues.Base.BallDrop",
+  "properties": [
+    {
+      "name": "visible",
+      "type": "bool" // available types: "bool", "string", "number"
+    },
+    {
+      "name": "enabled",
+      "type": "bool"
+    }
+  ],
+  "events": [
+    {
+      "name": "onSuccess",
+      "description": "Fired when ball hits success zone"
+    },
+    {
+      "name": "onFail",
+      "description": "Fired when ball hits failure zone"
+    }
+  ],
+  "actions": [
+    {
+      "name": "Activate",
+      "description": "Set enabled to true to allow the ball to be dropped"
+    },
+    {
+      "name": "Drop",
+      "description": "Drops the ball"
+    },
+    {
+      "name": "Left",
+      "description": "Moves the ball left"
+    },
+    {
+      "name": "Right",
+      "description": "Moves the ball right"
+    }
+  ]
+}

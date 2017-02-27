@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2015
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoloEscape.CSharp", "HoloEscape.CSharp.csproj", "{0638A75A-4849-9DD5-E7FD-41D70A8DA789}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoloEscape", "HoloEscape.csproj", "{26D66B01-2D80-220D-7672-F96118B6C3D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoloEscape.CSharp.Editor", "HoloEscape.CSharp.Editor.csproj", "{BFE7E679-9369-77EE-F5F6-435D1451CACA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoloEscape.Editor", "HoloEscape.Editor.csproj", "{037CB93C-28B6-C5FB-AC91-EFE8A9F133B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,14 +11,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0638A75A-4849-9DD5-E7FD-41D70A8DA789}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0638A75A-4849-9DD5-E7FD-41D70A8DA789}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0638A75A-4849-9DD5-E7FD-41D70A8DA789}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0638A75A-4849-9DD5-E7FD-41D70A8DA789}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BFE7E679-9369-77EE-F5F6-435D1451CACA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BFE7E679-9369-77EE-F5F6-435D1451CACA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BFE7E679-9369-77EE-F5F6-435D1451CACA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BFE7E679-9369-77EE-F5F6-435D1451CACA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26D66B01-2D80-220D-7672-F96118B6C3D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26D66B01-2D80-220D-7672-F96118B6C3D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26D66B01-2D80-220D-7672-F96118B6C3D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26D66B01-2D80-220D-7672-F96118B6C3D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{037CB93C-28B6-C5FB-AC91-EFE8A9F133B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{037CB93C-28B6-C5FB-AC91-EFE8A9F133B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{037CB93C-28B6-C5FB-AC91-EFE8A9F133B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{037CB93C-28B6-C5FB-AC91-EFE8A9F133B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

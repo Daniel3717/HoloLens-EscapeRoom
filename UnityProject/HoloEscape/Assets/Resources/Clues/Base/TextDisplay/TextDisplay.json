@@ -1,0 +1,35 @@
+{
+  "name": "TextDisplay",
+  "description": "A screen that displays text",
+  "identifier": "Clues.Base.TextDisplay",
+  "properties": [
+    {
+      "name": "visible",
+      "type": "bool" // available types: "bool", "string", "number"
+    },
+    {
+      "name": "initialText",
+      "type": "string"
+    },
+    {
+      "name": "text1",
+      "type": "string"
+    },
+        {
+      "name": "text2",
+      "type": "string"
+    }
+  ],
+  "events": [
+  ],
+  "actions": [
+    {
+      "name": "Trigger1",
+      "description": "Set the text on the display to text1"
+    },
+    {
+      "name": "Trigger2",
+      "description": "Set the text on the display to text2"
+    }
+  ]
+}
