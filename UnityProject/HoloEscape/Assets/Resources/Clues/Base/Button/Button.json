@@ -1,0 +1,19 @@
+{
+  "name": "Button",
+  "description": "A Big Red Button",
+  "identifier": "Clues.Base.Button",
+  "properties": [
+    {
+      "name": "visible",
+      "type": "bool" // available types: "bool", "string", "number"
+    },
+  ],
+  "events": [
+    {
+      "name": "onButtonPress",
+      "description": "Fired when the button is pressed"
+    }
+  ],
+  "actions": [
+  ]
+}
