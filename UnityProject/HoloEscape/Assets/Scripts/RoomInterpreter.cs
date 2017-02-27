@@ -131,7 +131,8 @@ public class RoomInterpreter : MonoBehaviour {
 
         WWWForm form = new WWWForm();
         Dictionary<string, string> headers = new Dictionary<string, string>();
-        headers.Add("Device-Code", "101");
+        Debug.Log(SystemInfo.deviceUniqueIdentifier);
+        headers.Add("Device-Code", SystemInfo.deviceUniqueIdentifier);
         form.AddField("game_id", id);
         byte[] b = new byte[1];
         WWW www = new WWW(url, b, headers);
@@ -158,6 +159,10 @@ public class RoomInterpreter : MonoBehaviour {
         coroutineFinished = true;
     }
 
+    List<GameObject> clueObjects;
+    ArrayList c2;
+    Dictionary<int, GameObject> c3 = new Dictionary<int, GameObject>();
+
     private void interpretRoom(string leveljson)
     {
         Debug.Log(leveljson);
@@ -167,21 +172,20 @@ public class RoomInterpreter : MonoBehaviour {
         foreach (Clue clue in level.clues)
         {
             Debug.Log(clue.name);
+            GameObject clueObject = Instantiate(Resources.Load(clue.identifier)) as GameObject;
             foreach (Property property in clue.initial_properties)
             {
-             /*   switch(property.type)
-                {
-                    case "bool":
-                        if (property.default_value == "true")
-                        {
-
-                            
-                        }
-                }
-                */
+                clueObject.SendMessage("setProperty", property);
             }
-
+            //clueObjects
+            c3.Add(clue.id, clueObject);
+            //clueObjects.Add(clueObject);
         }
+
+        // Connect event outlets
+
+        // Place objects
+
         SceneManager.LoadScene(4);
     }
 }

@@ -63,14 +63,43 @@ public class Clue
 public class Property
 {
     public string name;
+    public string type;
     public string value;
 
     public Property() { }
 
-    public Property(string name, string value)
+    public Property(string name, string type, string value)
     {
         this.name = name;
+        this.type = type;
         this.value = value;
+    }
+
+    public object getObject(string type, string value)
+    {
+        switch (type)
+        {
+            case "bool":
+                {
+                    switch (value)
+                    {
+                        case "true":
+                            return true;
+                        case "false":
+                            return false;
+                        default:
+                            return null;
+                    }
+                }
+            case "int":
+                return Int32.Parse(value);
+            case "float":
+                return float.Parse(value);
+            case "string":
+                return value;
+        }
+
+        return null;
     }
 }
 
