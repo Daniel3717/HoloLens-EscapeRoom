@@ -48,6 +48,14 @@ public class WrapClues : MonoBehaviour {
             if (!mFinished)
                 unwrapClues();
             mFinished = true;
+
+            if (!mSuccessful)
+            {
+                print("Not successful");
+                selfdestruct();
+            }
+            else
+                print("Successful");
             return;
         }
 
@@ -90,6 +98,7 @@ public class WrapClues : MonoBehaviour {
             }
             mWraps[i].transform.parent = mClues[i].transform.parent;
             mClues[i].transform.parent = mWraps[i].transform;
+            mClues[i].SetActive(false);
         }
 
         mPO.mPublicToPlace = mWraps;
@@ -101,6 +110,7 @@ public class WrapClues : MonoBehaviour {
     {
         for (int i=0;i<mWraps.Length;i++)
         {
+            mClues[i].SetActive(true);
             mClues[i].transform.parent = mWraps[i].transform.parent;
             Destroy(mWraps[i]);
         }
@@ -143,5 +153,12 @@ public class WrapClues : MonoBehaviour {
             else
                 mPositions[i] = 0;
         }
+    }
+
+    public void selfdestruct()
+    {
+        //do error panel here
+
+        Destroy(this.gameObject);
     }
 }

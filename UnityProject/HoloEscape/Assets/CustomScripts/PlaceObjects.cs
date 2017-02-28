@@ -150,6 +150,7 @@ public class PlaceObjects : MonoBehaviour {
             }
             */
             //mToWrite="";
+            //AppState.Instance.OverrideNormalText = true;
             //AppState.Instance.CustomText = mToWrite+"\nPlacing FWCR:"+mPlaceFWCRComplete+"\nPlacing P:"+mPlacePComplete+"\nSuccessful:"+mSuccessful;
             return;
         }
@@ -160,8 +161,7 @@ public class PlaceObjects : MonoBehaviour {
 
         if (!mStarted)
             startIt();
-
-        //AppState.Instance.CustomText = mToWrite;
+        
         if (!mPlaceFWCRComplete)
         {
             ContinueStage1();
@@ -244,7 +244,6 @@ public class PlaceObjects : MonoBehaviour {
                     /*
                     if (mLeftToPlace.Count + mPlaced.Count != mPlaceFWCRThreshold)
                     {
-                        AppState.Instance.OverrideNormalText = true;
                         mToWrite += "\nMissing the following:";
                         for (int i = 0; i < mToPlace.Length; i++)
                             if ((!mPlaced.Contains(i)) && (!mLeftToPlace.Contains(i)))
@@ -266,7 +265,6 @@ public class PlaceObjects : MonoBehaviour {
         }
         else
         {
-            //AppState.Instance.OverrideNormalText = true;
             mToWrite += "\nRan out of tries";
 
             mToWrite += "\nLeftToPlace is: ";
@@ -386,7 +384,6 @@ public class PlaceObjects : MonoBehaviour {
     //if any problems arises (i.e. fps spikes when placing), I'll split this one into different parts and do it in update
     private void placePlat()
     {
-        //AppState.Instance.OverrideNormalText = true;
         mToWrite += "\nProcessing placePlat";
 
         List<Vector3>[] lPositions = new List<Vector3>[mPlatformLeftToPlace.Count];
@@ -468,9 +465,9 @@ public class PlaceObjects : MonoBehaviour {
         mPlacePComplete = false;
         mCollidersEnabled = false;
         mStarted = false;
-        List<int> mLeftToPlace = new List<int>();
-        List<int> mPlaced = new List<int>();
+        mLeftToPlace = new List<int>();
+        mPlaced = new List<int>();
         mToWrite = "";
-        List<int> mPlatformLeftToPlace = new List<int>();
+        mPlatformLeftToPlace = new List<int>();
     }
 }
