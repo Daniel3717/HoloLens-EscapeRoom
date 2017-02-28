@@ -354,6 +354,7 @@ MonoBehaviour:
   currentPanel: {fileID: 0}
   contentPanel: {fileID: 291238968}
   coroutineFinished: 0
+  button: {fileID: 1653567268823596, guid: f012a147f2a398b46a08c5f077fe2817, type: 2}
 --- !u!4 &80712958
 Transform:
   m_ObjectHideFlags: 0
@@ -2498,7 +2499,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RecognizerStart: 0
-  KeywordsAndResponses: []
+  KeywordsAndResponses:
+  - Keyword: add
+    KeyCode: 0
+    Response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
 --- !u!1 &1555521892
 GameObject:
   m_ObjectHideFlags: 0

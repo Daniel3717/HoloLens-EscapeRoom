@@ -42,13 +42,15 @@ public class RoomInterpreter : MonoBehaviour {
 
     public bool coroutineFinished = false;
 
+    public GameObject button;
+
     WWW www;
 
     // Use this for initialization
     void Start()
     {
         errorText = errorPanel.GetComponentInChildren<Text>();
-        getJsonFromURL("http://api.holoescape.tk/v1/games");
+        getJsonFromURL("http://api.holoescape.tk/v1/games/published");
     }
 
     void getJsonFromURL(string url)
@@ -69,6 +71,7 @@ public class RoomInterpreter : MonoBehaviour {
         else
         {
             Debug.Log("WWW Error: " + www.error);
+            Debug.Log(www.text);
             panelChanger.ChangeActivePanel(currentPanel, errorPanel);
             errorText.text = www.error;
         }
@@ -101,8 +104,11 @@ public class RoomInterpreter : MonoBehaviour {
             GameObject newButton = Instantiate(sampleButton) as GameObject;
             SampleButtonScript labelButton = newButton.GetComponent<SampleButtonScript>();
             labelButton.label.text = level.name;
-            KeywordManager keywordManager = roomPanel.GetComponent<KeywordManager>();
 
+            KeywordManager keywordManager = roomPanel.GetComponent<KeywordManager>();
+            KeywordManager.KeywordAndResponse[] newResponses = new KeywordManager.KeywordAndResponse[keywordManager.KeywordsAndResponses.Length + 1];
+
+            //keywordManager.KeywordsAndResponse
 
             // Add functionality to the Button in the new roomPanel as well as the button and Texts in the postRoomPanel
             labelButton.button.onClick.AddListener(() => {
@@ -165,25 +171,37 @@ public class RoomInterpreter : MonoBehaviour {
     }
 
     Dictionary<int, GameObject> clueObjects = new Dictionary<int, GameObject>();
-    List<ClueToPlace> cluesToPlace;
+    List<ClueToPlace> cluesToPlace = new List<ClueToPlace>();
 
     private void interpretRoomFromJson(string leveljson)
     {
         Debug.Log(leveljson);
-        LevelData leveldata = JsonUtility.FromJson<LevelData>(leveljson);
-        Level level = leveldata.data;
+        JsonLevelData leveldata = JsonUtility.FromJson<JsonLevelData>(leveljson);
+        JsonLevel level = leveldata.data;
 
         foreach (JsonClue clue in level.clues)
         {
             Debug.Log(clue.name);
-            GameObject clueObject = Instantiate(Resources.Load("Clues/Base/Button/Button")) as GameObject;
-            foreach (Property property in clue.initial_properties)
+            //GameObject button =  as GameObject;
+            //string identifier = "Clues.Base.Button";
+            string identifier = clue.identifier;
+            string path = IdentifierToPath(identifier);
+
+            GameObject clueObject = Instantiate(Resources.Load(path, typeof(GameObject))) as GameObject;
+            foreach (JsonProperty property in clue.initial_properties)
             {
 
                 Clues.Base.Button.Button bton = new Clues.Base.Button.Button();
                 bton.SetProperty(property);
-
-                clueObject.SendMessage("SetProperty", property);
+                if(clueObject == null)
+                {
+                    Debug.Log("clueObject null");
+                }
+                if (property == null)
+                {
+                    Debug.Log("property null");
+                }
+                clueObject.BroadcastMessage("SetProperty", property);
             }
 
             clueObjects.Add(clue.id, clueObject);
@@ -193,20 +211,26 @@ public class RoomInterpreter : MonoBehaviour {
         // Connect event outlets
         foreach (JsonClue clue in level.clues)
         {
-            foreach (Events events in clue.event_outlets)
+            foreach (JsonEvent events in clue.event_outlets)
             {
-                foreach (Outlet outlet in events.outlets)
+                foreach (JsonOutlet outlet in events.outlets)
                 {
-                    clueObjects[clue.id].SendMessage("AddAction", new TriggerAction(events.event_name, clueObjects[outlet.clue_id], outlet.action_name));
+                    clueObjects[clue.id].BroadcastMessage("AddAction", new TriggerAction(events.event_name, clueObjects[outlet.clue_id], outlet.action_name));
                 }
             }
-            cluesToPlace.Add(new ClueToPlace(clueObjects[clue.id], clue.placements));
+            cluesToPlace.Add(new ClueToPlace(clueObjects[clue.id], clue.placement));
         }
         // Place objects
         // By Passing cluesToPlace.ToArray() to Daniel
 
+
         SceneManager.LoadScene(4);
     }
-    /*
-    */
+
+    public string IdentifierToPath(string identifer)
+    {
+        string[] idArray;
+        idArray = identifer.Split('.');
+        return String.Join("/", idArray) + "/" + idArray[idArray.Length - 1];
+    }
 }

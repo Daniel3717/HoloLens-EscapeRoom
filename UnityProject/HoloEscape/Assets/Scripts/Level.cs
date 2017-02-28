@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 
 [Serializable]
-public class LevelData
+public class JsonLevelData
 {
-    public Level data;
+    public JsonLevel data;
 }
 
 [Serializable]
-public class Level
+public class JsonLevel
 {
     public string code;
     public string connect_code;
@@ -17,11 +17,11 @@ public class Level
     public string description;
     public List<JsonClue> clues;
 
-    public Level()
+    public JsonLevel()
     {
     }
 
-    public Level(string title, string description, List<JsonClue> clues)
+    public JsonLevel(string title, string description, List<JsonClue> clues)
     {
         this.title = title;
         this.description = description;
@@ -35,9 +35,9 @@ public class JsonClue
     public int id;
     public string identifier;
     public string name;
-    public List<Property> initial_properties;
-    public List<Events> event_outlets;
-    public List<string> placements;
+    public List<JsonProperty> initial_properties;
+    public List<JsonEvent> event_outlets;
+    public List<string> placement;
 
     public JsonClue()
     {
@@ -45,30 +45,30 @@ public class JsonClue
 
     public JsonClue(int id,
         string name,
-        List<Property> initial_properties,
-        List<Events> events,
-        List<string> placements)
+        List<JsonProperty> initial_properties,
+        List<JsonEvent> events,
+        List<string> placement)
     {
         this.id = id;
         this.name = name;
         this.initial_properties = initial_properties;
         this.event_outlets = events;
-        this.placements = placements;
+        this.placement = placement;
     }
 }
 
 [Serializable]
-public class Property
+public class JsonProperty
 {
     public string name;
     public string type;
     public string value;
 
-    public Property()
+    public JsonProperty()
     {
     }
 
-    public Property(string name, string type, string value)
+    public JsonProperty(string name, string type, string value)
     {
         this.name = name;
         this.type = type;
@@ -104,16 +104,16 @@ public class Property
 }
 
 [Serializable]
-public class Events
+public class JsonEvent
 {
     public string event_name;
-    public List<Outlet> outlets;
+    public List<JsonOutlet> outlets;
 
-    public Events()
+    public JsonEvent()
     {
     }
 
-    public Events(string event_name, List<Outlet> outlets)
+    public JsonEvent(string event_name, List<JsonOutlet> outlets)
     {
         this.event_name = event_name;
         this.outlets = outlets;
@@ -121,16 +121,16 @@ public class Events
 }
 
 [Serializable]
-public class Outlet
+public class JsonOutlet
 {
     public string action_name;
     public int clue_id;
 
-    public Outlet()
+    public JsonOutlet()
     {
     }
 
-    public Outlet(int clue_id, string action_name)
+    public JsonOutlet(int clue_id, string action_name)
     {
         this.clue_id = clue_id;
         this.action_name = action_name;

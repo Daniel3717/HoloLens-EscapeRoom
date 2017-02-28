@@ -14,14 +14,14 @@ namespace Clues
             return GetProperty<string>("description");
         }
 
+        public void SetProperty(JsonProperty property)
+        {
+            properties[property.name] = property.GetObject();
+        }
+
         public void SetProperty(string property, object value)
         {
             properties[property] = value;
-        }
-
-        public void SetProperty(Property property)
-        {
-            properties[property.name] = property.GetObject();
         }
 
         public T GetProperty<T>(string property)
