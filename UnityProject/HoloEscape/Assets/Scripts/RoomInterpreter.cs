@@ -9,18 +9,6 @@ using UnityEngine.SceneManagement;
 using Clues;
 using HoloToolkit.Unity.InputModule;
 
-public class ClueToPlace
-{
-    GameObject clue;
-    public List<string> placements;
-
-    public ClueToPlace(GameObject clue, List<string> placements)
-    {
-        this.clue = clue;
-        this.placements = placements;
-    }
-}
-
 public class RoomInterpreter : MonoBehaviour {
 
     // oldPanel corresponds to the panel that contains a list of buttons corresponding to the games available from the server
@@ -222,7 +210,7 @@ public class RoomInterpreter : MonoBehaviour {
         }
         // Place objects
         // By Passing cluesToPlace.ToArray() to Daniel
-
+        LoadClues(cluesToPlace.ToArray());
 
         SceneManager.LoadScene(4);
     }
