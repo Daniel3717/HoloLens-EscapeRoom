@@ -343,6 +343,7 @@
     <Compile Include="Assets\Scripts\App.cs" />
     <Compile Include="Assets\Scripts\ButtonOnClick.cs" />
     <Compile Include="Assets\Scripts\ChangePanel.cs" />
+    <Compile Include="Assets\Scripts\ClueToPlace.cs" />
     <Compile Include="Assets\Scripts\CreateScrollList.cs" />
     <Compile Include="Assets\Scripts\GazeGestureManager.cs" />
     <Compile Include="Assets\Scripts\Level.cs" />
