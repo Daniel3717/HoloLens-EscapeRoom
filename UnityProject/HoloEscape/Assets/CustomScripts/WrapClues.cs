@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WrapClues : MonoBehaviour {
 
@@ -158,7 +159,9 @@ public class WrapClues : MonoBehaviour {
     public void selfdestruct()
     {
         //do error panel here
-
+        GameObject errorPanel = GameObject.Find("Error Panel");
+        errorPanel.SetActive(true);
+        errorPanel.GetComponentInChildren<Text>().text = "Your Room is too small";
         Destroy(this.gameObject);
     }
 }
