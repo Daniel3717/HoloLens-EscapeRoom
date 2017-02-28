@@ -1,89 +1,75 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Clues.Base.BallDrop
 {
     public class BallDrop : Clue
     {
-        Vector3 originalPosition;
-        Quaternion originalRotation;
         public GameObject FailObject;
-        public GameObject SuccessObject;
         public GameObject ObjectToTrigger;
+        private Vector3 originalPosition;
+        private Quaternion originalRotation;
+        public GameObject SuccessObject;
 
         // Use this for initialization
-        void Start()
+        private void Start()
         {
             SetProperty("enabled", true);
             // Grab the original local position of the sphere when the app starts.
-            originalPosition = this.transform.localPosition;
-            originalRotation = this.transform.localRotation;
+            originalPosition = transform.localPosition;
+            originalRotation = transform.localRotation;
             AddAction("OnSuccess", ObjectToTrigger, "Trigger");
         }
 
-        void OnDrop()
+        private void OnDrop()
         {
             // If the sphere has no Rigidbody component, add one to enable physics.
-            if (GetProperty<bool>("enabled") && !this.GetComponent<Rigidbody>())
+            if (GetProperty<bool>("enabled") && !GetComponent<Rigidbody>())
             {
-                var rigidbody = this.gameObject.AddComponent<Rigidbody>();
+                var rigidbody = gameObject.AddComponent<Rigidbody>();
                 rigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
             }
         }
 
-        void OnLeft()
+        private void OnLeft()
         {
             if (GetProperty<bool>("enabled") && transform.position.x > -0.45)
-            {
                 transform.Translate(-0.05f, 0, 0);
-            }
         }
 
-        void OnRight()
+        private void OnRight()
         {
             if (GetProperty<bool>("enabled") && transform.position.x < 0.45)
-            {
                 transform.Translate(0.05f, 0, 0);
-            }
         }
 
-        void OnActivate()
+        private void OnActivate()
         {
             SetProperty("active", true);
         }
 
-        void Update()
+        private void Update()
         {
             if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
                 OnRight();
-            }
             else if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
                 OnLeft();
-            }
             else if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
                 OnDrop();
-            }
         }
 
-        void OnReset()
+        private void OnReset()
         {
             // If the sphere has a Rigidbody component, remove it to disable physics.
-            var rigidbody = this.GetComponent<Rigidbody>();
+            var rigidbody = GetComponent<Rigidbody>();
             if (rigidbody != null)
-            {
                 Destroy(rigidbody);
-            }
 
             // Put the sphere back into its original local position.
-            this.transform.localPosition = originalPosition;
-            this.transform.localRotation = originalRotation;
+            transform.localPosition = originalPosition;
+            transform.localRotation = originalRotation;
         }
 
-        void OnCollisionEnter(Collision collision)
+        private void OnCollisionEnter(Collision collision)
         {
             if (collision.gameObject.Equals(FailObject))
             {

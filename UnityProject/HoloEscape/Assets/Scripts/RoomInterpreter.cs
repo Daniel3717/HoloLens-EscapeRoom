@@ -1,74 +1,71 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using System;
-using System.IO;
-using UnityEngine.SceneManagement;
 using Clues;
 using HoloToolkit.Unity.InputModule;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class RoomInterpreter : MonoBehaviour {
+public class RoomInterpreter : MonoBehaviour
+{
+    private readonly Dictionary<int, GameObject> _clueObjects = new Dictionary<int, GameObject>();
+    private readonly List<ClueToPlace> _cluesToPlace = new List<ClueToPlace>();
 
-    // oldPanel corresponds to the panel that contains a list of buttons corresponding to the games available from the server
-    public GameObject roomPanel;
+    private readonly ChangePanel _panelChanger = new ChangePanel();
+    private Text _errorText;
+
+    private WWW _www;
+
+    public Transform ContentPanel;
+
+    public bool CoroutineFinished;
+
+    public GameObject CurrentPanel;
+    // ErrorPanel will be set to display an error message to the user if something goes wrong
+    public GameObject ErrorPanel;
     // newPanel is set to active when a button in oldPanel is clicked,
     // it will be populated with information that depends on which button was clicked
-    public GameObject postRoomPanel;
+    public GameObject PostRoomPanel;
+
+    // oldPanel corresponds to the panel that contains a list of buttons corresponding to the games available from the server
+    public GameObject RoomPanel;
     // prefab to a sample button to be initialised at a later point
-    public GameObject sampleButton;
-    // errorPanel will be set to display an error message to the user if something goes wrong
-    public GameObject errorPanel;
-    Text errorText;
-
-    ChangePanel panelChanger = new ChangePanel();
-
-    public GameObject currentPanel;
-
-    public Transform contentPanel;
-
-    public bool coroutineFinished = false;
-
-    public GameObject button;
-
-    WWW www;
+    public GameObject SampleButton;
 
     // Use this for initialization
-    void Start()
+    private void Start()
     {
-        errorText = errorPanel.GetComponentInChildren<Text>();
-        getJsonFromURL("http://api.holoescape.tk/v1/games/published");
+        _errorText = ErrorPanel.GetComponentInChildren<Text>();
+        GetJsonFromUrl("http://api.holoescape.tk/v1/games/published");
     }
 
-    void getJsonFromURL(string url)
+    private void GetJsonFromUrl(string url)
     {
-        www = new WWW(url);
+        _www = new WWW(url);
 
-        StartCoroutine(WaitForRequest(www));
+        StartCoroutine(WaitForRequest(_www));
     }
 
-    IEnumerator WaitForRequest(WWW www)
+    private IEnumerator WaitForRequest(WWW www)
     {
         yield return www;
         // check for errors
         if (www.error == null)
         {
-            roomsFromJson(www.text);
+            RoomsFromJson(www.text);
         }
         else
         {
             Debug.Log("WWW Error: " + www.error);
             Debug.Log(www.text);
-            panelChanger.ChangeActivePanel(currentPanel, errorPanel);
-            errorText.text = www.error;
+            _panelChanger.ChangeActivePanel(CurrentPanel, ErrorPanel);
+            _errorText.text = www.error;
         }
-        coroutineFinished = true;
+        CoroutineFinished = true;
     }
 
-    void roomsFromJson(string levelsJson)
+    private void RoomsFromJson(string levelsJson)
     {
-
         //levels = File.ReadAllText(Application.dataPath + "/levelslist.json");
         //levelsJson = File.ReadAllText(Application.dataPath + "/levelslisttest.json");
         /*levelsJson = @"{ 
@@ -84,141 +81,125 @@ public class RoomInterpreter : MonoBehaviour {
 	}]";*/
 
 
-        LevelList levelList = JsonUtility.FromJson<LevelList>(levelsJson);
+        var levelList = JsonUtility.FromJson<LevelList>(levelsJson);
 
-        foreach (LevelListItem level in levelList.data)
+        foreach (var level in levelList.data)
         {
-            // for each level in the json levelList, create a new button and add it to the list in the roomPanel
-            GameObject newButton = Instantiate(sampleButton) as GameObject;
-            SampleButtonScript labelButton = newButton.GetComponent<SampleButtonScript>();
+            // for each level in the json levelList, create a new button and add it to the list in the RoomPanel
+            var newButton = Instantiate(SampleButton);
+            var labelButton = newButton.GetComponent<SampleButtonScript>();
             labelButton.label.text = level.name;
 
-            KeywordManager keywordManager = roomPanel.GetComponent<KeywordManager>();
-            KeywordManager.KeywordAndResponse[] newResponses = new KeywordManager.KeywordAndResponse[keywordManager.KeywordsAndResponses.Length + 1];
+            var keywordManager = RoomPanel.GetComponent<KeywordManager>();
+            var newResponses = new KeywordManager.KeywordAndResponse[keywordManager.KeywordsAndResponses.Length + 1];
 
             //keywordManager.KeywordsAndResponse
 
-            // Add functionality to the Button in the new roomPanel as well as the button and Texts in the postRoomPanel
-            labelButton.button.onClick.AddListener(() => {
-                // the Button sets changes the current visible Panel from roomPanel to postRoomPanel
-                panelChanger.ChangeActivePanel(currentPanel, postRoomPanel);
+            // Add functionality to the Button in the new RoomPanel as well as the button and Texts in the PostRoomPanel
+            labelButton.button.onClick.AddListener(() =>
+            {
+                // the Button sets changes the current visible Panel from RoomPanel to PostRoomPanel
+                _panelChanger.ChangeActivePanel(CurrentPanel, PostRoomPanel);
 
                 // set Text corresponding to the level name, author name and level description
-                Text[] postRoomPanelText = postRoomPanel.GetComponentsInChildren<Text>();
+                var postRoomPanelText = PostRoomPanel.GetComponentsInChildren<Text>();
                 postRoomPanelText[0].text = level.name;
                 postRoomPanelText[1].text = level.author.name;
                 postRoomPanelText[2].text = level.description;
 
                 // newPanelText[1].GetComponentInChildren < Image >() = level.author.picture;
 
-                // Add functionality to the Button component in the postRoomPanel (the Continue button)
-                UnityEngine.UI.Button continueButton = postRoomPanel.GetComponentInChildren<UnityEngine.UI.Button>();
-                continueButton.onClick.AddListener(() =>
-                                                    {
-                                                        getRoom(level.id);
-                                                    });
+                // Add functionality to the Button component in the PostRoomPanel (the Continue button)
+                var continueButton = PostRoomPanel.GetComponentInChildren<Button>();
+                continueButton.onClick.AddListener(() => { GetRoom(level.id); });
             });
             // set the Parent of the newly created button to be the Panel containing the list of rooms - dynamically increase the list
-            // the contentPanel is a child of the roomPanel
-            newButton.transform.SetParent(contentPanel, false);
+            // the ContentPanel is a child of the RoomPanel
+            newButton.transform.SetParent(ContentPanel, false);
         }
     }
 
-    void getRoom(int id)
+    private void GetRoom(int id)
     {
-        string url = "http://api.holoescape.tk/v1/levels/" + id.ToString();
+        var url = "http://api.holoescape.tk/v1/levels/" + id;
 
-        WWWForm form = new WWWForm();
-        Dictionary<string, string> headers = new Dictionary<string, string>();
+        var form = new WWWForm();
+        var headers = new Dictionary<string, string>();
         Debug.Log(SystemInfo.deviceUniqueIdentifier);
         headers.Add("Device-Code", SystemInfo.deviceUniqueIdentifier);
         form.AddField("game_id", id);
-        byte[] b = new byte[1];
-        WWW www = new WWW(url, b, headers);
+        var b = new byte[1];
+        var www = new WWW(url, b, headers);
 
         StartCoroutine(PostWaitForRequest(www));
     }
 
-    IEnumerator PostWaitForRequest(WWW www)
+    private IEnumerator PostWaitForRequest(WWW www)
     {
-
         yield return www;
 
         // check for errors
         if (www.error == null)
         {
-            interpretRoomFromJson(www.text);
+            InterpretRoomFromJson(www.text);
         }
         else
         {
             Debug.Log("WWW Error: " + www.error);
-            panelChanger.ChangeActivePanel(currentPanel, errorPanel);
-            errorText.text = www.error;
+            _panelChanger.ChangeActivePanel(CurrentPanel, ErrorPanel);
+            _errorText.text = www.error;
         }
-        coroutineFinished = true;
+        CoroutineFinished = true;
     }
 
-    Dictionary<int, GameObject> clueObjects = new Dictionary<int, GameObject>();
-    List<ClueToPlace> cluesToPlace = new List<ClueToPlace>();
-
-    private void interpretRoomFromJson(string leveljson)
+    private void InterpretRoomFromJson(string leveljson)
     {
         Debug.Log(leveljson);
-        JsonLevelData leveldata = JsonUtility.FromJson<JsonLevelData>(leveljson);
-        JsonLevel level = leveldata.data;
+        var leveldata = JsonUtility.FromJson<JsonLevelData>(leveljson);
+        var level = leveldata.data;
 
-        foreach (JsonClue clue in level.clues)
+        foreach (var clue in level.clues)
         {
             Debug.Log(clue.name);
             //GameObject button =  as GameObject;
             //string identifier = "Clues.Base.Button";
-            string identifier = clue.identifier;
-            string path = IdentifierToPath(identifier);
+            var identifier = clue.identifier;
+            var path = IdentifierToPath(identifier);
 
-            GameObject clueObject = Instantiate(Resources.Load(path, typeof(GameObject))) as GameObject;
-            foreach (JsonProperty property in clue.initial_properties)
+            var clueObject = Instantiate(Resources.Load(path, typeof(GameObject))) as GameObject;
+            foreach (var property in clue.initial_properties)
             {
-
-                Clues.Base.Button.Button bton = new Clues.Base.Button.Button();
+                var bton = new Clues.Base.Button.Button();
                 bton.SetProperty(property);
-                if(clueObject == null)
-                {
+                if (clueObject == null)
                     Debug.Log("clueObject null");
-                }
                 if (property == null)
-                {
                     Debug.Log("property null");
-                }
                 clueObject.BroadcastMessage("SetProperty", property);
             }
 
-            clueObjects.Add(clue.id, clueObject);
-
+            _clueObjects.Add(clue.id, clueObject);
         }
 
         // Connect event outlets
-        foreach (JsonClue clue in level.clues)
+        foreach (var clue in level.clues)
         {
-            foreach (JsonEvent events in clue.event_outlets)
-            {
-                foreach (JsonOutlet outlet in events.outlets)
-                {
-                    clueObjects[clue.id].BroadcastMessage("AddAction", new TriggerAction(events.event_name, clueObjects[outlet.clue_id], outlet.action_name));
-                }
-            }
-            cluesToPlace.Add(new ClueToPlace(clueObjects[clue.id], clue.placement));
+            foreach (var events in clue.event_outlets)
+            foreach (var outlet in events.outlets)
+                _clueObjects[clue.id].BroadcastMessage("AddAction",
+                    new TriggerAction(events.event_name, _clueObjects[outlet.clue_id], outlet.action_name));
+            _cluesToPlace.Add(new ClueToPlace(_clueObjects[clue.id], clue.placement));
         }
         // Place objects
-        // By Passing cluesToPlace.ToArray() to Daniel
-        LoadClues(cluesToPlace.ToArray());
+        // By Passing _cluesToPlace.ToArray() to Daniel
+        //LoadClues(_cluesToPlace.ToArray());
 
         SceneManager.LoadScene(4);
     }
 
     public string IdentifierToPath(string identifer)
     {
-        string[] idArray;
-        idArray = identifer.Split('.');
-        return String.Join("/", idArray) + "/" + idArray[idArray.Length - 1];
+        var idArray = identifer.Split('.');
+        return string.Join("/", idArray) + "/" + idArray[idArray.Length - 1];
     }
 }

@@ -1,13 +1,12 @@
-﻿using System.Runtime.CompilerServices;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Clues
 {
     public class TriggerAction
     {
-        public readonly string TriggerEvent;
-        private readonly GameObject _triggerGameObject;
         private readonly string _triggerAction;
+        private readonly GameObject _triggerGameObject;
+        public readonly string TriggerEvent;
 
         public TriggerAction(string trigger, GameObject triggerGameObject, string triggerAction)
         {

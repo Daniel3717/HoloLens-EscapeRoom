@@ -27,9 +27,8 @@ namespace Clues
         public T GetProperty<T>(string property)
         {
             if (properties.ContainsKey(property) && properties[property] is T)
-                return (T)properties[property];
-            else
-                return default(T);
+                return (T) properties[property];
+            return default(T);
         }
 
         public void AddAction(TriggerAction action)

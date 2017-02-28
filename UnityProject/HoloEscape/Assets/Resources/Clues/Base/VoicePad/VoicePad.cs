@@ -1,49 +1,43 @@
-﻿using UnityEngine;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using UnityEngine.Windows.Speech;
-
 
 namespace Clues.Base.VoicePad
 {
     public class VoicePad : Clue
     {
-
-        KeywordRecognizer keywordRecognizer = null;
-        Dictionary<string, System.Action> keywords = new Dictionary<string, System.Action>();
+        private KeywordRecognizer keywordRecognizer;
+        private readonly Dictionary<string, Action> keywords = new Dictionary<string, Action>();
 
         public GameObject ObjectToTrigger;
-        public string TriggerName;
         public string Password;
-        public bool visible;
-
-        GameObject WholeVoicePad;
 
         public GameObject ScreenText;
+        public string TriggerName;
+        public bool visible;
+
+        private GameObject WholeVoicePad;
 
 
-        void Start()
+        private void Start()
         {
             WholeVoicePad = GameObject.Find("VoicePad");
 
             if (!visible)
-            {
                 WholeVoicePad.transform.localScale = new Vector3(0, 0, 0);
-            }
 
             ScreenText = GameObject.Find("voice_pad_text");
             ScreenText.GetComponent<TextMesh>().text = "Say Password";
 
-            AddAction("OnCorrectPassword", ObjectToTrigger, TriggerName); 
+            AddAction("OnCorrectPassword", ObjectToTrigger, TriggerName);
 
             keywords.Add(Password, () =>
             {
                 var focusObject = GazeGestureManager.Instance.FocusedObject;
                 if (focusObject != null)
-                {
-                    // Call the method on just the focused object.
                     focusObject.SendMessage("OnCorrectPassword");
-                }
             });
 
             // Tell the KeywordRecognizer about our keywords.
@@ -52,25 +46,22 @@ namespace Clues.Base.VoicePad
             // Register a callback for the KeywordRecognizer and start recognizing!
             keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
             keywordRecognizer.Start();
-
         }
 
         private void KeywordRecognizer_OnPhraseRecognized(PhraseRecognizedEventArgs args)
         {
-            System.Action keywordAction;
+            Action keywordAction;
             if (keywords.TryGetValue(args.text, out keywordAction))
-            {
                 keywordAction.Invoke();
-            }
         }
 
-        void OnCorrectPassword()
+        private void OnCorrectPassword()
         {
             Trigger("OnCorrectPassword");
             ScreenText.GetComponent<TextMesh>().text = "Correct!";
         }
 
-        void OnAppear()
+        private void OnAppear()
         {
             if (!visible)
             {
@@ -79,9 +70,8 @@ namespace Clues.Base.VoicePad
             }
         }
 
-        void Update()
+        private void Update()
         {
-
         }
     }
 }

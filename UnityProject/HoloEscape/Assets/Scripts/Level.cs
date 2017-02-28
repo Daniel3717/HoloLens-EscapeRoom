@@ -10,12 +10,12 @@ public class JsonLevelData
 [Serializable]
 public class JsonLevel
 {
+    public List<JsonClue> clues;
     public string code;
     public string connect_code;
-    public string title;
-    public string subtitle;
     public string description;
-    public List<JsonClue> clues;
+    public string subtitle;
+    public string title;
 
     public JsonLevel()
     {
@@ -32,11 +32,11 @@ public class JsonLevel
 [Serializable]
 public class JsonClue
 {
+    public List<JsonEvent> event_outlets;
     public int id;
     public string identifier;
-    public string name;
     public List<JsonProperty> initial_properties;
-    public List<JsonEvent> event_outlets;
+    public string name;
     public List<string> placement;
 
     public JsonClue()
@@ -52,7 +52,7 @@ public class JsonClue
         this.id = id;
         this.name = name;
         this.initial_properties = initial_properties;
-        this.event_outlets = events;
+        event_outlets = events;
         this.placement = placement;
     }
 }
@@ -80,17 +80,17 @@ public class JsonProperty
         switch (type)
         {
             case "bool":
+            {
+                switch (value)
                 {
-                    switch (value)
-                    {
-                        case "true":
-                            return true;
-                        case "false":
-                            return false;
-                        default:
-                            return null;
-                    }
+                    case "true":
+                        return true;
+                    case "false":
+                        return false;
+                    default:
+                        return null;
                 }
+            }
             case "int":
                 return int.Parse(value);
             case "float":
@@ -135,4 +135,4 @@ public class JsonOutlet
         this.clue_id = clue_id;
         this.action_name = action_name;
     }
-}   
+}

@@ -39,7 +39,7 @@ namespace Clues.Base.Button_Drawers
                 drawer1_open = false;
                 Drawer_noise.Play();
                 Drawer1.GetComponent<Animator>().ResetTrigger("drawer1_opened");
-                    //closes drawer but with no animation (instantaneous close)
+                //closes drawer but with no animation (instantaneous close)
             }
             else //open the drawer
             {
@@ -55,7 +55,7 @@ namespace Clues.Base.Button_Drawers
                 drawer2_open = false;
                 Drawer_noise.Play();
                 Drawer2.GetComponent<Animator>().ResetTrigger("drawer2_opened");
-                    //closes drawer but with no animation (instantaneous close)
+                //closes drawer but with no animation (instantaneous close)
             }
             else //open the drawer
             {
@@ -71,7 +71,7 @@ namespace Clues.Base.Button_Drawers
                 drawer3_open = false;
                 Drawer_noise.Play();
                 Drawer3.GetComponent<Animator>().ResetTrigger("drawer3_opened");
-                    //closes drawer but with no animation (instantaneous close)
+                //closes drawer but with no animation (instantaneous close)
             }
             else //open the drawer
             {
