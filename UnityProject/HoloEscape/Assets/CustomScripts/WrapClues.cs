@@ -122,7 +122,7 @@ public class WrapClues : MonoBehaviour {
         {
             GameObject lGO = clues[i].clue;
             mClues[i] = lGO;
-            lGO.transform.parent = this.gameObject;
+            lGO.transform.parent = this.gameObject.transform;
 
             string lS = clues[i].placements[0];
 
