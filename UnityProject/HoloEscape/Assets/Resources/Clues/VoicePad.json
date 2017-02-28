@@ -1,0 +1,23 @@
+{
+  "name": "VoicePad",
+  "description": "A voice recognition pad",
+  "identifier": "Clues.Base.VoicePad",
+  "properties": [
+    {
+      "name": "visible",
+      "type": "bool" // available types: "bool", "string", "number"
+    },
+    {
+      "name": "password",
+      "type": "string"
+    }
+  ],
+  "events": [
+    {
+      "name": "OnCorrectPassword",
+      "description": "Fired the correct password is said"
+    }
+  ],
+  "actions": [
+  ]
+}
