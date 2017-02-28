@@ -17,10 +17,10 @@ public class WrapClues : MonoBehaviour {
     private bool mFinished = false;
     private GameObject[] mWraps;
     private bool mDirty = false;
-    
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
+
         mPO = this.gameObject.GetComponent<PlaceObjects>();
 	}
 	
@@ -112,5 +112,36 @@ public class WrapClues : MonoBehaviour {
         mComplete = false;
         mRunning = false;
         mFinished = false;
+    }
+
+    public void LoadClues(ClueToPlace[] clues)
+    {
+        mClues = new GameObject[clues.Length];
+        mPositions = new int[clues.Length];
+        for (int i=0;i<clues.Length;i++)
+        {
+            GameObject lGO = clues[i].clue;
+            mClues[i] = lGO;
+            lGO.transform.parent = this.gameObject;
+
+            string lS = clues[i].placements[0];
+
+            if (lS == "floor")
+                mPositions[i] = 0;
+            else
+            if (lS == "wall")
+                mPositions[i] = 1;
+            else
+            if (lS == "ceiling")
+                mPositions[i] = 2;
+            else
+            if (lS == "air")
+                mPositions[i] = 3;
+            else
+            if (lS == "platform")
+                mPositions[i] = 4;
+            else
+                mPositions[i] = 0;
+        }
     }
 }

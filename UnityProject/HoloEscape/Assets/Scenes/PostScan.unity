@@ -346,15 +346,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ac6a9e647d0a9046aa8acfaf296d84b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomPanel: {fileID: 1522086632}
-  postRoomPanel: {fileID: 1555521892}
-  sampleButton: {fileID: 1127103264528602, guid: 7474f3ee74941b74daa5a3f616b06d0c,
+  ContentPanel: {fileID: 291238968}
+  CoroutineFinished: 0
+  CurrentPanel: {fileID: 0}
+  ErrorPanel: {fileID: 760038558}
+  PostRoomPanel: {fileID: 1555521892}
+  RoomPanel: {fileID: 1522086632}
+  SampleButton: {fileID: 1127103264528602, guid: 7474f3ee74941b74daa5a3f616b06d0c,
     type: 2}
-  errorPanel: {fileID: 760038558}
-  currentPanel: {fileID: 0}
-  contentPanel: {fileID: 291238968}
-  coroutineFinished: 0
-  button: {fileID: 1653567268823596, guid: f012a147f2a398b46a08c5f077fe2817, type: 2}
 --- !u!4 &80712958
 Transform:
   m_ObjectHideFlags: 0
