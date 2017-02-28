@@ -162,19 +162,13 @@ public class RoomInterpreter : MonoBehaviour
         {
             Debug.Log(clue.name);
             //GameObject button =  as GameObject;
-            //string identifier = "Clues.Base.Button";
-            var identifier = clue.identifier;
-            var path = IdentifierToPath(identifier);
+            string identifier = clue.identifier;
+            //identifier = "Clues.Base.Button";
+            string path = IdentifierToPath(identifier);
 
             var clueObject = Instantiate(Resources.Load(path, typeof(GameObject))) as GameObject;
             foreach (var property in clue.initial_properties)
             {
-                var bton = new Clues.Base.Button.Button();
-                bton.SetProperty(property);
-                if (clueObject == null)
-                    Debug.Log("clueObject null");
-                if (property == null)
-                    Debug.Log("property null");
                 clueObject.BroadcastMessage("SetProperty", property);
             }
 
