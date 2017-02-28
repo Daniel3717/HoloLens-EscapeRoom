@@ -527,8 +527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc5a9fea6c152134e8dd4961cd7fbd79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPanel: {fileID: 2004429749}
-  newPanel: {fileID: 539858015}
+  NewPanel: {fileID: 539858015}
 --- !u!114 &441517373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1364,8 +1363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc5a9fea6c152134e8dd4961cd7fbd79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPanel: {fileID: 946542929}
-  newPanel: {fileID: 539858015}
+  NewPanel: {fileID: 539858015}
 --- !u!114 &1338188235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1610,8 +1608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc5a9fea6c152134e8dd4961cd7fbd79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPanel: {fileID: 539858015}
-  newPanel: {fileID: 946542929}
+  NewPanel: {fileID: 946542929}
 --- !u!1001 &1374147392
 Prefab:
   m_ObjectHideFlags: 0
@@ -2421,8 +2418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc5a9fea6c152134e8dd4961cd7fbd79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPanel: {fileID: 539858015}
-  newPanel: {fileID: 2004429749}
+  NewPanel: {fileID: 2004429749}
 --- !u!1 &2004429749
 GameObject:
   m_ObjectHideFlags: 0
