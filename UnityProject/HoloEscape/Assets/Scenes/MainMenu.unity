@@ -489,6 +489,7 @@ GameObject:
   - component: {fileID: 441517374}
   - component: {fileID: 441517373}
   - component: {fileID: 441517376}
+  - component: {fileID: 441517372}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -515,6 +516,19 @@ RectTransform:
   m_AnchoredPosition: {x: 25, y: -39.848103}
   m_SizeDelta: {x: 42, y: 4.3037977}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &441517372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 441517370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc5a9fea6c152134e8dd4961cd7fbd79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentPanel: {fileID: 2004429749}
+  newPanel: {fileID: 539858015}
 --- !u!114 &441517373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -554,27 +568,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2004429749}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 539858015}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 441517372}
+        m_MethodName: ChangeActivePanel
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
@@ -637,7 +640,7 @@ GameObject:
   - component: {fileID: 539858020}
   m_Layer: 5
   m_Name: MainMenuPanel
-  m_TagString: Untagged
+  m_TagString: CurrentPanel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1323,6 +1326,7 @@ GameObject:
   - component: {fileID: 1338188236}
   - component: {fileID: 1338188235}
   - component: {fileID: 1338188238}
+  - component: {fileID: 1338188234}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -1349,6 +1353,19 @@ RectTransform:
   m_AnchoredPosition: {x: 25, y: -40.378376}
   m_SizeDelta: {x: 40, y: 3.2432432}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1338188234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1338188232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc5a9fea6c152134e8dd4961cd7fbd79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentPanel: {fileID: 946542929}
+  newPanel: {fileID: 539858015}
 --- !u!114 &1338188235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1388,27 +1405,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 946542929}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 539858015}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1338188234}
+        m_MethodName: ChangeActivePanel
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
@@ -1469,6 +1475,7 @@ GameObject:
   - component: {fileID: 1359883327}
   - component: {fileID: 1359883326}
   - component: {fileID: 1359883329}
+  - component: {fileID: 1359883330}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: Untagged
@@ -1534,9 +1541,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 539858015}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1359883330}
+        m_MethodName: ChangeActivePanel
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1544,17 +1551,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 946542929}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
@@ -1603,6 +1599,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   yourButton: {fileID: 1359883326}
+--- !u!114 &1359883330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1359883324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc5a9fea6c152134e8dd4961cd7fbd79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentPanel: {fileID: 539858015}
+  newPanel: {fileID: 946542929}
 --- !u!1001 &1374147392
 Prefab:
   m_ObjectHideFlags: 0
@@ -2270,6 +2279,7 @@ GameObject:
   - component: {fileID: 1868949155}
   - component: {fileID: 1868949154}
   - component: {fileID: 1868949157}
+  - component: {fileID: 1868949158}
   m_Layer: 5
   m_Name: OptionsButton
   m_TagString: Untagged
@@ -2335,9 +2345,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 539858015}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1868949158}
+        m_MethodName: ChangeActivePanel
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2345,17 +2355,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2004429749}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
@@ -2404,6 +2403,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   yourButton: {fileID: 1868949154}
+--- !u!114 &1868949158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1868949152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc5a9fea6c152134e8dd4961cd7fbd79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentPanel: {fileID: 539858015}
+  newPanel: {fileID: 2004429749}
 --- !u!1 &2004429749
 GameObject:
   m_ObjectHideFlags: 0

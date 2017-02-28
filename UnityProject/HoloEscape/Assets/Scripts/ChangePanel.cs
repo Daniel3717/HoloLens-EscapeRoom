@@ -16,4 +16,14 @@ public class ChangePanel : MonoBehaviour {
         newPanel.SetActive(true);
         newPanel.tag = "CurrentPanel";
     }
+
+    public void ChangeActivePanel(GameObject currentPanel, GameObject newPanel)
+    {
+
+        currentPanel = GameObject.FindGameObjectWithTag("CurrentPanel");
+        currentPanel.SetActive(false);
+        currentPanel.tag = "Untagged";
+        newPanel.SetActive(true);
+        newPanel.tag = "CurrentPanel";
+    }
 }

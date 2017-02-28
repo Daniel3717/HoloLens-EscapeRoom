@@ -7,6 +7,7 @@ using System;
 using System.IO;
 using UnityEngine.SceneManagement;
 using Clues;
+using HoloToolkit.Unity.InputModule;
 
 public class ClueToPlace
 {
@@ -33,6 +34,8 @@ public class RoomInterpreter : MonoBehaviour {
     public GameObject errorPanel;
     Text errorText;
 
+    ChangePanel panelChanger = new ChangePanel();
+
     public GameObject currentPanel;
 
     public Transform contentPanel;
@@ -45,7 +48,7 @@ public class RoomInterpreter : MonoBehaviour {
     void Start()
     {
         errorText = errorPanel.GetComponentInChildren<Text>();
-        getJsonFromURL("http://api.holoescape.tk/v1/gmes");
+        getJsonFromURL("http://api.holoescape.tk/v1/games");
     }
 
     void getJsonFromURL(string url)
@@ -66,7 +69,7 @@ public class RoomInterpreter : MonoBehaviour {
         else
         {
             Debug.Log("WWW Error: " + www.error);
-            ChangeActivePanel(currentPanel, errorPanel);
+            panelChanger.ChangeActivePanel(currentPanel, errorPanel);
             errorText.text = www.error;
         }
         coroutineFinished = true;
@@ -98,11 +101,13 @@ public class RoomInterpreter : MonoBehaviour {
             GameObject newButton = Instantiate(sampleButton) as GameObject;
             SampleButtonScript labelButton = newButton.GetComponent<SampleButtonScript>();
             labelButton.label.text = level.name;
+            KeywordManager keywordManager = roomPanel.GetComponent<KeywordManager>();
+
 
             // Add functionality to the Button in the new roomPanel as well as the button and Texts in the postRoomPanel
             labelButton.button.onClick.AddListener(() => {
                 // the Button sets changes the current visible Panel from roomPanel to postRoomPanel
-                ChangeActivePanel(currentPanel, postRoomPanel);
+                panelChanger.ChangeActivePanel(currentPanel, postRoomPanel);
 
                 // set Text corresponding to the level name, author name and level description
                 Text[] postRoomPanelText = postRoomPanel.GetComponentsInChildren<Text>();
@@ -153,7 +158,7 @@ public class RoomInterpreter : MonoBehaviour {
         else
         {
             Debug.Log("WWW Error: " + www.error);
-            ChangeActivePanel(currentPanel, errorPanel);
+            panelChanger.ChangeActivePanel(currentPanel, errorPanel);
             errorText.text = www.error;
         }
         coroutineFinished = true;
@@ -202,14 +207,6 @@ public class RoomInterpreter : MonoBehaviour {
 
         SceneManager.LoadScene(4);
     }
-
-    public void ChangeActivePanel(GameObject currentPanel, GameObject newPanel)
-    {
-
-        currentPanel = GameObject.FindGameObjectWithTag("CurrentPanel");
-        currentPanel.SetActive(false);
-        currentPanel.tag = "Untagged";
-        newPanel.SetActive(true);
-        newPanel.tag = "CurrentPanel";
-    }
+    /*
+    */
 }
