@@ -732,7 +732,7 @@ MonoBehaviour:
   RecognizerStart: 0
   KeywordsAndResponses:
   - Keyword: Start
-    KeyCode: 0
+    KeyCode: 27
     Response:
       m_PersistentCalls:
         m_Calls:

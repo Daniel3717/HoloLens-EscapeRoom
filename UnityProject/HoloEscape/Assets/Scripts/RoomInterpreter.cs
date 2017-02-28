@@ -8,35 +8,32 @@ using System.IO;
 using UnityEngine.SceneManagement;
 using Clues;
 
-[Serializable]
-public class Author
+public class ClueToPlace
 {
-    public string name;
-    public string picture;
-}
+    GameObject clue;
+    public List<string> placements;
 
-[Serializable]
-public class LevelList
-{
-    public List<LevelListItem> data;
-}
-
-[Serializable]
-public class LevelListItem
-{
-    public int id;
-    public string name;
-    public string description;
-    public Author author;
+    public ClueToPlace(GameObject clue, List<string> placements)
+    {
+        this.clue = clue;
+        this.placements = placements;
+    }
 }
 
 public class RoomInterpreter : MonoBehaviour {
 
-    public GameObject oldPanel;
-    public GameObject newPanel;
+    // oldPanel corresponds to the panel that contains a list of buttons corresponding to the games available from the server
+    public GameObject roomPanel;
+    // newPanel is set to active when a button in oldPanel is clicked,
+    // it will be populated with information that depends on which button was clicked
+    public GameObject postRoomPanel;
+    // prefab to a sample button to be initialised at a later point
     public GameObject sampleButton;
-    public LevelList levelList;
-    public GameObject errorText;
+    // errorPanel will be set to display an error message to the user if something goes wrong
+    public GameObject errorPanel;
+    Text errorText;
+
+    public GameObject currentPanel;
 
     public Transform contentPanel;
 
@@ -47,12 +44,12 @@ public class RoomInterpreter : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        getURL();
+        errorText = errorPanel.GetComponentInChildren<Text>();
+        getJsonFromURL("http://api.holoescape.tk/v1/gmes");
     }
 
-    void getURL()
+    void getJsonFromURL(string url)
     {
-        string url = "http://api.holoescape.tk/v1/games";
         www = new WWW(url);
 
         StartCoroutine(WaitForRequest(www));
@@ -60,24 +57,22 @@ public class RoomInterpreter : MonoBehaviour {
 
     IEnumerator WaitForRequest(WWW www)
     {
-
         yield return www;
-
         // check for errors
         if (www.error == null)
         {
-            getRooms(www.text);
+            roomsFromJson(www.text);
         }
         else
         {
             Debug.Log("WWW Error: " + www.error);
-            errorText.gameObject.SetActive(true);
-            errorText.GetComponent<Text>().text = www.error;
+            ChangeActivePanel(currentPanel, errorPanel);
+            errorText.text = www.error;
         }
         coroutineFinished = true;
     }
 
-    void getRooms(string levelsJson)
+    void roomsFromJson(string levelsJson)
     {
 
         //levels = File.ReadAllText(Application.dataPath + "/levelslist.json");
@@ -93,35 +88,40 @@ public class RoomInterpreter : MonoBehaviour {
 			""picture"": ""http://image.jpg""
         }
 	}]";*/
-    
-        levelList = JsonUtility.FromJson<LevelList>(levelsJson);
-        //Debug.Log(levelList.data.Count);
-        foreach (var level in levelList.data)
+
+
+        LevelList levelList = JsonUtility.FromJson<LevelList>(levelsJson);
+
+        foreach (LevelListItem level in levelList.data)
         {
+            // for each level in the json levelList, create a new button and add it to the list in the roomPanel
             GameObject newButton = Instantiate(sampleButton) as GameObject;
             SampleButtonScript labelButton = newButton.GetComponent<SampleButtonScript>();
             labelButton.label.text = level.name;
-            ChangePanel changePanel = newButton.GetComponent<ChangePanel>();
-            changePanel.oldPanel = oldPanel;
-            changePanel.newPanel = newPanel;
+
+            // Add functionality to the Button in the new roomPanel as well as the button and Texts in the postRoomPanel
             labelButton.button.onClick.AddListener(() => {
-                oldPanel.SetActive(false);
-                newPanel.SetActive(true);
+                // the Button sets changes the current visible Panel from roomPanel to postRoomPanel
+                ChangeActivePanel(currentPanel, postRoomPanel);
 
-                Text[] newPanelText = newPanel.GetComponentsInChildren<Text>();
-                newPanelText[0].text = level.name;
-                newPanelText[1].text = level.author.name;
-                //newPanelText[1].GetComponentInChildren < Image >() = level.author.picture;
-                newPanelText[2].text = level.description;
+                // set Text corresponding to the level name, author name and level description
+                Text[] postRoomPanelText = postRoomPanel.GetComponentsInChildren<Text>();
+                postRoomPanelText[0].text = level.name;
+                postRoomPanelText[1].text = level.author.name;
+                postRoomPanelText[2].text = level.description;
 
-                UnityEngine.UI.Button continueButton = newPanel.GetComponentInChildren<UnityEngine.UI.Button>();
+                // newPanelText[1].GetComponentInChildren < Image >() = level.author.picture;
+
+                // Add functionality to the Button component in the postRoomPanel (the Continue button)
+                UnityEngine.UI.Button continueButton = postRoomPanel.GetComponentInChildren<UnityEngine.UI.Button>();
                 continueButton.onClick.AddListener(() =>
                                                     {
                                                         getRoom(level.id);
                                                     });
             });
+            // set the Parent of the newly created button to be the Panel containing the list of rooms - dynamically increase the list
+            // the contentPanel is a child of the roomPanel
             newButton.transform.SetParent(contentPanel, false);
-            //Debug.Log(level.name);
         }
     }
 
@@ -148,56 +148,68 @@ public class RoomInterpreter : MonoBehaviour {
         // check for errors
         if (www.error == null)
         {
-            interpretRoom(www.text);
+            interpretRoomFromJson(www.text);
         }
         else
         {
             Debug.Log("WWW Error: " + www.error);
-            errorText.gameObject.SetActive(true);
-            errorText.GetComponent<Text>().text = www.error;
+            ChangeActivePanel(currentPanel, errorPanel);
+            errorText.text = www.error;
         }
         coroutineFinished = true;
     }
 
-    List<GameObject> clueObjects;
-    ArrayList c2;
-    Dictionary<int, GameObject> c3 = new Dictionary<int, GameObject>();
+    Dictionary<int, GameObject> clueObjects = new Dictionary<int, GameObject>();
+    List<ClueToPlace> cluesToPlace;
 
-    private void interpretRoom(string leveljson)
+    private void interpretRoomFromJson(string leveljson)
     {
         Debug.Log(leveljson);
         LevelData leveldata = JsonUtility.FromJson<LevelData>(leveljson);
         Level level = leveldata.data;
 
-        foreach (Clue clue in level.clues)
+        foreach (JsonClue clue in level.clues)
         {
             Debug.Log(clue.name);
-            GameObject clueObject = Instantiate(Resources.Load(clue.identifier)) as GameObject;
+            GameObject clueObject = Instantiate(Resources.Load("Clues/Base/Button/Button")) as GameObject;
             foreach (Property property in clue.initial_properties)
             {
-                clueObject.SendMessage("setProperty", property);
+
+                Clues.Base.Button.Button bton = new Clues.Base.Button.Button();
+                bton.SetProperty(property);
+
+                clueObject.SendMessage("SetProperty", property);
             }
 
-            c3.Add(clue.id, clueObject);
-            //clueObjects.Add(clueObject);
+            clueObjects.Add(clue.id, clueObject);
 
         }
 
         // Connect event outlets
-        //TriggerAction(string trigger, GameObject triggerGameObject, string triggerACtion);
-        foreach (Clue clue in level.clues)
+        foreach (JsonClue clue in level.clues)
         {
             foreach (Events events in clue.event_outlets)
             {
                 foreach (Outlet outlet in events.outlets)
                 {
-                    c3[clue.id].SendMessage("AddAction", new TriggerAction(events.event_name, c3[outlet.clue_id], outlet.action_name));
+                    clueObjects[clue.id].SendMessage("AddAction", new TriggerAction(events.event_name, clueObjects[outlet.clue_id], outlet.action_name));
                 }
             }
+            cluesToPlace.Add(new ClueToPlace(clueObjects[clue.id], clue.placements));
         }
-
         // Place objects
+        // By Passing cluesToPlace.ToArray() to Daniel
 
         SceneManager.LoadScene(4);
+    }
+
+    public void ChangeActivePanel(GameObject currentPanel, GameObject newPanel)
+    {
+
+        currentPanel = GameObject.FindGameObjectWithTag("CurrentPanel");
+        currentPanel.SetActive(false);
+        currentPanel.tag = "Untagged";
+        newPanel.SetActive(true);
+        newPanel.tag = "CurrentPanel";
     }
 }

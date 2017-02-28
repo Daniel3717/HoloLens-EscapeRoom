@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-[Serializable]
-public class ChangePanel : MonoBehaviour
-{
-    
-    public GameObject oldPanel;
+public class ChangePanel : MonoBehaviour {
+
+    public GameObject currentPanel;
     public GameObject newPanel;
 
-    // Use this for initialization
-    void Start()
+    public void ChangeActivePanel()
     {
-        oldPanel.SetActive(false);
+
+        currentPanel = GameObject.FindGameObjectWithTag("CurrentPanel");
+        currentPanel.SetActive(false);
+        currentPanel.tag = "Untagged";
         newPanel.SetActive(true);
+        newPanel.tag = "CurrentPanel";
     }
 }

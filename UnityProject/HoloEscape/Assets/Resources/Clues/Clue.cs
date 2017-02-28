@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Clues
@@ -27,7 +27,7 @@ namespace Clues
         public T GetProperty<T>(string property)
         {
             if (properties.ContainsKey(property) && properties[property] is T)
-                return (T) properties[property];
+                return (T)properties[property];
             else
                 return default(T);
         }

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 [Serializable]
 public class LevelData
@@ -17,13 +15,13 @@ public class Level
     public string title;
     public string subtitle;
     public string description;
-    public List<Clue> clues;
+    public List<JsonClue> clues;
 
-    public Level ()
+    public Level()
     {
     }
 
-    public Level (string title, string description, List<Clue> clues)
+    public Level(string title, string description, List<JsonClue> clues)
     {
         this.title = title;
         this.description = description;
@@ -32,30 +30,30 @@ public class Level
 }
 
 [Serializable]
-public class Clue
+public class JsonClue
 {
-
     public int id;
     public string identifier;
     public string name;
     public List<Property> initial_properties;
     public List<Events> event_outlets;
-    public List<string> placement;
+    public List<string> placements;
 
-    public Clue()
+    public JsonClue()
     {
     }
-    public Clue(int id,
+
+    public JsonClue(int id,
         string name,
         List<Property> initial_properties,
-        List<Events> event_outlets,
-        List<string> placement)
+        List<Events> events,
+        List<string> placements)
     {
         this.id = id;
         this.name = name;
         this.initial_properties = initial_properties;
-        this.event_outlets = event_outlets;
-        this.placement = placement;
+        this.event_outlets = events;
+        this.placements = placements;
     }
 }
 
@@ -66,7 +64,9 @@ public class Property
     public string type;
     public string value;
 
-    public Property() { }
+    public Property()
+    {
+    }
 
     public Property(string name, string type, string value)
     {
@@ -75,7 +75,7 @@ public class Property
         this.value = value;
     }
 
-    public object getObject(string type, string value)
+    public object GetObject()
     {
         switch (type)
         {
@@ -92,7 +92,7 @@ public class Property
                     }
                 }
             case "int":
-                return Int32.Parse(value);
+                return int.Parse(value);
             case "float":
                 return float.Parse(value);
             case "string":
@@ -109,9 +109,11 @@ public class Events
     public string event_name;
     public List<Outlet> outlets;
 
-    public Events() { }
+    public Events()
+    {
+    }
 
-    public Events (string event_name, List<Outlet> outlets)
+    public Events(string event_name, List<Outlet> outlets)
     {
         this.event_name = event_name;
         this.outlets = outlets;
@@ -121,14 +123,16 @@ public class Events
 [Serializable]
 public class Outlet
 {
-    public int clue_id;
     public string action_name;
+    public int clue_id;
 
-    public Outlet() { }
+    public Outlet()
+    {
+    }
 
     public Outlet(int clue_id, string action_name)
     {
         this.clue_id = clue_id;
         this.action_name = action_name;
     }
-}
+}   
