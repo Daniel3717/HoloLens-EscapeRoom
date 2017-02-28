@@ -336,5 +336,6 @@ public class App : Singleton<App>, ISourceStateHandler, IInputClickHandler, ISpe
             canvas.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, Camera.main.nearClipPlane + 2));
             SpatialUnderstanding.Instance.RequestFinishScan();
         }
+        SpatialUnderstanding.Instance.UnderstandingCustomMesh.MeshMaterial = null;
     }
 }

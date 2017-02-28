@@ -11,7 +11,6 @@ public class RoomInterpreter : MonoBehaviour
     private readonly Dictionary<int, GameObject> _clueObjects = new Dictionary<int, GameObject>();
     private readonly List<ClueToPlace> _cluesToPlace = new List<ClueToPlace>();
 
-    private readonly ChangePanel _panelChanger = new ChangePanel();
     private Text _errorText;
 
     private WWW _www;
@@ -19,11 +18,10 @@ public class RoomInterpreter : MonoBehaviour
     public Transform ContentPanel;
 
     public bool CoroutineFinished;
-
-    public GameObject CurrentPanel;
+    
     // ErrorPanel will be set to display an error message to the user if something goes wrong
     public GameObject ErrorPanel;
-    // newPanel is set to active when a button in oldPanel is clicked,
+    // NewPanel is set to active when a button in oldPanel is clicked,
     // it will be populated with information that depends on which button was clicked
     public GameObject PostRoomPanel;
 
@@ -58,7 +56,7 @@ public class RoomInterpreter : MonoBehaviour
         {
             Debug.Log("WWW Error: " + www.error);
             Debug.Log(www.text);
-            _panelChanger.ChangeActivePanel(CurrentPanel, ErrorPanel);
+            ChangeActivePanel(ErrorPanel);
             _errorText.text = www.error;
         }
         CoroutineFinished = true;
@@ -99,7 +97,7 @@ public class RoomInterpreter : MonoBehaviour
             labelButton.button.onClick.AddListener(() =>
             {
                 // the Button sets changes the current visible Panel from RoomPanel to PostRoomPanel
-                _panelChanger.ChangeActivePanel(CurrentPanel, PostRoomPanel);
+                ChangeActivePanel(PostRoomPanel);
 
                 // set Text corresponding to the level name, author name and level description
                 var postRoomPanelText = PostRoomPanel.GetComponentsInChildren<Text>();
@@ -146,7 +144,7 @@ public class RoomInterpreter : MonoBehaviour
         else
         {
             Debug.Log("WWW Error: " + www.error);
-            _panelChanger.ChangeActivePanel(CurrentPanel, ErrorPanel);
+            ChangeActivePanel(ErrorPanel);
             _errorText.text = www.error;
         }
         CoroutineFinished = true;
@@ -186,7 +184,7 @@ public class RoomInterpreter : MonoBehaviour
         }
         // Place objects
         // By Passing _cluesToPlace.ToArray() to Daniel
-        GameObject.Find("Placements").GetComponent<WrapClues>().LoadClues(_cluesToPlace.ToArray());
+        //LoadClues(_cluesToPlace.ToArray());
 
         SceneManager.LoadScene(4);
     }
@@ -195,5 +193,15 @@ public class RoomInterpreter : MonoBehaviour
     {
         var idArray = identifer.Split('.');
         return string.Join("/", idArray) + "/" + idArray[idArray.Length - 1];
+    }
+
+    public void ChangeActivePanel(GameObject newPanel)
+    {
+
+        GameObject currentPanel = GameObject.FindGameObjectWithTag("CurrentPanel");
+        currentPanel.SetActive(false);
+        currentPanel.tag = "Untagged";
+        newPanel.SetActive(true);
+        newPanel.tag = "CurrentPanel";
     }
 }
