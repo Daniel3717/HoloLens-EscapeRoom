@@ -89,7 +89,7 @@ public class LevelSolver : LineDrawer
         {
             SpatialUnderstandingDllObjectPlacement.Solver_RemoveAllObjects();
         }
-        AppState.Instance.ObjectPlacementDescription = "";
+        // AppState.Instance.ObjectPlacementDescription = "";
 
         if (clearAll && (SpaceVisualizer.Instance != null))
         {
@@ -145,7 +145,7 @@ public class LevelSolver : LineDrawer
         queryStatus.Name = placementName;
 
         // Tell user we are processing
-        AppState.Instance.ObjectPlacementDescription = placementName + " (processing)";
+        // AppState.Instance.ObjectPlacementDescription = placementName + " (processing)";
 
 #if UNITY_WSA && !UNITY_EDITOR
         // Kick off a thread to do process the queries
@@ -209,7 +209,7 @@ public class LevelSolver : LineDrawer
             if (!isASync)
             {
                 // If not running async, we can just add the results to the draw list right now
-                AppState.Instance.ObjectPlacementDescription = placementName + " (1)";
+                // AppState.Instance.ObjectPlacementDescription = placementName + " (1)";
                 float timeDelay = (float)placementResults.Count * AnimatedBox.DelayPerItem;
                 placementResults.Add(new PlacementResult(timeDelay, placementResult.Clone() as SpatialUnderstandingDllObjectPlacement.ObjectPlacementResult));
             }
@@ -221,7 +221,7 @@ public class LevelSolver : LineDrawer
         }
         if (!isASync)
         {
-            AppState.Instance.ObjectPlacementDescription = placementName + " (0)";
+            //AppState.Instance.ObjectPlacementDescription = placementName + " (0)";
         }
         return false;
     }
@@ -257,7 +257,7 @@ public class LevelSolver : LineDrawer
         }
 
         // Text
-        AppState.Instance.ObjectPlacementDescription = queryStatus.Name + " (" + placementResults.Count + "/" + (queryStatus.CountSuccess + queryStatus.CountFail) + ")";
+        // AppState.Instance.ObjectPlacementDescription = queryStatus.Name + " (" + placementResults.Count + "/" + (queryStatus.CountSuccess + queryStatus.CountFail) + ")";
 
         // Mark done
         queryStatus.Reset();

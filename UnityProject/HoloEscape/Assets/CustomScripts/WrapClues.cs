@@ -52,11 +52,11 @@ public class WrapClues : MonoBehaviour {
 
             if (!mSuccessful)
             {
-                print("Not successful");
+                Debug.Log("Not successful");
                 selfdestruct();
             }
             else
-                print("Successful");
+                Debug.Log("Successful");
             return;
         }
 
@@ -109,11 +109,13 @@ public class WrapClues : MonoBehaviour {
 
     private void unwrapClues()
     {
+        Debug.Log("Unwrapping Clues");
         for (int i=0;i<mWraps.Length;i++)
         {
             mClues[i].SetActive(true);
             mClues[i].transform.parent = mWraps[i].transform.parent;
             Destroy(mWraps[i]);
+            Debug.Log(mClues[i].name + " is at " + mClues[i].transform.position + " with rotation "+mClues[i].transform.rotation);
         }
     }
 
@@ -127,6 +129,7 @@ public class WrapClues : MonoBehaviour {
 
     public void LoadClues(ClueToPlace[] clues)
     {
+        Debug.Log("Called LoadClues");
         mClues = new GameObject[clues.Length];
         mPositions = new int[clues.Length];
         for (int i=0;i<clues.Length;i++)

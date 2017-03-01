@@ -178,7 +178,9 @@ public class RoomInterpreter : MonoBehaviour
             _cluesToPlace.Add(new ClueToPlace(_clueObjects[clue.id], clue.placement));
         }
         // Place objects by Passing _cluesToPlace.ToArray() to Daniel
-        GameObject.Find("Placements").GetComponent<WrapClues>().LoadClues(new ClueToPlace[0]);
+        ClueToPlace[] clueArray = _cluesToPlace.ToArray();
+        GameObject.Find("Placements").GetComponent<WrapClues>().LoadClues(clueArray);
+        Debug.Log("There are "+clueArray.Length+" clues");
 
         SceneManager.LoadScene(3);
     }

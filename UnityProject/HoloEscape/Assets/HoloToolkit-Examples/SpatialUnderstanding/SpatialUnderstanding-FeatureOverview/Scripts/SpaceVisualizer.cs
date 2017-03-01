@@ -32,7 +32,7 @@ public class SpaceVisualizer : LineDrawer
     public void ClearGeometry(bool clearAll = true)
     {
         lineBoxList = new List<AnimatedBox>();
-        AppState.Instance.SpaceQueryDescription = "";
+        // AppState.Instance.SpaceQueryDescription = "";
 
         if (clearAll && (LevelSolver.Instance != null))
         {
@@ -65,7 +65,7 @@ public class SpaceVisualizer : LineDrawer
                 Color.magenta,
                 new Vector3(alignment.HalfDims.x, (alignment.CeilingYValue - alignment.FloorYValue) * 0.5f, alignment.HalfDims.z))
         );
-        AppState.Instance.SpaceQueryDescription = "Playspace Alignment OBB";
+        // AppState.Instance.SpaceQueryDescription = "Playspace Alignment OBB";
     }
 
     public void Query_Topology_FindPositionOnWall()
@@ -134,7 +134,7 @@ public class SpaceVisualizer : LineDrawer
             wallPtr);
         if (wallCount == 0)
         {
-            AppState.Instance.SpaceQueryDescription = "Find Largest Wall (0)";
+            // AppState.Instance.SpaceQueryDescription = "Find Largest Wall (0)";
             return;
         }
 
@@ -148,7 +148,7 @@ public class SpaceVisualizer : LineDrawer
                 Color.magenta,
                 new Vector3(resultsTopology[0].width, resultsTopology[0].length, 0.05f) * 0.5f)
         );
-        AppState.Instance.SpaceQueryDescription = "Find Largest Wall (1)";
+        // AppState.Instance.SpaceQueryDescription = "Find Largest Wall (1)";
     }
 
     public void Query_Topology_FindPositionsOnFloor()
@@ -277,11 +277,11 @@ public class SpaceVisualizer : LineDrawer
         // Vis description
         if (locationCount == boxesDisplayed)
         {
-            AppState.Instance.SpaceQueryDescription = string.Format("{0} ({1})", visDesc, locationCount);
+            // AppState.Instance.SpaceQueryDescription = string.Format("{0} ({1})", visDesc, locationCount);
         }
         else
         {
-            AppState.Instance.SpaceQueryDescription = string.Format("{0} (found={1}, displayed={2})", visDesc, locationCount, boxesDisplayed);
+            // AppState.Instance.SpaceQueryDescription = string.Format("{0} (found={1}, displayed={2})", visDesc, locationCount, boxesDisplayed);
         }
     }
 
@@ -320,11 +320,11 @@ public class SpaceVisualizer : LineDrawer
         // Vis description
         if (shapeCount == boxesDisplayed)
         {
-            AppState.Instance.SpaceQueryDescription = string.Format("{0} ({1})", visDesc, shapeCount);
+            // AppState.Instance.SpaceQueryDescription = string.Format("{0} ({1})", visDesc, shapeCount);
         }
         else
         {
-            AppState.Instance.SpaceQueryDescription = string.Format("{0} (found={1}, displayed={2})", visDesc, shapeCount, boxesDisplayed);
+            // AppState.Instance.SpaceQueryDescription = string.Format("{0} (found={1}, displayed={2})", visDesc, shapeCount, boxesDisplayed);
         }
     }
 
