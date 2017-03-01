@@ -47,6 +47,8 @@ public class PlaceObjects : MonoBehaviour {
     private float mBaseWallAbsError = 0.25f;
     private bool mDirty = false;
 
+    private bool OneTimeWrite = false;
+
     // Use this for initialization
     void Start()
     {
@@ -150,8 +152,11 @@ public class PlaceObjects : MonoBehaviour {
             }
             */
             //mToWrite="";
-            //AppState.Instance.OverrideNormalText = true;
-            //AppState.Instance.CustomText = mToWrite+"\nPlacing FWCR:"+mPlaceFWCRComplete+"\nPlacing P:"+mPlacePComplete+"\nSuccessful:"+mSuccessful;
+            if (!OneTimeWrite)
+            {
+                OneTimeWrite = true;
+                Debug.Log(mToWrite + "\nPlacing FWCR:" + mPlaceFWCRComplete + "\nPlacing P:" + mPlacePComplete + "\nSuccessful:" + mSuccessful);
+            }
             return;
         }
 

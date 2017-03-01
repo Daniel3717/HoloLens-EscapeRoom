@@ -100,6 +100,7 @@ public class WrapClues : MonoBehaviour {
             mWraps[i].transform.parent = mClues[i].transform.parent;
             mClues[i].transform.parent = mWraps[i].transform;
             mClues[i].SetActive(false);
+            mWraps[i].transform.position = new Vector3(0, -200f, 0);
         }
 
         mPO.mPublicToPlace = mWraps;
@@ -163,8 +164,15 @@ public class WrapClues : MonoBehaviour {
     {
         //do error panel here
         GameObject errorPanel = GameObject.Find("Error Panel");
-        errorPanel.SetActive(true);
-        errorPanel.GetComponentInChildren<Text>().text = "Your Room is too small";
+        if (errorPanel == null)
+        {
+            Debug.Log("Could not find Error Panel");
+        }
+        else
+        {
+            errorPanel.SetActive(true);
+            errorPanel.GetComponentInChildren<Text>().text = "Your Room is too small";
+        }
         Destroy(this.gameObject);
     }
 }

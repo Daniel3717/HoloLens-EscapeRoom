@@ -164,7 +164,7 @@ public class RoomInterpreter : MonoBehaviour
             {
                 clueObject.BroadcastMessage("SetProperty", property);
             }
-
+            
             _clueObjects.Add(clue.id, clueObject);
         }
 
@@ -175,7 +175,8 @@ public class RoomInterpreter : MonoBehaviour
             foreach (var outlet in events.outlets)
                 _clueObjects[clue.id].BroadcastMessage("AddAction",
                     new TriggerAction(events.event_name, _clueObjects[outlet.clue_id], outlet.action_name));
-            _cluesToPlace.Add(new ClueToPlace(_clueObjects[clue.id], clue.placement));
+            //_cluesToPlace.Add(new ClueToPlace(_clueObjects[clue.id], clue.placement));
+            _cluesToPlace.Add(new ClueToPlace(_clueObjects[clue.id], new List < string> { "wall" }));
         }
         // Place objects by Passing _cluesToPlace.ToArray() to Daniel
         ClueToPlace[] clueArray = _cluesToPlace.ToArray();
