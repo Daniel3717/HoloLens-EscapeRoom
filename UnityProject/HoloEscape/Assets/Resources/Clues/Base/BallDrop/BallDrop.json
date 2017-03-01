@@ -10,7 +10,7 @@
     },
     {
       "name": "enabled",
-      "type": "bool",
+      "type": "boolean",
       "default_value": "true" 
     }
   ],
