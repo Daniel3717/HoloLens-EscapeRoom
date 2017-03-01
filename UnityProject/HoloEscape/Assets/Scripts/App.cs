@@ -25,8 +25,6 @@ public class App : Singleton<App>, ISourceStateHandler, IInputClickHandler, ISpe
     public float kMinWallAreaForComplete = 10.0f;
 
     // Config
-    public TextMesh DebugDisplay;
-    public TextMesh DebugSubDisplay;
     public string Tip;
     public Transform Parent_Scene;
     public SpatialMappingObserver MappingObserver;
@@ -35,14 +33,11 @@ public class App : Singleton<App>, ISourceStateHandler, IInputClickHandler, ISpe
     public GameObject MainText;
     public Image foregroundImage;
     public Canvas canvas;
-    
+
     // Properties
     public string SpaceQueryDescription
     {
-        get
-        {
-            return spaceQueryDescription;
-        }
+        get { return spaceQueryDescription; }
         set
         {
             spaceQueryDescription = value;
@@ -52,10 +47,7 @@ public class App : Singleton<App>, ISourceStateHandler, IInputClickHandler, ISpe
 
     public string ObjectPlacementDescription
     {
-        get
-        {
-            return objectPlacementDescription;
-        }
+        get { return objectPlacementDescription; }
         set
         {
             objectPlacementDescription = value;
@@ -80,10 +72,11 @@ public class App : Singleton<App>, ISourceStateHandler, IInputClickHandler, ISpe
             {
                 return false;
             }
-            SpatialUnderstandingDll.Imports.PlayspaceStats stats = SpatialUnderstanding.Instance.UnderstandingDLL.GetStaticPlayspaceStats();
+            SpatialUnderstandingDll.Imports.PlayspaceStats stats =
+                SpatialUnderstanding.Instance.UnderstandingDLL.GetStaticPlayspaceStats();
 
             // Check our preset requirements
-            if (/*(stats.TotalSurfaceArea > kMinAreaForComplete) || */
+            if ( /*(stats.TotalSurfaceArea > kMinAreaForComplete) || */
                 (stats.HorizSurfaceArea >= kMinHorizAreaForComplete) &&
                 (stats.WallSurfaceArea >= kMinWallAreaForComplete))
             {
@@ -97,18 +90,6 @@ public class App : Singleton<App>, ISourceStateHandler, IInputClickHandler, ISpe
     {
         get
         {
-            /* REMOVED
-            // Display the space and object query results (has priority)
-            if (!string.IsNullOrEmpty(SpaceQueryDescription))
-            {
-                return SpaceQueryDescription;
-            }
-            else if (!string.IsNullOrEmpty(ObjectPlacementDescription))
-            {
-                return ObjectPlacementDescription;
-            }
-            */
-
             // Scan state
 
             if (SpatialUnderstanding.Instance.AllowSpatialUnderstanding)
@@ -116,59 +97,52 @@ public class App : Singleton<App>, ISourceStateHandler, IInputClickHandler, ISpe
                 switch (SpatialUnderstanding.Instance.ScanState)
                 {
                     case SpatialUnderstanding.ScanStates.Scanning:
-                        
-                        /* REMOVED
-                        // Get the scan stats
-                        IntPtr statsPtr = SpatialUnderstanding.Instance.UnderstandingDLL.GetStaticPlayspaceStatsPtr();
-                        if (SpatialUnderstandingDll.Imports.QueryPlayspaceStats(statsPtr) == 0)
+                        // The stats tell us if we could potentially finish
+                        if (DoesScanMeetMinBarForCompletion)
                         {
-                            return "playspace stats query failed";
+                            return "When ready, air tap to finish the scan";
                         }
-                        */
-                // The stats tell us if we could potentially finish
-                if (DoesScanMeetMinBarForCompletion)
-                {
-                    return "When ready, air tap to finish the scan";
+                        return "Walk around and scan the room";
+                    case SpatialUnderstanding.ScanStates.Finishing:
+                        return "Finalising scan (please wait)";
+                    case SpatialUnderstanding.ScanStates.Done:
+                        return "Scan complete";
+                    default:
+                        return "ScanState = " + SpatialUnderstanding.Instance.ScanState.ToString();
                 }
-                return "Walk around and scan the room";
-            case SpatialUnderstanding.ScanStates.Finishing:
-                return "Finalising scan (please wait)";
-            case SpatialUnderstanding.ScanStates.Done:
-                return "Scan complete";
-            default:
-                return "ScanState = " + SpatialUnderstanding.Instance.ScanState.ToString();
-                }
-                
             }
             return "";
         }
     }
 
 
-    int counter = 0;
+    int _counter = 0;
 
-    public void NextTip () {
-        switch(counter)
+    public void NextTip()
+    {
+        switch (_counter)
         {
             case 0:
                 Tip = "Remember to look up";
-                counter++;
+                _counter++;
                 return;
             case 1:
                 Tip = "Don't forget to scan the corners";
-                counter++;
+                _counter++;
                 return;
             case 2:
                 Tip = "Remember to keep objects within the scanning range: 0.85 to 3 meters away from the HoloLens";
-                counter++;
+                _counter++;
                 return;
             case 3:
-                Tip = "The progress bar corresponds to the minimum amount of scanning required, but feel free to do some more!";
-                counter++;
+                Tip =
+                    "The progress bar corresponds to the minimum amount of scanning required, but feel free to do some more!";
+                _counter++;
                 return;
             case 4:
-                Tip = "If you see an area with a gap in the mesh, try focusing on it from different angles and distances to fully scan it";
-                counter = 0;
+                Tip =
+                    "If you see an area with a gap in the mesh, try focusing on it from different angles and distances to fully scan it";
+                _counter = 0;
                 return;
         }
     }
@@ -205,7 +179,8 @@ public class App : Singleton<App>, ISourceStateHandler, IInputClickHandler, ISpe
         }
 
         MainText.GetComponent<Text>().text = PrimaryText;
-        if ((SpatialUnderstanding.Instance.ScanState == SpatialUnderstanding.ScanStates.Finishing) || (SpatialUnderstanding.Instance.ScanState == SpatialUnderstanding.ScanStates.Done))
+        if ((SpatialUnderstanding.Instance.ScanState == SpatialUnderstanding.ScanStates.Finishing) ||
+            (SpatialUnderstanding.Instance.ScanState == SpatialUnderstanding.ScanStates.Done))
         {
             TipsText.GetComponent<Text>().text = "";
         }
@@ -218,13 +193,14 @@ public class App : Singleton<App>, ISourceStateHandler, IInputClickHandler, ISpe
         {
             float totalArea = /*kMinAreaForComplete + */ kMinHorizAreaForComplete + kMinWallAreaForComplete;
 
-            if (oldfill < 1 )
+            if (oldfill < 1)
             {
                 float fillAmount = 0;
                 float floor;
                 float wall;
 
-                SpatialUnderstandingDll.Imports.PlayspaceStats stats = SpatialUnderstanding.Instance.UnderstandingDLL.GetStaticPlayspaceStats();
+                SpatialUnderstandingDll.Imports.PlayspaceStats stats =
+                    SpatialUnderstanding.Instance.UnderstandingDLL.GetStaticPlayspaceStats();
                 //MainText.GetComponent<Text>().text = (foregroundImage.fillAmount).ToString() + " f " + stats.HorizSurfaceArea + " w " + stats.WallSurfaceArea;
 
                 /*
@@ -263,25 +239,6 @@ public class App : Singleton<App>, ISourceStateHandler, IInputClickHandler, ISpe
         }
     }
 
-    /*
-    private void Update_KeyboardInput(float deltaTime)
-    {
-        // Toggle SurfaceMapping & CustomUnderstandingMesh visibility
-        if (Input.GetKeyDown(KeyCode.BackQuote) &&
-            (!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.RightShift)))
-        {
-            SpatialMappingManager.Instance.DrawVisualMeshes = !SpatialMappingManager.Instance.DrawVisualMeshes;
-            Debug.Log("SpatialUnderstanding -> ProcessedMap.drawMeshes=" + SpatialMappingManager.Instance.DrawVisualMeshes);
-        }
-        else if (Input.GetKeyDown(KeyCode.BackQuote) &&
-                 (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
-        {
-            SpatialUnderstanding.Instance.UnderstandingCustomMesh.DrawProcessedMesh = !SpatialUnderstanding.Instance.UnderstandingCustomMesh.DrawProcessedMesh;
-            Debug.Log("SpatialUnderstanding -> ProcessedMap.drawMeshes=" + SpatialUnderstanding.Instance.UnderstandingCustomMesh.DrawProcessedMesh);
-        }
-    }
-    */
-
     private void Update()
     {
         // Updates
@@ -312,7 +269,7 @@ public class App : Singleton<App>, ISourceStateHandler, IInputClickHandler, ISpe
 
     public void OnSpeechKeywordRecognized(SpeechKeywordRecognizedEventData eventData)
     {
-        switch(eventData.RecognizedText.ToLower())
+        switch (eventData.RecognizedText.ToLower())
         {
             case "finish scan":
                 FinishScan();
@@ -321,21 +278,23 @@ public class App : Singleton<App>, ISourceStateHandler, IInputClickHandler, ISpe
                 SceneManager.LoadScene(0);
                 break;
             case "skip scan":
-                SceneManager.LoadScene(3);
+                SceneManager.LoadScene(2);
                 break;
         }
     }
+
     public void FinishScan()
     {
         if ((SpatialUnderstanding.Instance.ScanState == SpatialUnderstanding.ScanStates.Scanning) &&
             !SpatialUnderstanding.Instance.ScanStatsReportStillWorking &&
-            DoesScanMeetMinBarForCompletion)
+            DoesScanMeetMinBarForCompletion)    
         {
             Camera camera = canvas.GetComponent<Canvas>().worldCamera;
             //TipsText.GetComponent<Text>().text = "x " + camera.transform.position.x + " y " + camera.transform.position.y + " z " + camera.transform.position.z + " x1 " + canvas.transform.position.x + " y1 " + canvas.transform.position.y + " z1 " + canvas.transform.position.z;
-            canvas.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, Camera.main.nearClipPlane + 2));
+            canvas.transform.position =
+                Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2,
+                    Camera.main.nearClipPlane + 2));
             SpatialUnderstanding.Instance.RequestFinishScan();
         }
-        SpatialUnderstanding.Instance.UnderstandingCustomMesh.MeshMaterial = null;
     }
 }

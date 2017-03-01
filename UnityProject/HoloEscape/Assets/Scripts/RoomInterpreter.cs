@@ -96,20 +96,20 @@ public class RoomInterpreter : MonoBehaviour
             // Add functionality to the Button in the new RoomPanel as well as the button and Texts in the PostRoomPanel
             labelButton.button.onClick.AddListener(() =>
             {
-                // the Button sets changes the current visible Panel from RoomPanel to PostRoomPanel
+                // the Button changes the current visible Panel from RoomPanel to PostRoomPanel
                 ChangeActivePanel(PostRoomPanel);
 
                 // set Text corresponding to the level name, author name and level description
                 var postRoomPanelText = PostRoomPanel.GetComponentsInChildren<Text>();
                 postRoomPanelText[0].text = level.name;
-                postRoomPanelText[1].text = level.author.name;
+                postRoomPanelText[1].text = "By " + level.author.name;
                 postRoomPanelText[2].text = level.description;
 
                 // newPanelText[1].GetComponentInChildren < Image >() = level.author.picture;
 
                 // Add functionality to the Button component in the PostRoomPanel (the Continue button)
-                var continueButton = PostRoomPanel.GetComponentInChildren<Button>();
-                continueButton.onClick.AddListener(() => { GetRoom(level.id); });
+                var confirmRoomButton = PostRoomPanel.GetComponentInChildren<Button>();
+                confirmRoomButton.onClick.AddListener(() => { GetRoom(level.id); });
             });
             // set the Parent of the newly created button to be the Panel containing the list of rooms - dynamically increase the list
             // the ContentPanel is a child of the RoomPanel
@@ -161,7 +161,7 @@ public class RoomInterpreter : MonoBehaviour
             Debug.Log(clue.name);
             //GameObject button =  as GameObject;
             string identifier = clue.identifier;
-            //identifier = "Clues.Base.Button";
+            identifier = "Clues.Base.Button";
             string path = IdentifierToPath(identifier);
 
             var clueObject = Instantiate(Resources.Load(path, typeof(GameObject))) as GameObject;
@@ -184,9 +184,9 @@ public class RoomInterpreter : MonoBehaviour
         }
         // Place objects
         // By Passing _cluesToPlace.ToArray() to Daniel
-        //LoadClues(_cluesToPlace.ToArray());
+        GameObject.Find("Placements").GetComponent<WrapClues>().LoadClues(_cluesToPlace.ToArray());
 
-        SceneManager.LoadScene(4);
+        SceneManager.LoadScene(3);
     }
 
     public string IdentifierToPath(string identifer)

@@ -82,6 +82,7 @@
     <Compile Include="Assets\CustomScripts\DoNotDestroySpatialOnLoad.cs" />
     <Compile Include="Assets\CustomScripts\PlaceObjects.cs" />
     <Compile Include="Assets\CustomScripts\WrapClues.cs" />
+    <Compile Include="Assets\GoToMainMenu.cs" />
     <Compile Include="Assets\HoloToolkit-Examples\ColorPicker\GazeableColorPicker.cs" />
     <Compile Include="Assets\HoloToolkit-Examples\GazeRuler\Scripts\DeleteLine.cs" />
     <Compile Include="Assets\HoloToolkit-Examples\GazeRuler\Scripts\IGeometry.cs" />
@@ -356,6 +357,7 @@
     <Compile Include="Assets\Scripts\SpatialUnderstandingState.cs" />
     <Compile Include="Assets\Scripts\SpeechManager.cs" />
     <Compile Include="Assets\Scripts\WorldCursor.cs" />
+    <Compile Include="Assets\StartPlacement.cs" />
     <Compile Include="Assets\UnityUI\Scripts\ActiveStateToggler.cs" />
     <Compile Include="Assets\UnityUI\Scripts\ApplicationManager.cs" />
     <Compile Include="Assets\UnityUI\Scripts\ChangeColor.cs" />

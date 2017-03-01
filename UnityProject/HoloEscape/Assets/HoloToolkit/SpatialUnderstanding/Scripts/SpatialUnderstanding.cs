@@ -254,7 +254,9 @@ namespace HoloToolkit.Unity
 
                 // Mark it
                 ScanState = ScanStates.Done;
-
+                while(!UnderstandingCustomMesh.IsImportActive)
+                {
+                }
                 StartCoroutine(LoadNextScene());
             }
         }
@@ -262,7 +264,8 @@ namespace HoloToolkit.Unity
         IEnumerator LoadNextScene()
         {
             yield return new WaitForSeconds(5);
-            SceneManager.LoadScene(3);
+            SpatialUnderstanding.Instance.UnderstandingCustomMesh.DrawProcessedMesh = false;
+            SceneManager.LoadScene(2);
         }
     }
 }
