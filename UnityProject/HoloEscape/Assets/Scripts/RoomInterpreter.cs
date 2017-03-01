@@ -140,7 +140,7 @@ public class RoomInterpreter : MonoBehaviour
         {
             Debug.Log("WWW Error: " + www.error);
             ChangeActivePanel(ErrorPanel);
-            _errorText.text = www.error;
+            _errorText.text = www.error + www.text;
         }
         CoroutineFinished = true;
     }

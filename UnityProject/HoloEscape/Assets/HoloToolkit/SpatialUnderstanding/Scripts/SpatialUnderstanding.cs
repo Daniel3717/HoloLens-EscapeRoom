@@ -264,7 +264,7 @@ namespace HoloToolkit.Unity
             {
                 yield return new WaitForSeconds(5);
             }
-            //SpatialUnderstanding.Instance.UnderstandingCustomMesh.DrawProcessedMesh = false;
+            SpatialUnderstanding.Instance.UnderstandingCustomMesh.DrawProcessedMesh = false;
             if (Input.GetKeyDown(KeyCode.V))
             {
                 if (SpatialUnderstanding.Instance.UnderstandingCustomMesh.DrawProcessedMesh)
