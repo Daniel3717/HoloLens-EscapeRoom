@@ -148,7 +148,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 64250d04c70c410478e565ad67a01ca0, type: 3}
+  - {fileID: 2100000, guid: e8ea080615388714b92cc8562370009b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -234,3 +234,4 @@ MonoBehaviour:
   ClueBase: {fileID: 4178274859123712}
   text1: 
   text2: 
+  initialText: 
