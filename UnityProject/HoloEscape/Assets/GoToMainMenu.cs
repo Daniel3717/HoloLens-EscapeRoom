@@ -4,9 +4,14 @@ using UnityEngine;
 using HoloToolkit.Unity.InputModule;
 using UnityEngine.SceneManagement;
 
-public class GoToMainMenu : ISpeechHandler
+public class GoToMainMenu : MonoBehaviour, ISpeechHandler
 {
-    
+
+    private void Start()
+    {
+        InputManager.Instance.AddGlobalListener(gameObject);
+    }
+
     public void OnSpeechKeywordRecognized(SpeechKeywordRecognizedEventData eventData)
     {
         switch (eventData.RecognizedText.ToLower())

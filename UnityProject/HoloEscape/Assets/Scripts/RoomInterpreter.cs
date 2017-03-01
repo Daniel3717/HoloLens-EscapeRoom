@@ -182,8 +182,7 @@ public class RoomInterpreter : MonoBehaviour
                     new TriggerAction(events.event_name, _clueObjects[outlet.clue_id], outlet.action_name));
             _cluesToPlace.Add(new ClueToPlace(_clueObjects[clue.id], clue.placement));
         }
-        // Place objects
-        // By Passing _cluesToPlace.ToArray() to Daniel
+        // Place objects by Passing _cluesToPlace.ToArray() to Daniel
         GameObject.Find("Placements").GetComponent<WrapClues>().LoadClues(new ClueToPlace[0]);
 
         SceneManager.LoadScene(3);

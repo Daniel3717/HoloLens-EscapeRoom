@@ -1753,19 +1753,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c199624bdf4448439c20ecef993e136, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mClues:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  mPositions: 0000000001000000020000000100000000000000050000000100000001000000030000000400000001000000
+  mClues: []
+  mPositions: 
   mSuccessful: 0
   mComplete: 0
   mStartFlag: 0
