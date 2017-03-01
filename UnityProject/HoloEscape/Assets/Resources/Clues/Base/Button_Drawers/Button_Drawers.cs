@@ -25,6 +25,8 @@ namespace Clues.Base.Button_Drawers
             Drawer_noise = GetComponent<AudioSource>();
 
             AddAction("OnButtonPress", ObjectToTrigger, TriggerName);
+
+            Initialise();
         }
 
         private void OnButtonPress()

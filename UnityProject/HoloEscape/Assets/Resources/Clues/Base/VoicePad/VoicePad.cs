@@ -16,36 +16,45 @@ namespace Clues.Base.VoicePad
 
         public GameObject ScreenText;
         public string TriggerName;
-        public bool visible;
-
-        private GameObject WholeVoicePad;
+        public bool Visible;
 
 
         private void Start()
         {
-            WholeVoicePad = GameObject.Find("VoicePad");
+            SetProperty("visible", Visible);
+            SetProperty("password", Password);
 
-            if (!visible)
-                WholeVoicePad.transform.localScale = new Vector3(0, 0, 0);
+            Initialise();
 
             ScreenText = GameObject.Find("voice_pad_text");
             ScreenText.GetComponent<TextMesh>().text = "Say Password";
 
             AddAction("OnCorrectPassword", ObjectToTrigger, TriggerName);
 
-            keywords.Add(Password, () =>
+            Initialise();
+        }
+
+        private new void Initialise()
+        {
+            base.Initialise();
+            if (keywordRecognizer != null)
+            {
+                keywordRecognizer.Stop();
+                keywordRecognizer.Dispose();
+            }
+
+            keywords.Clear();
+            keywords.Add(GetProperty<string>("password"), () =>
             {
                 var focusObject = GazeGestureManager.Instance.FocusedObject;
                 if (focusObject != null)
                     focusObject.SendMessage("OnCorrectPassword");
             });
 
-            // Tell the KeywordRecognizer about our keywords.
             keywordRecognizer = new KeywordRecognizer(keywords.Keys.ToArray());
-
-            // Register a callback for the KeywordRecognizer and start recognizing!
             keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
             keywordRecognizer.Start();
+
         }
 
         private void KeywordRecognizer_OnPhraseRecognized(PhraseRecognizedEventArgs args)
@@ -63,11 +72,7 @@ namespace Clues.Base.VoicePad
 
         private void OnAppear()
         {
-            if (!visible)
-            {
-                WholeVoicePad.transform.localScale = new Vector3(1F, 1F, 1F);
-                visible = true;
-            }
+            OnSetVisible();
         }
 
         private void Update()

@@ -251,6 +251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8e38fe425f028542b2d0499d12aa5c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ClueBase: {fileID: 4374814827061950}
   ObjectToTrigger: {fileID: 0}
   TriggerName: 
 --- !u!136 &136055947716966098

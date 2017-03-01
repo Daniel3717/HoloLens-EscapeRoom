@@ -1786,9 +1786,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcb445bfe1ad6db4785ac483d09511b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ClueBase: {fileID: 4210593591740172}
   FailObject: {fileID: 1058572930581464}
-  SuccessObject: {fileID: 1949275467402426}
   ObjectToTrigger: {fileID: 0}
+  SuccessObject: {fileID: 1949275467402426}
 --- !u!135 &135608194664189476
 SphereCollider:
   m_ObjectHideFlags: 1

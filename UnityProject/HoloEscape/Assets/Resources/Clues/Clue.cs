@@ -5,13 +5,22 @@ namespace Clues
 {
     public abstract class Clue : MonoBehaviour
     {
+        public Transform ClueBase;
+
         private readonly Dictionary<string, TriggerAction> actions = new Dictionary<string, TriggerAction>();
 
         private readonly Dictionary<string, object> properties = new Dictionary<string, object>();
 
-        public string GetDescription()
+        public void Initialise()
         {
-            return GetProperty<string>("description");
+            if (IsPropertySet("visible") && !GetProperty<bool>("visible"))
+            {
+                OnSetInvisible();
+            }
+            else
+            {
+                SetProperty("visible", true);
+            }
         }
 
         public void SetProperty(JsonProperty property)
@@ -31,20 +40,43 @@ namespace Clues
             return default(T);
         }
 
+        public bool IsPropertySet(string property)
+        {
+            return properties.ContainsKey(property);
+        }
+
         public void AddAction(TriggerAction action)
         {
-            actions.Add(action.TriggerEvent, action);
+            actions[action.TriggerEvent] = action;
         }
 
         public void AddAction(string trigger, GameObject nextClue, string action)
         {
-            actions.Add(trigger, new TriggerAction(trigger, nextClue, action));
+            actions[trigger] = new TriggerAction(trigger, nextClue, action);
         }
 
         protected void Trigger(string action)
         {
             if (actions.ContainsKey(action))
                 actions[action].Trigger();
+        }
+
+        protected void OnSetInvisible()
+        {
+            if (GetProperty<bool>("visible"))
+            {
+                SetProperty("originalScale", ClueBase.localScale);
+            }
+            SetProperty("visible", false);
+        }
+
+        protected void OnSetVisible()
+        {
+            if (!GetProperty<bool>("visible"))
+            {
+                ClueBase.localScale = GetProperty<Vector3>("originalScale");
+            }
+            SetProperty("visible", true);
         }
     }
 }

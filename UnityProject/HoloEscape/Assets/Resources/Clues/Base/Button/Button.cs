@@ -14,6 +14,8 @@ namespace Clues.Base.Button
         {
             AddAction("OnSelect", ObjectToTrigger, TriggerName);
             Button_noise = GetComponent<AudioSource>();
+
+            Initialise();
         }
 
         private void OnSelect()

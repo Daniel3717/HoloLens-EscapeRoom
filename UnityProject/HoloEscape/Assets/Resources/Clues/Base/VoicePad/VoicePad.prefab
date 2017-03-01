@@ -678,7 +678,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1786005357287796}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.25524998, y: 0.09540993, z: 4.321819}
+  m_LocalPosition: {x: 0, y: 1, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4282478579642310}
@@ -1864,11 +1864,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8b00e9fe4039114bb3a2af5b7be3448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ClueBase: {fileID: 4590364280403260}
   ObjectToTrigger: {fileID: 0}
-  TriggerName: Trigger1
   Password: india
-  visible: 0
   ScreenText: {fileID: 1023087947095266}
+  TriggerName: Trigger1
+  visible: 0
 --- !u!136 &136077734053850096
 CapsuleCollider:
   m_ObjectHideFlags: 1
