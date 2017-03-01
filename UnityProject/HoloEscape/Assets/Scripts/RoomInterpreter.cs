@@ -88,11 +88,6 @@ public class RoomInterpreter : MonoBehaviour
             var labelButton = newButton.GetComponent<SampleButtonScript>();
             labelButton.label.text = level.name;
 
-            var keywordManager = RoomPanel.GetComponent<KeywordManager>();
-            var newResponses = new KeywordManager.KeywordAndResponse[keywordManager.KeywordsAndResponses.Length + 1];
-
-            //keywordManager.KeywordsAndResponse
-
             // Add functionality to the Button in the new RoomPanel as well as the button and Texts in the PostRoomPanel
             labelButton.button.onClick.AddListener(() =>
             {
