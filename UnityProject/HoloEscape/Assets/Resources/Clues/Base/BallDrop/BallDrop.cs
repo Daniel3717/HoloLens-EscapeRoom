@@ -18,6 +18,8 @@ namespace Clues.Base.BallDrop
             originalPosition = transform.localPosition;
             originalRotation = transform.localRotation;
             AddAction("OnSuccess", ObjectToTrigger, "Trigger");
+
+            Initialise();
         }
 
         private void OnDrop()

@@ -6,12 +6,12 @@
     {
       "name": "visible",
       "type": "boolean", // available types: "bool", "string", "number"
-      "default_value": "true" 
+      "default_value": "true"
     },
     {
       "name": "enabled",
       "type": "boolean",
-      "default_value": "true" 
+      "default_value": "true"
     }
   ],
   "events": [
@@ -26,8 +26,16 @@
   ],
   "actions": [
     {
-      "name": "Activate",
-      "description": "Set enabled to true to allow the ball to be dropped"
+      "name": "SetVisible",
+      "description": "Make the clue visible"
+    },
+    {
+      "name": "SetInvisible",
+      "description": "Make the clue invisible"  
+    },
+    {
+     "name": "Activate",
+     "description": "Set enabled to true to allow the ball to be dropped"
     },
     {
       "name": "Drop",
