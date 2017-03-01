@@ -52,9 +52,6 @@
     <Reference Include="UnityEngine">
       <HintPath>Library\UnityAssemblies\UnityEngine.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Advertisements">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Advertisements.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
@@ -69,9 +66,6 @@
     </Reference>
     <Reference Include="UnityEngine.HoloLens">
       <HintPath>Library\UnityAssemblies\UnityEngine.HoloLens.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Purchasing">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Purchasing.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.VR">
       <HintPath>Library\UnityAssemblies\UnityEngine.VR.dll</HintPath>
@@ -351,6 +345,7 @@
     <Compile Include="Assets\Resources\Clues\TriggerAction.cs" />
     <Compile Include="Assets\Scripts\App.cs" />
     <Compile Include="Assets\Scripts\ButtonOnClick.cs" />
+    <Compile Include="Assets\Scripts\CameraFunctionality.cs" />
     <Compile Include="Assets\Scripts\ChangePanel.cs" />
     <Compile Include="Assets\Scripts\ClueToPlace.cs" />
     <Compile Include="Assets\Scripts\CreateScrollList.cs" />
@@ -364,6 +359,7 @@
     <Compile Include="Assets\Scripts\SpeechManager.cs" />
     <Compile Include="Assets\Scripts\WorldCursor.cs" />
     <Compile Include="Assets\StartPlacement.cs" />
+    <Compile Include="Assets\ToggleMesh.cs" />
     <Compile Include="Assets\UnityUI\Scripts\ActiveStateToggler.cs" />
     <Compile Include="Assets\UnityUI\Scripts\ApplicationManager.cs" />
     <Compile Include="Assets\UnityUI\Scripts\ChangeColor.cs" />

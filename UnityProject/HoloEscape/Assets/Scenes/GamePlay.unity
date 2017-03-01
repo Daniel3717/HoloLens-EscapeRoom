@@ -680,6 +680,8 @@ GameObject:
   - component: {fileID: 1296114897}
   - component: {fileID: 1296114896}
   - component: {fileID: 1296114898}
+  - component: {fileID: 1296114899}
+  - component: {fileID: 1296114900}
   m_Layer: 0
   m_Name: Speech
   m_TagString: Untagged
@@ -704,6 +706,10 @@ MonoBehaviour:
     KeyCode: 109
   - Keyword: Rooms Menu
     KeyCode: 114
+  - Keyword: Take Picture
+    KeyCode: 116
+  - Keyword: Toggle Mesh
+    KeyCode: 109
 --- !u!4 &1296114897
 Transform:
   m_ObjectHideFlags: 0
@@ -726,6 +732,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbcfbf4a74035af459484d804263cda0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1296114899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1296114895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e213d02c3165d204c95fee12f20af199, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1296114900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1296114895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f11261a998d8394b8bdbb1ed97c0c9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1335026915
