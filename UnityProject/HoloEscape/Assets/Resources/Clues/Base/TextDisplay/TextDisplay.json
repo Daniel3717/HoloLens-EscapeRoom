@@ -5,19 +5,23 @@
   "properties": [
     {
       "name": "visible",
-      "type": "bool" // available types: "bool", "string", "number"
+      "type": "boolean",
+      "default_value": "true" 
     },
     {
       "name": "initialText",
-      "type": "string"
+      "type": "string",
+      "default_value": "Welcome!" 
     },
     {
       "name": "text1",
-      "type": "string"
+      "type": "string",
+      "default_value": "" 
     },
     {
       "name": "text2",
-      "type": "string"
+      "type": "string",
+      "default_value": "" 
     }
   ],
   "events": [

@@ -5,11 +5,13 @@
   "properties": [
     {
       "name": "visible",
-      "type": "bool" // available types: "bool", "string", "number"
+      "type": "bool", // available types: "bool", "string", "number"
+      "default_value": "true" 
     },
     {
       "name": "password",
-      "type": "string"
+      "type": "string",
+      "default_value": "india" 
     }
   ],
   "events": [

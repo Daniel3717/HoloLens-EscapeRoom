@@ -5,7 +5,8 @@
   "properties": [
     {
       "name": "visible",
-      "type": "bool" // available types: "bool", "string", "number"
+      "type": "boolean", // available types: "bool", "string", "number"
+      "default_value": "true" 
     },
   ],
   "events": [

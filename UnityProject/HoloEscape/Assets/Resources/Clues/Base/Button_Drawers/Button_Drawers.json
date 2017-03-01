@@ -4,13 +4,10 @@
   "identifier": "Clues.Base.Button_Drawers",
   "properties": [
     {
-      "name": "active",
-      "type": "bool" // available types: "bool", "string", "number"
+      "name": "visible",
+      "type": "boolean",
+      "default_value": "true" 
     },
-    {
-      "name": "enabled",
-      "type": "bool"
-    }
   ],
   "events": [
     {
