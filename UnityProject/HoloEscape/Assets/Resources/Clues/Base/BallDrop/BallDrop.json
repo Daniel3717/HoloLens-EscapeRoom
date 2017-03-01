@@ -5,7 +5,7 @@
   "properties": [
     {
       "name": "visible",
-      "type": "boolean", // available types: "bool", "string", "number"
+      "type": "boolean",
       "default_value": "true" 
     },
     {
