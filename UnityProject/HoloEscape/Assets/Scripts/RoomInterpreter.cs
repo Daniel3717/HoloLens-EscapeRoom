@@ -184,7 +184,7 @@ public class RoomInterpreter : MonoBehaviour
         }
         // Place objects
         // By Passing _cluesToPlace.ToArray() to Daniel
-        GameObject.Find("Placements").GetComponent<WrapClues>().LoadClues(_cluesToPlace.ToArray());
+        GameObject.Find("Placements").GetComponent<WrapClues>().LoadClues(new ClueToPlace[0]);
 
         SceneManager.LoadScene(3);
     }

@@ -254,17 +254,24 @@ namespace HoloToolkit.Unity
 
                 // Mark it
                 ScanState = ScanStates.Done;
-                while(!UnderstandingCustomMesh.IsImportActive)
-                {
-                }
                 StartCoroutine(LoadNextScene());
             }
         }
 
         IEnumerator LoadNextScene()
         {
-            yield return new WaitForSeconds(5);
-            SpatialUnderstanding.Instance.UnderstandingCustomMesh.DrawProcessedMesh = false;
+            while (UnderstandingCustomMesh.IsImportActive)
+            {
+                yield return new WaitForSeconds(5);
+            }
+            //SpatialUnderstanding.Instance.UnderstandingCustomMesh.DrawProcessedMesh = false;
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                if (SpatialUnderstanding.Instance.UnderstandingCustomMesh.DrawProcessedMesh)
+                    SpatialUnderstanding.Instance.UnderstandingCustomMesh.DrawProcessedMesh = false;
+                else
+                    SpatialUnderstanding.Instance.UnderstandingCustomMesh.DrawProcessedMesh = true;
+            } 
             SceneManager.LoadScene(2);
         }
     }

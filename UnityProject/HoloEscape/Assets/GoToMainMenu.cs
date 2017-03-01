@@ -14,6 +14,9 @@ public class GoToMainMenu : ISpeechHandler
             case "main menu":
                 SceneManager.LoadScene(0);
                 break;
+            case "rooms menu":
+                SceneManager.LoadScene(2);
+                break;
         }
     }
 }

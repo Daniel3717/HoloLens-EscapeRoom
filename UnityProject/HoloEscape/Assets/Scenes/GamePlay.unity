@@ -686,7 +686,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1296114896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -701,7 +701,9 @@ MonoBehaviour:
   RecognizerStart: 0
   Keywords:
   - Keyword: Main Menu
-    KeyCode: 9
+    KeyCode: 109
+  - Keyword: Rooms Menu
+    KeyCode: 114
 --- !u!4 &1296114897
 Transform:
   m_ObjectHideFlags: 0
