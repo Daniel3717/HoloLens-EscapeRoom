@@ -5,6 +5,8 @@ namespace Clues
 {
     public abstract class Clue : MonoBehaviour
     {
+
+        public bool Visible = true;
         public Transform ClueBase;
 
         private readonly Dictionary<string, TriggerAction> actions = new Dictionary<string, TriggerAction>();
@@ -13,13 +15,14 @@ namespace Clues
 
         public void Initialise()
         {
-            if (IsPropertySet("visible") && !GetProperty<bool>("visible"))
+            if (Visible && (!IsPropertySet("visible") || GetProperty<bool>("visible")))
             {
-                OnSetInvisible();
+                SetProperty("visible", true);
             }
             else
             {
                 SetProperty("visible", true);
+                OnSetInvisible();
             }
         }
 
@@ -74,6 +77,7 @@ namespace Clues
             if (GetProperty<bool>("visible"))
             {
                 SetProperty("originalScale", ClueBase.localScale);
+                ClueBase.localScale = new Vector3(0,0,0);
             }
             SetProperty("visible", false);
         }

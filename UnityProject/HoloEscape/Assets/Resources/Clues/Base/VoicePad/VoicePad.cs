@@ -16,7 +16,6 @@ namespace Clues.Base.VoicePad
 
         public GameObject ScreenText;
         public string TriggerName;
-        public bool Visible;
 
 
         private void Start()
