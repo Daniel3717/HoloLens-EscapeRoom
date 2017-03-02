@@ -275,9 +275,11 @@ public class App : Singleton<App>, ISourceStateHandler, IInputClickHandler, ISpe
                 FinishScan();
                 break;
             case "main menu":
+                SpatialUnderstanding.Instance.UnderstandingCustomMesh.DrawProcessedMesh = false;
                 SceneManager.LoadScene(0);
                 break;
             case "skip scan":
+                SpatialUnderstanding.Instance.UnderstandingCustomMesh.DrawProcessedMesh = false;
                 SceneManager.LoadScene(2);
                 break;
         }

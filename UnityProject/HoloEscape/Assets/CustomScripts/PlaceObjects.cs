@@ -47,6 +47,8 @@ public class PlaceObjects : MonoBehaviour {
     private float mBaseWallAbsError = 0.25f;
     private bool mDirty = false;
 
+    private bool OneTimeWrite = false;
+
     // Use this for initialization
     void Start()
     {
@@ -107,6 +109,11 @@ public class PlaceObjects : MonoBehaviour {
         SpatialUnderstandingDll.Imports.PlayspaceAlignment lPA = SpatialUnderstanding.Instance.UnderstandingDLL.GetStaticPlayspaceAlignment();
         mYMinRandom = (lPA.CeilingYValue - lPA.FloorYValue) / 2 + lPA.FloorYValue;
         mYMaxRandom = lPA.CeilingYValue;
+
+        //problem at integration, hard coded different values
+        mYMinRandom = 0;
+        mYMaxRandom = 4;
+
         mToWrite += "\nExited StartIt with " + mLeftToPlace.Count + " FWCR to place and " + mPlatformLeftToPlace.Count + " Plat to place \n and mYMinRandom=" + mYMinRandom + ", mYMaxRandom=" + mYMaxRandom;
     }
 
@@ -150,8 +157,11 @@ public class PlaceObjects : MonoBehaviour {
             }
             */
             //mToWrite="";
-            //AppState.Instance.OverrideNormalText = true;
-            //AppState.Instance.CustomText = mToWrite+"\nPlacing FWCR:"+mPlaceFWCRComplete+"\nPlacing P:"+mPlacePComplete+"\nSuccessful:"+mSuccessful;
+            if (!OneTimeWrite)
+            {
+                OneTimeWrite = true;
+                Debug.Log(mToWrite + "\nPlacing FWCR:" + mPlaceFWCRComplete + "\nPlacing P:" + mPlacePComplete + "\nSuccessful:" + mSuccessful);
+            }
             return;
         }
 
@@ -211,8 +221,8 @@ public class PlaceObjects : MonoBehaviour {
                     for (int i = 0; i < Results.Count; i++)
                     {
                         GameObject nowGO = mToPlace[Results[i].OriginalIndex];
-                        nowGO.transform.position = Results[i].Position;
-                        nowGO.transform.rotation = Results[i].Rotation;
+                        nowGO.transform.localPosition = Results[i].Position;
+                        nowGO.transform.localRotation = Results[i].Rotation;
 
                         /*
                         //some special situations which arose from some integration
@@ -231,7 +241,7 @@ public class PlaceObjects : MonoBehaviour {
                         {
                             mLeftToPlace.Add(Results[i].OriginalIndex);
 
-                            nowGO.transform.position = new Vector3(0,-200,0); //put it away from sight (in the underworld)
+                            nowGO.transform.localPosition = new Vector3(0,-200,0); //put it away from sight (in the underworld)
                         }
                     }
 
@@ -425,7 +435,7 @@ public class PlaceObjects : MonoBehaviour {
             while ((lPositions[lItObj].Count!=0)&&(!lPlaced))
             {
                 lItPos = Random.Range(0, lPositions[lItObj].Count - 1);
-                mToPlace[iObj].transform.position = lPositions[lItObj][lItPos] + mToPlace[iObj].GetComponent<Collider>().bounds.extents.y * Vector3.up;
+                mToPlace[iObj].transform.localPosition = lPositions[lItObj][lItPos] + mToPlace[iObj].GetComponent<Collider>().bounds.extents.y * Vector3.up;
                 if (canPlace(iObj))
                 {
                     mPlaced.Add(iObj);
@@ -438,7 +448,7 @@ public class PlaceObjects : MonoBehaviour {
             {
                 mToWrite += "\nCould not place object " + iObj;
                 lItObj = mPlatformLeftToPlace.Count + 2;
-                mToPlace[iObj].transform.position = new Vector3(0, -1000, 0);
+                mToPlace[iObj].transform.localPosition = new Vector3(0, -1000, 0);
             }
             else
                 mToWrite += "\nPlaced object " + iObj;

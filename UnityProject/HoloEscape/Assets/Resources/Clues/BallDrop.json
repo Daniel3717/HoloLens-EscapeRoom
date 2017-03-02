@@ -5,8 +5,8 @@
   "properties": [
     {
       "name": "visible",
-      "type": "boolean", // available types: "bool", "string", "number"
-      "default_value": "true"
+      "type": "boolean",
+      "default_value": "true" 
     },
     {
       "name": "enabled",

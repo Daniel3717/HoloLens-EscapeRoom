@@ -7,7 +7,7 @@
       "name": "visible",
       "type": "boolean",
       "default_value": "true" 
-    },
+    }
   ],
   "events": [
     {

@@ -140,7 +140,7 @@ public class RoomInterpreter : MonoBehaviour
         {
             Debug.Log("WWW Error: " + www.error);
             ChangeActivePanel(ErrorPanel);
-            _errorText.text = www.error;
+            _errorText.text = www.error + www.text;
         }
         CoroutineFinished = true;
     }
@@ -168,18 +168,29 @@ public class RoomInterpreter : MonoBehaviour
             _clueObjects.Add(clue.id, clueObject);
         }
 
+        int i = 0;//to remove
         // Connect event outlets
         foreach (var clue in level.clues)
         {
             foreach (var events in clue.event_outlets)
-            foreach (var outlet in events.outlets)
-                _clueObjects[clue.id].BroadcastMessage("AddAction",
-                    new TriggerAction(events.event_name, _clueObjects[outlet.clue_id], outlet.action_name));
-            _cluesToPlace.Add(new ClueToPlace(_clueObjects[clue.id], clue.placement));
+                foreach (var outlet in events.outlets)
+                    _clueObjects[clue.id].BroadcastMessage("AddAction",
+                        new TriggerAction(events.event_name, _clueObjects[outlet.clue_id], outlet.action_name));
+            //_cluesToPlace.Add(new ClueToPlace(_clueObjects[clue.id], clue.placement));
+            string lPlace = "";
+            if (i % 3 == 0)
+                lPlace = "air";
+            if (i % 3 == 1)
+                lPlace = "platform";
+            _cluesToPlace.Add(new ClueToPlace(_clueObjects[clue.id], new List<string> { lPlace })); //hard coded
+            i++;
         }
         // Place objects by Passing _cluesToPlace.ToArray() to Daniel
         ClueToPlace[] clueArray = _cluesToPlace.ToArray();
-        GameObject.Find("Placements").GetComponent<WrapClues>().LoadClues(clueArray);
+        _cluesToPlace[0].clue.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+        _cluesToPlace[1].clue.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+        WrapClues lWC = GameObject.Find("Placements").GetComponent<WrapClues>();
+        lWC.LoadClues(clueArray);
         Debug.Log("There are "+clueArray.Length+" clues");
 
         SceneManager.LoadScene(3);

@@ -1,0 +1,36 @@
+{
+	"data": {
+		"code": "sfzvawgjh1vyysxm",
+		"connect_code": "6KKG26",
+		"title": "Test Game",
+		"subtitle": "Test Game",
+		"description": "Super Description",
+		"clues": [{
+			"id": 10001,
+			"identifier": "tk.holoescape.test.lock",
+			"name": "Test Lock",
+			"initial_properties": [{
+				"name": "visibility",
+				"value": "true"
+			}],
+			"event_outlets": [{
+				"event_name": "on_unlock",
+				"outlets": [{
+					"clue_id": 10002,
+					"action_name": "solve"
+				}]
+			}],
+			"placement": ["air"]
+		}, {
+			"id": 10002,
+			"identifier": "tk.holoescape.test.puzzle",
+			"name": "Test Puzzle",
+			"initial_properties": [{
+				"name": "visibility",
+				"value": "true"
+			}],
+			"event_outlets": [],
+			"placement": ["platform"]
+		}]
+	}
+}
