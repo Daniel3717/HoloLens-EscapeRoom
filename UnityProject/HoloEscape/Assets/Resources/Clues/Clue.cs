@@ -24,6 +24,7 @@ namespace Clues
                 SetProperty("visible", true);
                 OnSetInvisible();
             }
+            Debug.Log("Initialise");
         }
 
         public void OnMouseOver()
@@ -36,6 +37,7 @@ namespace Clues
 
         public void SetProperty(JsonProperty property)
         {
+            Debug.Log("property set");
             properties[property.name] = property.GetObject();
         }
 

@@ -164,6 +164,9 @@ public class RoomInterpreter : MonoBehaviour
             var clueObject = Instantiate(Resources.Load(path, typeof(GameObject))) as GameObject;
             foreach (var property in clue.initial_properties)
             {
+                Debug.Log(property.name);
+                Debug.Log(property.type);
+                Debug.Log(property.value);
                 clueObject.BroadcastMessage("SetProperty", property);
             }
             clueObject.BroadcastMessage("Initialise");

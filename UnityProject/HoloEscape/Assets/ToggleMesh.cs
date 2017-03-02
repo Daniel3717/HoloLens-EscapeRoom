@@ -28,6 +28,6 @@ public class ToggleMesh : MonoBehaviour, ISpeechHandler {
                 //SpatialUnderstanding.Instance.UnderstandingCustomMesh.DrawProcessedMesh = true;
                 break;
         }
-        Debug.Log(SpatialUnderstanding.Instance == null);
+        //Debug.Log(SpatialUnderstanding.Instance == null);
     }
 }
