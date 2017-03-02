@@ -231,7 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf9c9911817d5fb4db3a36195caf0760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Visible: 0
+  Visible: 1
   ClueBase: {fileID: 4178274859123712}
   text1: Helloooooo!
   text2: 
