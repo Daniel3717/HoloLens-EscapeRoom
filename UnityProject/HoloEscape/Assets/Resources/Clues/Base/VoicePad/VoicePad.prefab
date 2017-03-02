@@ -1864,12 +1864,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8b00e9fe4039114bb3a2af5b7be3448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Visible: 1
   ClueBase: {fileID: 4590364280403260}
   ObjectToTrigger: {fileID: 0}
   Password: india
   ScreenText: {fileID: 1023087947095266}
   TriggerName: Trigger1
-  Visible: 0
 --- !u!136 &136077734053850096
 CapsuleCollider:
   m_ObjectHideFlags: 1
