@@ -158,7 +158,7 @@ public class RoomInterpreter : MonoBehaviour
             Debug.Log(clue.name);
             //GameObject button =  as GameObject;
             string identifier = clue.identifier;
-            identifier = "Clues.Base.Button";
+            //identifier = "Clues.Base.Button";
             string path = IdentifierToPath(identifier);
 
             var clueObject = Instantiate(Resources.Load(path, typeof(GameObject))) as GameObject;

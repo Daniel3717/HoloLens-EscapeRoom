@@ -79,7 +79,7 @@ public class JsonProperty
     {
         switch (type)
         {
-            case "bool":
+            case "boolean":
             {
                 switch (value)
                 {
