@@ -1,0 +1,66 @@
+{
+	"data": {
+		"code": "oz5x4t5s12ffs365",
+		"connect_code": "RRPJOE",
+		"title": "Level name",
+		"subtitle": "William Demo Game",
+		"description": "A simple example level",
+		"author": {
+			"name": "Jared Khan",
+			"picture": "https://scontent.xx.fbcdn.net/v/t1.0-1/c0.0.50.50/p50x50/10552516_10202498289683286_2661968384314891998_n.jpg?oh=cce838ac508eae9aebb9183f5b7bbf3f&oe=5929BB45"
+		},
+		"clues": [{
+			"id": 73,
+			"identifier": "Clues.Base.Button",
+			"initial_properties": [{
+				"name": "visible",
+				"value": "false"
+			}],
+			"event_outlets": [{
+				"event_name": "onButtonPress",
+				"outlets": [{
+					"clue_id": 75,
+					"action_name": "Trigger2"
+				}]
+			}],
+			"placement": ["floor"]
+		}, {
+			"id": 74,
+			"identifier": "Clues.Base.Button",
+			"initial_properties": [{
+				"name": "visible",
+				"value": "true"
+			}],
+			"event_outlets": [{
+				"event_name": "onButtonPress",
+				"outlets": [{
+					"clue_id": 73,
+					"action_name": "SetVisible"
+				}]
+			}],
+			"placement": ["wall"]
+		}, {
+			"id": 75,
+			"clue_id": "Clues.Base.TextDisplay",
+			"initial_properties": [{
+				"name": "visible",
+				"type": "boolean",
+				"value": "true"
+			}, {
+				"name": "initialText",
+				"type": "string",
+				"value": "Welcome!"
+			}, {
+				"name": "text1",
+				"type": "string",
+				"value": "Behind the TIMES"
+			}, {
+				"name": "text2",
+				"type": "string",
+				"value": "text2"
+			}],
+			"event_outlets": [],
+			"placement": ["wall"]
+		}]
+	}
+}

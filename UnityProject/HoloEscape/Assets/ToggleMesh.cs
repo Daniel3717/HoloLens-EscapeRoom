@@ -25,7 +25,9 @@ public class ToggleMesh : MonoBehaviour, ISpeechHandler {
             case "toggle mesh":
                 SpatialUnderstanding.Instance.UnderstandingCustomMesh.DrawProcessedMesh =
                     !SpatialUnderstanding.Instance.UnderstandingCustomMesh.DrawProcessedMesh;
+                //SpatialUnderstanding.Instance.UnderstandingCustomMesh.DrawProcessedMesh = true;
                 break;
         }
+        Debug.Log(SpatialUnderstanding.Instance == null);
     }
 }

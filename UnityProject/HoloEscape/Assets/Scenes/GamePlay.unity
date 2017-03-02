@@ -760,7 +760,7 @@ MonoBehaviour:
   - Keyword: Take Picture
     KeyCode: 116
   - Keyword: Toggle Mesh
-    KeyCode: 109
+    KeyCode: 103
 --- !u!4 &1296114897
 Transform:
   m_ObjectHideFlags: 0
