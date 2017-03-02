@@ -20,10 +20,6 @@ namespace Clues.Base.VoicePad
 
         private void Start()
         {
-            if (!IsPropertySet("visible"))
-            {
-                SetProperty("visible", Visible);
-            }
             if (!IsPropertySet("password"))
             {
                 SetProperty("password", Password);
