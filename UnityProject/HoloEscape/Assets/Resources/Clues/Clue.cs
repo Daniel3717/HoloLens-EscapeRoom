@@ -23,6 +23,14 @@ namespace Clues
             }
         }
 
+        public void OnMouseOver()
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                SendMessage("OnSelect");
+            }
+        }
+
         public void SetProperty(JsonProperty property)
         {
             properties[property.name] = property.GetObject();
