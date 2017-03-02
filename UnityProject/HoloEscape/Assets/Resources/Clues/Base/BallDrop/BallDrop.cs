@@ -9,11 +9,15 @@ namespace Clues.Base.BallDrop
         private Vector3 originalPosition;
         private Quaternion originalRotation;
         public GameObject SuccessObject;
+        public bool Enabled = true;
 
         // Use this for initialization
         private void Start()
         {
-            SetProperty("enabled", true);
+            if (!IsPropertySet("enabled"))
+            {
+                SetProperty("enabled", Enabled);
+            }
             // Grab the original local position of the sphere when the app starts.
             originalPosition = transform.localPosition;
             originalRotation = transform.localRotation;

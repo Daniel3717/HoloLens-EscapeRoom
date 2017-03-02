@@ -12,15 +12,25 @@ namespace Clues.Base.TextDisplay
 
         private void Start()
         {
-            SetProperty("text1", text1);
-            SetProperty("text2", text2);
-            SetProperty("initialText", initialText);
+            if (!IsPropertySet("text1"))
+            {
+                SetProperty("text1", text1);
+            }
+            if (!IsPropertySet("text2"))
+            {
+                SetProperty("text2", text2);
+            }
+            if (!IsPropertySet("initialText"))
+            {
+                SetProperty("initialText", initialText);
+            }
             Initialise();
         }
 
         public new void Initialise()
         {
             base.Initialise();
+
             GetComponent<TextMesh>().text = GetProperty<string>("initialText");
         }
 
