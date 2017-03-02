@@ -29,7 +29,10 @@ namespace Clues.Base.VoicePad
             ScreenText = GameObject.Find("voice_pad_text");
             ScreenText.GetComponent<TextMesh>().text = "Say Password";
 
-            AddAction("OnCorrectPassword", ObjectToTrigger, TriggerName);
+            if (ObjectToTrigger != null)
+            {
+                AddAction("OnCorrectPassword", ObjectToTrigger, TriggerName);
+            }
 
             Initialise();
         }

@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 namespace Clues.Base.Button
@@ -12,7 +13,10 @@ namespace Clues.Base.Button
 
         private void Start()
         {
-            AddAction("OnSelect", ObjectToTrigger, TriggerName);
+            if (ObjectToTrigger != null)
+            {
+                AddAction("OnSelect", ObjectToTrigger, TriggerName);
+            }
             Button_noise = GetComponent<AudioSource>();
 
             Initialise();
