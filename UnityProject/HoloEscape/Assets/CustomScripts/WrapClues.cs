@@ -12,16 +12,21 @@ public class WrapClues : MonoBehaviour {
     public bool mSuccessful = false;
     public bool mComplete = false;
     public bool mStartFlag = false;
+    public Vector3 PositionCorrection1 = Vector3.zero;
+    public Vector3 PositionCorrection2 = Vector3.zero;
+    public Quaternion RotationCorrection1 = Quaternion.identity;
+    public Quaternion RotationCorrection2 = Quaternion.identity;
 
     private PlaceObjects mPO;
     private bool mRunning = false;
     private bool mFinished = false;
     private GameObject[] mWraps;
     private bool mDirty = false;
+    private GameObject mAdopt;
 
     // Use this for initialization
     void Start () {
-
+        mAdopt = GameObject.Find("SpatialUnderstanding");
         mPO = this.gameObject.GetComponent<PlaceObjects>();
 	}
 	
@@ -97,7 +102,10 @@ public class WrapClues : MonoBehaviour {
             {
                 lWBC.size = lCBC.bounds.size;
             }
-            mWraps[i].transform.parent = mClues[i].transform.parent;
+            if (mAdopt != null)
+                mWraps[i].transform.parent = mAdopt.transform;
+            else
+                mWraps[i].transform.parent = mClues[i].transform.parent;
             mClues[i].transform.parent = mWraps[i].transform;
             mClues[i].SetActive(false);
             mWraps[i].transform.position = new Vector3(0, -200f, 0);
@@ -114,7 +122,12 @@ public class WrapClues : MonoBehaviour {
         for (int i=0;i<mWraps.Length;i++)
         {
             mClues[i].SetActive(true);
-            mClues[i].transform.parent = mWraps[i].transform.parent;
+            mClues[i].transform.parent = this.gameObject.transform;
+            //mClues[i].transform.position -= PositionCorrection1;
+            //mClues[i].transform.position -= PositionCorrection2;
+            //mClues[i].transform.rotation *= Quaternion.Inverse(RotationCorrection1);
+            //mClues[i].transform.rotation *= Quaternion.Inverse(RotationCorrection2);
+            //mClues[i].transform.position -= Camera.main.transform.position;
             Destroy(mWraps[i]);
             Debug.Log(mClues[i].name + " is at " + mClues[i].transform.position + " with rotation "+mClues[i].transform.rotation);
         }
@@ -157,6 +170,8 @@ public class WrapClues : MonoBehaviour {
                 mPositions[i] = 4;
             else
                 mPositions[i] = 0;
+
+            Debug.Log("Placing " + mClues[i].name + " at " + mPositions[i]);
         }
     }
 
@@ -174,5 +189,10 @@ public class WrapClues : MonoBehaviour {
             errorPanel.GetComponentInChildren<Text>().text = "Your Room is too small";
         }
         Destroy(this.gameObject);
+    }
+
+    public void adoptClues(GameObject adoptiveParent)
+    {
+        mAdopt = adoptiveParent;
     }
 }

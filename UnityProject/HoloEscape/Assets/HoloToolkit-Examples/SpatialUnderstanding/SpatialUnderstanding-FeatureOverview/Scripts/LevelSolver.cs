@@ -99,6 +99,7 @@ public class LevelSolver : LineDrawer
 
     private bool Draw_PlacementResults()
     {
+        return false; //shortcircuit
         bool needsUpdate = false;
 
         for (int i = 0; i < placementResults.Count; ++i)
