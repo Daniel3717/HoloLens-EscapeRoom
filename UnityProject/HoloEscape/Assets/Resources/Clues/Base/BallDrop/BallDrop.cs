@@ -41,13 +41,13 @@ namespace Clues.Base.BallDrop
 
         private void OnLeft()
         {
-            if (GetProperty<bool>("enabled") && transform.position.x > -0.45)
+            if (GetProperty<bool>("enabled") && transform.localPosition.x > -0.45)
                 transform.Translate(-0.05f, 0, 0);
         }
 
         private void OnRight()
         {
-            if (GetProperty<bool>("enabled") && transform.position.x < 0.45)
+            if (GetProperty<bool>("enabled") && transform.localPosition.x < 0.45)
                 transform.Translate(0.05f, 0, 0);
         }
 
@@ -82,6 +82,7 @@ namespace Clues.Base.BallDrop
         {
             if (collision.gameObject.Equals(FailObject))
             {
+                Trigger("OnFail");
                 OnReset();
             }
             else if (collision.gameObject.Equals(SuccessObject))

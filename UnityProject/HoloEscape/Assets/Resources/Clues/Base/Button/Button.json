@@ -11,7 +11,7 @@
   ],
   "events": [
     {
-      "name": "onButtonPress",
+      "name": "onSelect",
       "description": "Fired when the button is pressed"
     }
   ],
