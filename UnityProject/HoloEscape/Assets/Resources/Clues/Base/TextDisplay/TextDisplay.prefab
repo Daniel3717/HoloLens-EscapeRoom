@@ -86,7 +86,7 @@ Transform:
   m_GameObject: {fileID: 1428736988279624}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.001}
-  m_LocalScale: {x: 1, y: 0.3, z: 1}
+  m_LocalScale: {x: 1.2, y: 0.3, z: 1}
   m_Children: []
   m_Father: {fileID: 4178274859123712}
   m_RootOrder: 1
@@ -197,7 +197,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.3, z: 0.1}
+  m_Size: {x: 1.2, y: 0.3, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!102 &102432330742813706
 TextMesh:
@@ -206,7 +206,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1304025813225410}
-  m_Text: Hello World
+  m_Text: Behind The Times
   m_OffsetZ: 0
   m_CharacterSize: 22
   m_LineSpacing: 1
@@ -231,7 +231,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf9c9911817d5fb4db3a36195caf0760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Visible: 0
   ClueBase: {fileID: 4178274859123712}
-  text1: 
+  text1: Helloooooo!
   text2: 
-  initialText: 
+  initialText: Welcome!
