@@ -678,7 +678,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1786005357287796}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.25524998, y: 0.09540993, z: 4.321819}
+  m_LocalPosition: {x: 0, y: 1, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4282478579642310}
@@ -742,8 +742,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1436906079174102}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.013249993, y: 0.026500002, z: 0.031060696}
-  m_LocalScale: {x: 0.015, y: 0.015, z: 0.01}
+  m_LocalPosition: {x: 0.0091, y: 0.026500002, z: 0.0171}
+  m_LocalScale: {x: 0.007, y: 0.007, z: 0.01}
   m_Children: []
   m_Father: {fileID: 4590364280403260}
   m_RootOrder: 23
@@ -755,8 +755,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1023087947095266}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.14637506, y: 0.100795016, z: 0.031060696}
-  m_LocalScale: {x: 0.025, y: 0.025, z: 0.01}
+  m_LocalPosition: {x: -0.1519, y: 0.112, z: 0.0101}
+  m_LocalScale: {x: 0.012, y: 0.012, z: 1}
   m_Children: []
   m_Father: {fileID: 4590364280403260}
   m_RootOrder: 24
@@ -1007,7 +1007,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9208eccb8b9f2a94d80da354499985c1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1596,7 +1596,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9208eccb8b9f2a94d80da354499985c1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1828,7 +1828,7 @@ TextMesh:
   m_FontSize: 0
   m_FontStyle: 0
   m_RichText: 1
-  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Font: {fileID: 12800000, guid: 6e832022be8a30d4db18bb3b56df76bf, type: 3}
   m_Color:
     serializedVersion: 2
     rgba: 4280953387
@@ -1849,7 +1849,7 @@ TextMesh:
   m_FontSize: 0
   m_FontStyle: 0
   m_RichText: 1
-  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Font: {fileID: 12800000, guid: 6e832022be8a30d4db18bb3b56df76bf, type: 3}
   m_Color:
     serializedVersion: 2
     rgba: 4279045402
@@ -1864,11 +1864,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8b00e9fe4039114bb3a2af5b7be3448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ClueBase: {fileID: 4590364280403260}
   ObjectToTrigger: {fileID: 0}
-  TriggerName: Trigger1
   Password: india
-  visible: 0
   ScreenText: {fileID: 1023087947095266}
+  TriggerName: Trigger1
+  Visible: 0
 --- !u!136 &136077734053850096
 CapsuleCollider:
   m_ObjectHideFlags: 1

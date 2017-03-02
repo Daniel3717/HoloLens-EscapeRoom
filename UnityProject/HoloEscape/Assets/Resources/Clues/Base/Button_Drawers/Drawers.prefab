@@ -1780,6 +1780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11da80fe4dc600b49a2b087145b739dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ClueBase: {fileID: 0}
   ObjectToTrigger: {fileID: 1063890998921278}
   DrawerCode: Drawer3
 --- !u!114 &114304984961750700
@@ -1804,6 +1805,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11da80fe4dc600b49a2b087145b739dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ClueBase: {fileID: 0}
   ObjectToTrigger: {fileID: 1063890998921278}
   DrawerCode: Drawer2
 --- !u!114 &114568822846939442
@@ -1817,6 +1819,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1af02de08b4e7b049aeef4f11931f321, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ClueBase: {fileID: 4743201063372600}
   ObjectToTrigger: {fileID: 0}
   TriggerName: Trigger1
 --- !u!114 &114588121137621180
@@ -1830,6 +1833,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b18388ef703e1c40bce1672e4fb08dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ClueBase: {fileID: 0}
   ObjectToTrigger: {fileID: 1063890998921278}
 --- !u!114 &114691329001251770
 MonoBehaviour:
@@ -1853,6 +1857,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11da80fe4dc600b49a2b087145b739dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ClueBase: {fileID: 0}
   ObjectToTrigger: {fileID: 1063890998921278}
   DrawerCode: Drawer1
 --- !u!114 &114850393571060676

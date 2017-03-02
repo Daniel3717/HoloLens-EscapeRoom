@@ -16,5 +16,13 @@
     }
   ],
   "actions": [
+    {
+      "name": "SetVisible",
+      "description": "Make the clue visible"
+    },
+    {
+      "name": "SetInvisible",
+      "description": "Make the clue invisible"  
+    }
   ]
 }

@@ -17,7 +17,12 @@ namespace Clues.Base.BallDrop
             // Grab the original local position of the sphere when the app starts.
             originalPosition = transform.localPosition;
             originalRotation = transform.localRotation;
-            AddAction("OnSuccess", ObjectToTrigger, "Trigger");
+            if (ObjectToTrigger != null)
+            {
+                AddAction("OnSuccess", ObjectToTrigger, "Trigger");
+            }
+
+            Initialise();
         }
 
         private void OnDrop()

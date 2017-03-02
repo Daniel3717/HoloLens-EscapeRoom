@@ -24,7 +24,12 @@ namespace Clues.Base.Button_Drawers
             Drawer3 = GameObject.Find("Drawer3");
             Drawer_noise = GetComponent<AudioSource>();
 
-            AddAction("OnButtonPress", ObjectToTrigger, TriggerName);
+            if (ObjectToTrigger != null)
+            {
+                AddAction("OnButtonPress", ObjectToTrigger, TriggerName);
+            }
+
+            Initialise();
         }
 
         private void OnButtonPress()

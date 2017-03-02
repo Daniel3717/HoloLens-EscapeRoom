@@ -166,7 +166,7 @@ public class RoomInterpreter : MonoBehaviour
             {
                 clueObject.BroadcastMessage("SetProperty", property);
             }
-            
+            clueObject.BroadcastMessage("Initialise");
             _clueObjects.Add(clue.id, clueObject);
         }
 

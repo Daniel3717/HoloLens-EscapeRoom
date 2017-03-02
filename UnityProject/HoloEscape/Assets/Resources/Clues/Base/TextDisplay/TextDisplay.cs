@@ -8,12 +8,19 @@ namespace Clues.Base.TextDisplay
 
         public string text1;
         public string text2;
+        public string initialText;
 
         private void Start()
         {
             SetProperty("text1", text1);
             SetProperty("text2", text2);
-            SetProperty("initialText", "Welcome!");
+            SetProperty("initialText", initialText);
+            Initialise();
+        }
+
+        public new void Initialise()
+        {
+            base.Initialise();
             GetComponent<TextMesh>().text = GetProperty<string>("initialText");
         }
 
