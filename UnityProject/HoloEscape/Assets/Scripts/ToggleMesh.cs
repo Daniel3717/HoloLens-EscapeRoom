@@ -7,27 +7,21 @@ using UnityEngine.SceneManagement;
 
 public class ToggleMesh : MonoBehaviour, ISpeechHandler {
 
-	// Use this for initialization
-	void Start () {
+    void Start()
+    {
 
-        InputManager.Instance.AddGlobalListener(gameObject);
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     public void OnSpeechKeywordRecognized(SpeechKeywordRecognizedEventData eventData)
     {
         switch (eventData.RecognizedText.ToLower())
         {
             case "toggle mesh":
+                Debug.Log("before " + SpatialUnderstanding.Instance.UnderstandingCustomMesh.DrawProcessedMesh);
                 SpatialUnderstanding.Instance.UnderstandingCustomMesh.DrawProcessedMesh =
                     !SpatialUnderstanding.Instance.UnderstandingCustomMesh.DrawProcessedMesh;
-                //SpatialUnderstanding.Instance.UnderstandingCustomMesh.DrawProcessedMesh = true;
+                Debug.Log("Mesh Toggled");
+                Debug.Log("after " + SpatialUnderstanding.Instance.UnderstandingCustomMesh.DrawProcessedMesh);
                 break;
         }
-        //Debug.Log(SpatialUnderstanding.Instance == null);
     }
 }

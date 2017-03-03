@@ -12,10 +12,7 @@ public class WrapClues : MonoBehaviour {
     public bool mSuccessful = false;
     public bool mComplete = false;
     public bool mStartFlag = false;
-    public Vector3 PositionCorrection1 = Vector3.zero;
-    public Vector3 PositionCorrection2 = Vector3.zero;
-    public Quaternion RotationCorrection1 = Quaternion.identity;
-    public Quaternion RotationCorrection2 = Quaternion.identity;
+    public GameObject errorPanel;
 
     private PlaceObjects mPO;
     private bool mRunning = false;
@@ -178,7 +175,6 @@ public class WrapClues : MonoBehaviour {
     public void selfdestruct()
     {
         //do error panel here
-        GameObject errorPanel = GameObject.Find("Error Panel");
         if (errorPanel == null)
         {
             Debug.Log("Could not find Error Panel");

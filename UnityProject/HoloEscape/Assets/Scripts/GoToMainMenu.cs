@@ -6,12 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class GoToMainMenu : MonoBehaviour, ISpeechHandler
 {
-
-    private void Start()
+    void Start()
     {
-        InputManager.Instance.AddGlobalListener(gameObject);
     }
-
     public void OnSpeechKeywordRecognized(SpeechKeywordRecognizedEventData eventData)
     {
         switch (eventData.RecognizedText.ToLower())

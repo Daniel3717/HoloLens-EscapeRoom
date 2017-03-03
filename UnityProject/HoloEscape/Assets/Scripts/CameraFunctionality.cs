@@ -9,7 +9,6 @@ public class CameraFunctionality : MonoBehaviour, ISpeechHandler
 
     // Use this for initialization
     void Start () {
-        InputManager.Instance.AddGlobalListener(gameObject);
     }
 	
 	// Update is called once per frame

@@ -152,7 +152,9 @@ public class RoomInterpreter : MonoBehaviour
         //leveljson = File.ReadAllText(Application.dataPath + "/william_test_level.json");
         var leveldata = JsonUtility.FromJson<JsonLevelData>(leveljson);
         var level = leveldata.data;
-
+        AnyInfo Info = GameObject.Find("InfoObject").GetComponent<AnyInfo>();
+        Info.someinfo = level.connect_code; // add connect code to InfoObject that remains throughout scenes
+        
         foreach (var clue in level.clues)
         {
             Debug.Log(clue.name);

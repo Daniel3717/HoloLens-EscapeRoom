@@ -15,7 +15,7 @@ public class DoNotDestroyPlacementsOnLoad : MonoBehaviour {
         }
         instance = this.gameObject;
         DontDestroyOnLoad(this.gameObject);
-
+        
     }
 
     // Update is called once per frame

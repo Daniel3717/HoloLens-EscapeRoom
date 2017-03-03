@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StartPlacement : MonoBehaviour {
+public class StartPlacement : MonoBehaviour
+{
+
+    public GameObject mErrorPanel;
 
     private bool adopted = false;
-    WrapClues mWC;
+    private WrapClues mWC;
+    
 
 	// Use this for initialization
 	void Start ()
 	{
         mWC = GameObject.Find("Placements").GetComponent<WrapClues>();
+	    mWC.errorPanel = this.mErrorPanel;
         mWC.mStartFlag = true;
 	    Debug.Log("started Placement");
 	}
