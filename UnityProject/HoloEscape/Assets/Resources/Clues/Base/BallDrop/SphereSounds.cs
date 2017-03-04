@@ -5,8 +5,8 @@ namespace clues
     public class SphereSounds : MonoBehaviour
     {
         AudioSource audioSource = null;
-        AudioClip impactClip = null;
-        AudioClip rollingClip = null;
+        public AudioClip ImpactClip;
+        public AudioClip RollingClip;
 
         bool rolling = false;
 
@@ -20,10 +20,6 @@ namespace clues
             audioSource.dopplerLevel = 0.0f;
             audioSource.rolloffMode = AudioRolloffMode.Logarithmic;
             audioSource.maxDistance = 20f;
-
-            // Load the Sphere sounds from the Resources folder
-            impactClip = Resources.Load<AudioClip>("Impact");
-            rollingClip = Resources.Load<AudioClip>("Rolling");
         }
 
         // Occurs when this object starts colliding with another object
@@ -32,7 +28,7 @@ namespace clues
             // Play an impact sound if the sphere impacts strongly enough.
             if (collision.relativeVelocity.magnitude >= 0.1f)
             {
-                audioSource.clip = impactClip;
+                audioSource.clip = ImpactClip;
                 audioSource.Play();
             }
         }
@@ -46,7 +42,7 @@ namespace clues
             if (!rolling && rigid.velocity.magnitude >= 0.01f)
             {
                 rolling = true;
-                audioSource.clip = rollingClip;
+                audioSource.clip = RollingClip;
                 audioSource.Play();
             }
             // Stop the rolling sound if rolling slows down.

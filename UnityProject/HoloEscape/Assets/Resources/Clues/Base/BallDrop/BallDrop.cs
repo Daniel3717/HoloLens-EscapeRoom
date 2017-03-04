@@ -10,6 +10,9 @@ namespace Clues.Base.BallDrop
         private Vector3 originalPosition;
         private Quaternion originalRotation;
         public GameObject SuccessObject;
+        public GameObject MagicSpeedObject;
+        private bool _falling = false;
+        private bool _magicCollide = false;
 
         // Use this for initialization
         private void Start()
@@ -28,22 +31,24 @@ namespace Clues.Base.BallDrop
         private void OnDrop()
         {
             // If the sphere has no Rigidbody component, add one to enable physics.
-            if (GetProperty<bool>("enabled") && !GetComponent<Rigidbody>())
+            if (GetProperty<bool>("enabled") && !GetComponent<Rigidbody>() && !_falling)
             {
                 var rigidbody = gameObject.AddComponent<Rigidbody>();
                 rigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
             }
+            _falling = true;
+            _magicCollide = false;
         }
 
         private void OnLeft()
         {
-            if (GetProperty<bool>("enabled") && transform.localPosition.x > -0.45)
+            if (GetProperty<bool>("enabled") && transform.localPosition.x > -0.45 && !_falling)
                 transform.Translate(-0.05f, 0, 0);
         }
 
         private void OnRight()
         {
-            if (GetProperty<bool>("enabled") && transform.localPosition.x < 0.45)
+            if (GetProperty<bool>("enabled") && transform.localPosition.x < 0.45 && !_falling)
                 transform.Translate(0.05f, 0, 0);
         }
 
@@ -60,18 +65,31 @@ namespace Clues.Base.BallDrop
                 OnLeft();
             else if (Input.GetKeyDown(KeyCode.DownArrow))
                 OnDrop();
-        }
+            else if (Input.GetKeyDown(KeyCode.Space))
+                OnReset(true);
 
-        private void OnReset()
+            var rigidbody = GetComponent<Rigidbody>();
+            if (rigidbody != null)
+            {
+                rigidbody.velocity += new Vector3(0, Time.deltaTime * 8f, 0);
+            }
+    }
+
+        private void OnReset(bool resetPosition)
         {
+           
             // If the sphere has a Rigidbody component, remove it to disable physics.
             var rigidbody = GetComponent<Rigidbody>();
             if (rigidbody != null)
                 Destroy(rigidbody);
 
-            // Put the sphere back into its original local position.
-            transform.localPosition = originalPosition;
-            transform.localRotation = originalRotation;
+            if (resetPosition)
+            {
+                // Put the sphere back into its original local position.
+                transform.localPosition = originalPosition;
+                transform.localRotation = originalRotation;
+                _falling = false;
+            }
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -79,12 +97,21 @@ namespace Clues.Base.BallDrop
             if (collision.gameObject.Equals(FailObject))
             {
                 Trigger("OnFail");
-                OnReset();
+                OnReset(true);
             }
             else if (collision.gameObject.Equals(SuccessObject))
             {
                 Trigger("OnSuccess");
-                OnReset();
+                OnReset(false);
+            }
+            else if (collision.gameObject.Equals(MagicSpeedObject))
+            {
+                var rigidbody = GetComponent<Rigidbody>();
+                if (rigidbody != null && !_magicCollide)
+                {
+                    rigidbody.velocity += new Vector3(-0.1f, -0.2f, 0);
+                    _magicCollide = true;
+                }
             }
         }
     }
