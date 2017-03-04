@@ -17,6 +17,8 @@ namespace Clues.Base.VoicePad
         public GameObject ScreenText;
         public string TriggerName;
 
+        private AudioSource Correct_noise;
+
 
         private void Start()
         {
@@ -25,9 +27,10 @@ namespace Clues.Base.VoicePad
                 SetProperty("password", Password);
             }
 
+            Correct_noise = GetComponent<AudioSource>();
+
             Initialise();
 
-            ScreenText = GameObject.Find("voice_pad_text");
             ScreenText.GetComponent<TextMesh>().text = "Say Password";
 
             if (ObjectToTrigger != null)
@@ -72,6 +75,7 @@ namespace Clues.Base.VoicePad
         {
             Trigger("OnCorrectPassword");
             ScreenText.GetComponent<TextMesh>().text = "Correct!";
+            Correct_noise.Play();
         }
 
         private void OnAppear()
