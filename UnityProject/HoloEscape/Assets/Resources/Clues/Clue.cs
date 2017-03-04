@@ -5,13 +5,13 @@ namespace Clues
 {
     public abstract class Clue : MonoBehaviour
     {
-
-        public bool Visible = true;
-        public Transform ClueBase;
-
-        private readonly Dictionary<string, TriggerAction> actions = new Dictionary<string, TriggerAction>();
+        private readonly Dictionary<string, List<TriggerAction>> actions = new Dictionary<string, List<TriggerAction>>();
 
         private readonly Dictionary<string, object> properties = new Dictionary<string, object>();
+
+        public Transform ClueBase;
+
+        public bool Visible = true;
 
         public void Initialise()
         {
@@ -30,9 +30,7 @@ namespace Clues
         public void OnMouseOver()
         {
             if (Input.GetMouseButtonDown(0))
-            {
                 SendMessage("OnSelect");
-            }
         }
 
         public void SetProperty(JsonProperty property)
@@ -60,18 +58,23 @@ namespace Clues
 
         public void AddAction(TriggerAction action)
         {
-            actions[action.TriggerEvent] = action;
+            if (!actions.ContainsKey(action.TriggerEvent))
+                actions[action.TriggerEvent] = new List<TriggerAction>();
+            actions[action.TriggerEvent].Add(action);
         }
 
         public void AddAction(string trigger, GameObject nextClue, string action)
         {
-            actions[trigger] = new TriggerAction(trigger, nextClue, action);
+            if (!actions.ContainsKey(trigger))
+                actions[trigger] = new List<TriggerAction>();
+            actions[trigger].Add(new TriggerAction(trigger, nextClue, action));
         }
 
         protected void Trigger(string action)
         {
             if (actions.ContainsKey(action))
-                actions[action].Trigger();
+                foreach (var t in actions[action])
+                    t.Trigger();
         }
 
         protected void OnSetInvisible()
@@ -79,7 +82,7 @@ namespace Clues
             if (GetProperty<bool>("visible"))
             {
                 SetProperty("originalScale", ClueBase.localScale);
-                ClueBase.localScale = new Vector3(0,0,0);
+                ClueBase.localScale = new Vector3(0, 0, 0);
             }
             SetProperty("visible", false);
         }
@@ -87,9 +90,7 @@ namespace Clues
         protected void OnSetVisible()
         {
             if (!GetProperty<bool>("visible"))
-            {
                 ClueBase.localScale = GetProperty<Vector3>("originalScale");
-            }
             SetProperty("visible", true);
         }
     }

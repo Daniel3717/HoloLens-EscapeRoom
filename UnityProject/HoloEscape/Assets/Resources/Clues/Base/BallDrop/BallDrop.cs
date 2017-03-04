@@ -4,27 +4,23 @@ namespace Clues.Base.BallDrop
 {
     public class BallDrop : Clue
     {
+        public bool Enabled = true;
         public GameObject FailObject;
         public GameObject ObjectToTrigger;
         private Vector3 originalPosition;
         private Quaternion originalRotation;
         public GameObject SuccessObject;
-        public bool Enabled = true;
 
         // Use this for initialization
         private void Start()
         {
             if (!IsPropertySet("enabled"))
-            {
                 SetProperty("enabled", Enabled);
-            }
             // Grab the original local position of the sphere when the app starts.
             originalPosition = transform.localPosition;
             originalRotation = transform.localRotation;
             if (ObjectToTrigger != null)
-            {
                 AddAction("OnSuccess", ObjectToTrigger, "Trigger");
-            }
 
             Initialise();
         }
