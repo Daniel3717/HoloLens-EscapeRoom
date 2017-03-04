@@ -315,7 +315,7 @@ GameObject:
   - component: {fileID: 4743201063372600}
   - component: {fileID: 65791930178890616}
   m_Layer: 2
-  m_Name: Drawers
+  m_Name: Button_Drawers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1781,6 +1781,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ClueBase: {fileID: 0}
+  Visible: 1
   ObjectToTrigger: {fileID: 1063890998921278}
   DrawerCode: Drawer3
 --- !u!114 &114304984961750700
@@ -1806,6 +1807,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ClueBase: {fileID: 0}
+  Visible: 1
   ObjectToTrigger: {fileID: 1063890998921278}
   DrawerCode: Drawer2
 --- !u!114 &114568822846939442
@@ -1820,6 +1822,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ClueBase: {fileID: 4743201063372600}
+  Visible: 1
   ObjectToTrigger: {fileID: 0}
   TriggerName: Trigger1
 --- !u!114 &114588121137621180
@@ -1834,6 +1837,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ClueBase: {fileID: 0}
+  Visible: 1
   ObjectToTrigger: {fileID: 1063890998921278}
 --- !u!114 &114691329001251770
 MonoBehaviour:
@@ -1858,6 +1862,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ClueBase: {fileID: 0}
+  Visible: 1
   ObjectToTrigger: {fileID: 1063890998921278}
   DrawerCode: Drawer1
 --- !u!114 &114850393571060676
