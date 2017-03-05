@@ -186,7 +186,7 @@ public class WrapClues : MonoBehaviour {
         else
         {
             errorPanel.SetActive(true);
-            errorPanel.GetComponentInChildren<Text>().text = "Your Room is too small";
+            errorPanel.GetComponentInChildren<Text>().text = "Your scanned area is too small. You can either try another room or go back to the Main Menu to rescan your area";
         }
         Destroy(this.gameObject);
     }
