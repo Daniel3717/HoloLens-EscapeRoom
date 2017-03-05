@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class DoNotDestroySpatialOnLoad : MonoBehaviour {
 
+    //use only on Spatial (due to static)
     private static GameObject instance = null;
-    private int CountdownMax = 60;
-    private int CountdownLeft = 60;
 
     // Use this for initialization
     void Start()
@@ -23,13 +22,6 @@ public class DoNotDestroySpatialOnLoad : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        /*
-        CountdownLeft--;
-        if (CountdownLeft<0)
-        {
-            Debug.Log("Spatial position:"+this.gameObject.transform.position + "   Camera position:" + Camera.main.transform.position);
-            CountdownLeft = CountdownMax;
-        }
-        */
+
     }
 }

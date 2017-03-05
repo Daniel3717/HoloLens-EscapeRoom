@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DoNotDestroyPlacementsOnLoad : MonoBehaviour {
 
+    //use only on Placements (due to static)
     private static GameObject instance = null;
 
     // Use this for initialization

@@ -8,79 +8,89 @@ public class WrapClues : MonoBehaviour {
     //needs to be placed on the same GameObject as PlaceObjects
 
     public GameObject[] mClues;
-    public int[] mPositions;
+    public int[] mPositions; //see PlaceObjects for convention
+
+    //these 2 will be synced (within max 1 frame) with the PlaceObjects values
     public bool mSuccessful = false;
     public bool mComplete = false;
+
     public bool mStartFlag = false;
-    public GameObject errorPanel;
+
+    public GameObject errorPanel; //errorPanel is assigned in StartPlacement
 
     private PlaceObjects mPO;
     private bool mRunning = false;
     private bool mFinished = false;
     private GameObject[] mWraps;
-    private bool mDirty = false;
     private GameObject mAdopt;
 
     // Use this for initialization
     void Start () {
+
+        //The mesh data is retained in the SpatialUnderstanding GameObject's coordinate system
+        //This means that the Placement results will be returned in that coordinate system
+        //Thus, we position the clues based on that coordinate system. 
         mAdopt = GameObject.Find("SpatialUnderstanding");
+
+        //this is used for communication between WrapClues and PlaceObjects.
+        //this is also one of the reasons why WrapClues needs to be on the same object as PlaceObjects.
+        //if you think the condition above is inconvenient, feel free to pass the PlaceObjects to mPO in some other way
+        //and also check the selfdestruct function
         mPO = this.gameObject.GetComponent<PlaceObjects>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        if (!mStartFlag) //built in reset
+        if (!mStartFlag) //mStartFlag decides whether this code runs or not
         {
-            if (mDirty)
-            {
-                resetAll();
-
-                mDirty = false;
-            }
             return;
         }
-        else
-            mDirty = true;
 
-        if (mFinished)
+        if (mFinished) //if we finished our job until this point in time, stop here. no reason to go past this.
             return;
 
-        if (mComplete)
+        if (mComplete) //we completed
         {
-            if (!mFinished)
+            if (!mFinished) //if this is the first time here, we also need to unwrap
                 unwrapClues();
             mFinished = true;
 
-            if (!mSuccessful)
+            if (!mSuccessful) //if placement failed, selfdestruct
             {
-                Debug.Log("Not successful");
                 selfdestruct();
             }
-            else
-                Debug.Log("Successful");
+
             return;
         }
 
-        if (!mRunning)
+        if (!mRunning) //so we started (with the mStartFlag), but we haven't loaded the data in (since we're not running). let's load.
         {
             wrapAndLoadClues();
             mRunning = true;
         }
 
+        //sync those with the PlaceObjects values until the placement finishes
         mComplete = mPO.mComplete;
         mSuccessful = mPO.mSuccessful;
 	}
 
+    //wrappers are used for translation and also to allow the clues to become invisible without disabling their collider
     private void wrapAndLoadClues()
     {
         mWraps = new GameObject[mClues.Length];
         for (int i=0;i<mClues.Length;i++)
         {
             mWraps[i] = new GameObject();
+
+            //initialise the wrapper at the clues position and with rotation zero
             mWraps[i].transform.localEulerAngles = Vector3.zero;
-            mClues[i].transform.localEulerAngles = Vector3.zero;
             mWraps[i].transform.position = mClues[i].transform.position;
+
+            //the following will basically copy the collider from the clue to the wrap, while also translating between the Clues module and the ObjectPlacement module
+            //Example: the ObjectPlacement module makes it so that the z-axis of a wall clue points outwards from the wall,
+            //but the Clues module creates wall clues with their z-axis pointing towards the wall
+            //(just standard integration translation)
             BoxCollider lWBC = mWraps[i].AddComponent<BoxCollider>();
             BoxCollider lCBC = mClues[i].GetComponent<BoxCollider>();
             lWBC.center = Vector3.zero;
@@ -99,13 +109,14 @@ public class WrapClues : MonoBehaviour {
             {
                 lWBC.size = lCBC.bounds.size;
             }
-            if (mAdopt != null)
-                mWraps[i].transform.parent = mAdopt.transform;
-            else
-                mWraps[i].transform.parent = mClues[i].transform.parent;
-            mClues[i].transform.parent = mWraps[i].transform;
-            mClues[i].SetActive(false);
-            mWraps[i].transform.position = new Vector3(0, -200f, 0);
+            
+            mWraps[i].transform.parent = mAdopt.transform; //put it in the same coordinate system as the processed mesh
+
+            mClues[i].transform.parent = mWraps[i].transform;//make it so that the clue goes to where the wrap goes
+            mClues[i].SetActive(false); //this makes the clue invisible
+
+            //wraps should start in the underworld (i.e. at y position -200f) such that they don't interfere with the canPlace check from PlaceObjects
+            mWraps[i].transform.position = new Vector3(0, -200f, 0); 
         }
 
         mPO.mPublicToPlace = mWraps;
@@ -113,34 +124,23 @@ public class WrapClues : MonoBehaviour {
         mPO.mStartFlag = true;
     }
 
+    //after placement, need to get rid of the wraps and also change the transform.parent of the clue to the Placements object,
+    //such that clues get deleted on the scene change or on the selfdestruct call
     private void unwrapClues()
     {
-        Debug.Log("Unwrapping Clues");
         for (int i=0;i<mWraps.Length;i++)
         {
-            mClues[i].SetActive(true);
+            mClues[i].SetActive(true); //this makes the clue visible again
             mClues[i].transform.parent = this.gameObject.transform;
-            //mClues[i].transform.position -= PositionCorrection1;
-            //mClues[i].transform.position -= PositionCorrection2;
-            //mClues[i].transform.rotation *= Quaternion.Inverse(RotationCorrection1);
-            //mClues[i].transform.rotation *= Quaternion.Inverse(RotationCorrection2);
-            //mClues[i].transform.position -= Camera.main.transform.position;
             Destroy(mWraps[i]);
-            Debug.Log(mClues[i].name + " is at " + mClues[i].transform.position + " with rotation "+mClues[i].transform.rotation);
         }
+
+        HoloToolkit.Unity.SpatialUnderstandingDllObjectPlacement.Solver_RemoveAllObjects();
     }
 
-    public void resetAll()
-    {
-        mSuccessful = false;
-        mComplete = false;
-        mRunning = false;
-        mFinished = false;
-    }
-
+    //translation function from one module (AppFlow) to the other (ObjectPlacement)
     public void LoadClues(ClueToPlace[] clues)
     {
-        Debug.Log("Called LoadClues");
         mClues = new GameObject[clues.Length];
         mPositions = new int[clues.Length];
         for (int i=0;i<clues.Length;i++)
@@ -166,18 +166,22 @@ public class WrapClues : MonoBehaviour {
             if (lS == "platform")
                 mPositions[i] = 4;
             else
+            if (lS == "base")
+                mPositions[i] = 5;
+            else
                 mPositions[i] = 0;
-
-            Debug.Log("Placing " + mClues[i].name + " at " + mPositions[i]);
+        
         }
     }
 
+    //in case object placement fails, the clues will be scattered all around the place (behaviour of API is quite unpredicatable when it fails)
+    //thus, we need to get rid of everything
     public void selfdestruct()
     {
         //do error panel here
         if (errorPanel == null)
         {
-            Debug.Log("Could not find Error Panel");
+            //could not find the Error Panel
         }
         else
         {
@@ -185,10 +189,5 @@ public class WrapClues : MonoBehaviour {
             errorPanel.GetComponentInChildren<Text>().text = "Your Room is too small";
         }
         Destroy(this.gameObject);
-    }
-
-    public void adoptClues(GameObject adoptiveParent)
-    {
-        mAdopt = adoptiveParent;
     }
 }

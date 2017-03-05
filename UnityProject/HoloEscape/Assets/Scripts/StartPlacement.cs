@@ -6,8 +6,7 @@ public class StartPlacement : MonoBehaviour
 {
 
     public GameObject mErrorPanel;
-
-    private bool adopted = false;
+    
     private WrapClues mWC;
     
 
