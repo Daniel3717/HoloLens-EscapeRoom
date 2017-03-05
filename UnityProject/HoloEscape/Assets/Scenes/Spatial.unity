@@ -1622,13 +1622,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff9e378b004c5cf4494d90e99aa4a00b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OverrideNormalText: 0
-  CustomText: Default
-  kMinAreaForStats: 5
-  kMinAreaForComplete: 50
   kMinHorizAreaForComplete: 10
   kMinWallAreaForComplete: 5
-  Tip: 
   Parent_Scene: {fileID: 112764426}
   MappingObserver: {fileID: 151732495}
   AppCursor: {fileID: 1342653395}

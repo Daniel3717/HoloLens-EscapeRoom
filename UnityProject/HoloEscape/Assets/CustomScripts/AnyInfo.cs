@@ -5,19 +5,19 @@ using UnityEngine;
 public class AnyInfo : MonoBehaviour
 {
 
-    public string someinfo;
+    public string Someinfo;
 
 	// Use this for initialization
 	void Start () {
-        //AnyInfo Info = GameObject.Find("InfoObject").GetComponent<AnyInfo>();
-        //Info.someinfo =1; //to change someinfo
-        //int getinfo = Info.someinfo;//to retrieve someinfo
-        //use above to get reference to this script
+        // AnyInfo is used to transfer infor across scenes
+        // To initialise do:
+        // AnyInfo Info = GameObject.Find("InfoObject").GetComponent<AnyInfo>();
+        
+        // To change Someinfo do:
+        // Info.Someinfo =1;
 
-}
+        // To retrieve Someinfo do:
+        // string getinfo = Info.Someinfo;
+    }
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

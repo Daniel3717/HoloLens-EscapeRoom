@@ -11,21 +11,12 @@ using UnityEngine.SceneManagement;
 
 public class App : Singleton<App>, ISourceStateHandler, IInputClickHandler, ISpeechHandler
 {
-    public bool OverrideNormalText = false;
-    public string CustomText = "Default";
-
-    // to modify in other scripts do:
-    // AppState.Instance.OverrideNormalText = true;
-    // AppState.Instance.CustomText = "Whatever";
-
     // Consts
-    public float kMinAreaForStats = 5.0f;
-    public float kMinAreaForComplete = 50.0f;
     public float kMinHorizAreaForComplete = 25.0f;
     public float kMinWallAreaForComplete = 10.0f;
 
     // Config
-    public string Tip;
+    private string _tip;
     public Transform Parent_Scene;
     public SpatialMappingObserver MappingObserver;
     public SpatialUnderstandingCursor AppCursor;
@@ -33,6 +24,8 @@ public class App : Singleton<App>, ISourceStateHandler, IInputClickHandler, ISpe
     public GameObject MainText;
     public Image foregroundImage;
     public Canvas canvas;
+    int _tipCounter = 0;
+    float _progressBarOldfill = 0;
 
     // Properties
     public string SpaceQueryDescription
@@ -116,33 +109,31 @@ public class App : Singleton<App>, ISourceStateHandler, IInputClickHandler, ISpe
     }
 
 
-    int _counter = 0;
-
     public void NextTip()
     {
-        switch (_counter)
+        switch (_tipCounter)
         {
             case 0:
-                Tip = "Remember to look up";
-                _counter++;
+                _tip = "Remember to look up";
+                _tipCounter++;
                 return;
             case 1:
-                Tip = "Don't forget to scan the corners";
-                _counter++;
+                _tip = "Don't forget to scan the corners";
+                _tipCounter++;
                 return;
             case 2:
-                Tip = "Remember to keep objects within the scanning range: 0.85 to 3 meters away from the HoloLens";
-                _counter++;
+                _tip = "Remember to keep objects within the scanning range: 0.85 to 3 meters away from the HoloLens";
+                _tipCounter++;
                 return;
             case 3:
-                Tip =
+                _tip =
                     "The progress bar corresponds to the minimum amount of scanning required, but feel free to do some more!";
-                _counter++;
+                _tipCounter++;
                 return;
             case 4:
-                Tip =
+                _tip =
                     "If you see an area with a gap in the mesh, try focusing on it from different angles and distances to fully scan it";
-                _counter = 0;
+                _tipCounter = 0;
                 return;
         }
     }
@@ -168,7 +159,6 @@ public class App : Singleton<App>, ISourceStateHandler, IInputClickHandler, ISpe
         InputManager.Instance.RemoveGlobalListener(gameObject);
     }
 
-    float oldfill = 0;
 
     private void Update_Display(float deltaTime)
     {
@@ -185,15 +175,15 @@ public class App : Singleton<App>, ISourceStateHandler, IInputClickHandler, ISpe
             TipsText.GetComponent<Text>().text = "";
         }
         else
-            TipsText.GetComponent<Text>().text = Tip;
+            TipsText.GetComponent<Text>().text = _tip;
 
 
         //MainText.GetComponent<Text>().text = (foregroundImage.fillAmount).ToString() + " tot " + stats.TotalSurfaceArea + " floor " + stats.HorizSurfaceArea + " wall " + stats.WallSurfaceArea;
         if (SpatialUnderstanding.Instance.ScanState == SpatialUnderstanding.ScanStates.Scanning)
         {
-            float totalArea = /*kMinAreaForComplete + */ kMinHorizAreaForComplete + kMinWallAreaForComplete;
+            float totalArea = kMinHorizAreaForComplete + kMinWallAreaForComplete;
 
-            if (oldfill < 1)
+            if (_progressBarOldfill < 1)
             {
                 float fillAmount = 0;
                 float floor;
@@ -201,18 +191,6 @@ public class App : Singleton<App>, ISourceStateHandler, IInputClickHandler, ISpe
 
                 SpatialUnderstandingDll.Imports.PlayspaceStats stats =
                     SpatialUnderstanding.Instance.UnderstandingDLL.GetStaticPlayspaceStats();
-                //MainText.GetComponent<Text>().text = (foregroundImage.fillAmount).ToString() + " f " + stats.HorizSurfaceArea + " w " + stats.WallSurfaceArea;
-
-                /*
-                if (stats.TotalSurfaceArea < kMinAreaForComplete)
-                {
-                    fillAmount += stats.TotalSurfaceArea / totalArea;
-                }
-                else
-                {
-                    fillAmount += kMinAreaForComplete / totalArea;
-                }
-                */
 
                 if (stats.HorizSurfaceArea < kMinHorizAreaForComplete)
                 {
@@ -234,7 +212,7 @@ public class App : Singleton<App>, ISourceStateHandler, IInputClickHandler, ISpe
 
                 fillAmount = (floor + wall) / totalArea;
                 foregroundImage.fillAmount = fillAmount;
-                oldfill = fillAmount;
+                _progressBarOldfill = fillAmount;
             }
         }
     }

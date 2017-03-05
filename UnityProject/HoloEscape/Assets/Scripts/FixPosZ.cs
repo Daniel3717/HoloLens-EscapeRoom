@@ -20,12 +20,6 @@ public class FixPosZ : MonoBehaviour
         Vector3 pos = transform.localPosition;
 	    localInitial.y = pos.y;
         transform.localPosition = localInitial;
-	    //transform.parent = CanvasTransform.transform;
-	    //pos.z = CanvasTransform.position.z;
-	    //pos.x = CanvasTransform.position.x;
-	    //transform.position = pos;
-	    //transform.position = new Vector3(CanvasTransform.position.x, CanvasTransform.position.y+0.4f, CanvasTransform.position.z);
-	    //transform.position = CanvasTransform.position;
 	    transform.rotation = new Quaternion(0,0,0,0);
 	}
 }
