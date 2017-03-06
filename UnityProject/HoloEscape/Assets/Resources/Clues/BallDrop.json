@@ -16,11 +16,11 @@
   ],
   "events": [
     {
-      "name": "onSuccess",
+      "name": "OnSuccess",
       "description": "Fired when ball hits success zone"
     },
     {
-      "name": "onFail",
+      "name": "OnFail",
       "description": "Fired when ball hits failure zone"
     }
   ],
