@@ -1,5 +1,5 @@
 {
-  "name": "TextDisplay",
+  "name": "Text Display",
   "description": "A screen that displays text",
   "identifier": "Clues.Base.TextDisplay",
   "properties": [
