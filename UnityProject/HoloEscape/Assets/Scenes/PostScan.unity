@@ -1801,6 +1801,8 @@ MonoBehaviour:
     KeyCode: 109
   - Keyword: Toggle Mesh
     KeyCode: 103
+  - Keyword: Rooms Menu
+    KeyCode: 114
 --- !u!4 &926807068
 Transform:
   m_ObjectHideFlags: 0
