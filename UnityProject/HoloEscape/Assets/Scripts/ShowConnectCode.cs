@@ -4,17 +4,14 @@ using HoloToolkit.Unity.InputModule;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShowConnectCode : MonoBehaviour
+public class ShowConnectCode : MonoBehaviour, ISpeechHandler
 {
     public TextMesh ConnectCodeTextMesh;
-    public GameObject ConnectCodePanel;
-    public Text ConnectCodeLabelText;
 
     // Use this for initialization
     void Start()
     {
         AnyInfo info = GameObject.Find("InfoObject").GetComponent<AnyInfo>();
-        ConnectCodeLabelText.text += " " + info.Someinfo;
         ConnectCodeTextMesh.text = "Connect Code: " + info.Someinfo;
         StartCoroutine(DisplayForSeconds(10));
     }
@@ -24,7 +21,9 @@ public class ShowConnectCode : MonoBehaviour
         switch (eventData.RecognizedText.ToLower())
         {
             case "show connect code":
-                if (ConnectCodeTextMesh.gameObject.active == false)
+
+                Debug.Log("tried show connect code");
+                if (ConnectCodeTextMesh.gameObject.activeSelf == false)
                 {
                     StartCoroutine(DisplayForSeconds(10));
                     Debug.Log("show connect code");
