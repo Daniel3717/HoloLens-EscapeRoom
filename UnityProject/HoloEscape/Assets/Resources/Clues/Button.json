@@ -11,7 +11,7 @@
   ],
   "events": [
     {
-      "name": "onSelect",
+      "name": "OnSelect",
       "description": "Fired when the button is pressed"
     }
   ],
